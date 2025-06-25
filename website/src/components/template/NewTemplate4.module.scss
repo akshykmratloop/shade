@@ -3,8 +3,89 @@
   width: 100%;
   position: relative;
 
-  &.leftAlign {
+  // ————— DEFAULT GRADIENT (right-side content) —————
+  .content_gradient {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    padding: 0 160px;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 16.35%,
+      rgba(255, 255, 255, 0.9) 82.21%
+    );
+
     .content {
+      position: relative;
+      top: 30%;
+      // padding: 0px 150px;
+
+      .title {
+        color: var(--black);
+        font-size: 70px;
+        font-weight: 500;
+        line-height: 77px;
+        letter-spacing: -3.5px;
+        margin-bottom: 16px;
+        width: 635px;
+      }
+
+      .description {
+        color: var(--para-light);
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 26px;
+        margin-bottom: 26px;
+        width: 50%;
+        word-spacing: 5px;
+      }
+    }
+  }
+
+  // ————— FLIP GRADIENT if wrapper gets .leftAlign —————
+  &.leftAlign {
+    .content_gradient {
+      background: linear-gradient(
+        to left,
+        rgba(255, 255, 255, 0) 16.35%,
+        rgba(255, 255, 255, 0.9) 82.21%
+      );
+    }
+  }
+
+  // ————— FLIP GRADIENT if .content_gradient itself gets .leftAlign —————
+  .content_gradient.leftAlign {
+    background: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0) 16.35%,
+      rgba(255, 255, 255, 0.9) 82.21%
+    );
+  }
+
+  // ————— BACKGROUND CONTAINER —————
+  .backgroundContainer {
+    width: 100%;
+    height: 100vh;
+    display: block;
+
+    // if wrapper has .leftAlign, flip image
+    .template4_banner_wrap.leftAlign &,
+    // or if you put .leftAlign here directly:
+    &.leftAlign {
+      transform: scaleX(-1);
+    }
+
+    .backgroundImage {
+      width: 100%;
+      height: 100vh;
+      object-fit: cover;
+      object-position: bottom;
+    }
+  }
+
+  // ————— BUTTON ARROW POSITION WHEN LEFT-ALIGNED —————
+  &.leftAlign {
+    .content_gradient {
       .view_btn {
         padding: 10px 35px 10px 10px !important;
 
@@ -17,46 +98,7 @@
     }
   }
 
-  .backgroundContainer {
-    width: 100%;
-    height: 100vh;
-    display: block;
-
-    &.leftAlign {
-      transform: scaleX(-1);
-    }
-
-    .backgroundImage {
-      width: 100%;
-      height: 100vh;
-    }
-  }
-
-  .content {
-    position: absolute;
-    top: 30%;
-    padding: 0px 150px;
-
-    .title {
-      color: var(--black);
-      font-size: 70px;
-      font-weight: 500;
-      line-height: 77px;
-      letter-spacing: -3.5px;
-      margin-bottom: 16px;
-      width: 635px;
-    }
-
-    .description {
-      color: var(--para-light);
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 26px;
-      margin-bottom: 26px;
-      width: 50%;
-      word-spacing: 5px;
-    }
-  }
+  // ...keep your .content, .title, .description etc. here...
 }
 
 .template4_first_section {
@@ -196,23 +238,21 @@
 
 /* Responsive Styles */
 @media (max-width: 800px) {
-  .template4_banner_wrap .content {
-    top: 35%;
-    padding: 0 40px;
+  .template4_banner_wrap .content_gradient {
+    padding: 0px;
+    .content {
+      top: 30%;
+      padding: 0 60px;
 
-    .title {
-      font-size: 50px;
-      width: 100%;
-    }
-    .description {
-      font-size: 14px;
-      width: 100%;
-    }
-  }
-  .template4_banner_wrap .backgroundContainer {
-    height: 60vh;
-    .backgroundImage {
-      height: 60vh;
+      .title {
+        font-size: 50px;
+        width: 100%;
+      }
+
+      .description {
+        font-size: 14px;
+        width: 80%;
+      }
     }
   }
 
@@ -282,19 +322,26 @@
 }
 
 @media (max-width: 500px) {
-  .template4_banner_wrap .content {
-    top: 35%;
-    padding: 0 20px;
+  .template4_banner_wrap .content_gradient {
+    .content {
+      padding: 0px 30px !important;
+      // padding: 0 30px;
+      top: 20%;
 
-    .title {
-      font-size: 36px;
-      line-height: 42px;
-    }
-    .description {
-      font-size: 12px;
+      .title {
+        font-size: 36px;
+        line-height: 48px;
+        letter-spacing: -1px;
+        width: 100%;
+      }
+
+      .description {
+        font-size: 13px;
+        line-height: 22px;
+        width: 100%;
+      }
     }
   }
-
   .template4_first_section {
     padding: 40px 0;
     .template4_first_section_image_grid_wrapper {

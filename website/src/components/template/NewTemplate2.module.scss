@@ -1,30 +1,76 @@
 .template2_banner_wrap {
   height: auto;
-  //   background: url("../../assets/images/Hero.png") no-repeat center / cover;
   width: 100%;
   position: relative;
-  // padding: 0px 150px;
 
-  &.leftAlign {
+  // ————— DEFAULT GRADIENT (right-side content) —————
+  .content_gradient {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    padding: 0 160px;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 16.35%,
+      rgba(255, 255, 255, 0.9) 82.21%
+    );
+
     .content {
-      .view_btn {
-        padding: 10px 35px 10px 10px !important;
+      position: relative;
+      top: 30%;
+      // padding: 0px 150px;
 
-        .arrow_btn {
-          position: absolute;
-          top: 30% !important;
-          left: 170px !important;
-          // transform: scaleX(-1) !important;
-        }
+      .title {
+        color: var(--black);
+        font-size: 70px;
+        font-weight: 500;
+        line-height: 77px;
+        letter-spacing: -3.5px;
+        margin-bottom: 16px;
+        width: 635px;
+      }
+
+      .description {
+        color: var(--para-light);
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 26px;
+        margin-bottom: 26px;
+        width: 50%;
+        word-spacing: 5px;
       }
     }
   }
 
+  // ————— FLIP GRADIENT if wrapper gets .leftAlign —————
+  &.leftAlign {
+    .content_gradient {
+      background: linear-gradient(
+        to left,
+        rgba(255, 255, 255, 0) 16.35%,
+        rgba(255, 255, 255, 0.9) 82.21%
+      );
+    }
+  }
+
+  // ————— FLIP GRADIENT if .content_gradient itself gets .leftAlign —————
+  .content_gradient.leftAlign {
+    background: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0) 16.35%,
+      rgba(255, 255, 255, 0.9) 82.21%
+    );
+  }
+
+  // ————— BACKGROUND CONTAINER —————
   .backgroundContainer {
     width: 100%;
     height: 100vh;
     display: block;
 
+    // if wrapper has .leftAlign, flip image
+    .template4_banner_wrap.leftAlign &,
+    // or if you put .leftAlign here directly:
     &.leftAlign {
       transform: scaleX(-1);
     }
@@ -32,48 +78,27 @@
     .backgroundImage {
       width: 100%;
       height: 100vh;
+      object-fit: cover;
+      object-position: bottom;
     }
   }
 
-  .content {
-    position: absolute;
-    top: 30%;
-    padding: 0px 150px;
+  // ————— BUTTON ARROW POSITION WHEN LEFT-ALIGNED —————
+  &.leftAlign {
+    .content_gradient {
+      .view_btn {
+        padding: 10px 35px 10px 10px !important;
 
-    .title {
-      color: var(--black);
-      font-size: 70px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 77px;
-      /* 110% */
-      letter-spacing: -3.5px;
-      margin-bottom: 16px;
-      text-wrap: auto;
-      width: 635px;
-      //   text-align: right;
-    }
-
-    .description {
-      color: var(--para-light);
-      // font-size: 14px;
-      // font-style: normal;
-      // font-weight: 700;
-      // line-height: 14.5px;
-      // margin-bottom: 24px;
-      // width: 44%;
-      //   text-align: right;
-      //   margin-left: auto;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: 26px;
-      margin-bottom: 26px;
-      width: 50%;
-      word-spacing: 5px;
-      display: block;
+        .arrow_btn {
+          position: absolute;
+          top: 30% !important;
+          left: 170px !important;
+        }
+      }
     }
   }
+
+  // ...keep your .content, .title, .description etc. here...
 }
 
 .template2_first_section {
@@ -225,24 +250,20 @@
 
 /* Responsive Breakpoints */
 @media (max-width: 800px) {
-  .template2_banner_wrap {
+  .template2_banner_wrap .content_gradient {
+    padding: 0px;
     .content {
-      top: 40%;
-      padding: 0 50px;
+      top: 30%;
+      padding: 0 60px;
+
       .title {
         font-size: 50px;
-        line-height: 60px;
         width: 100%;
       }
+
       .description {
         font-size: 14px;
-        width: 100%;
-      }
-    }
-    .backgroundContainer {
-      height: 60vh;
-      .backgroundImage {
-        height: 60vh;
+        width: 80%;
       }
     }
   }
@@ -308,23 +329,23 @@
 }
 
 @media (max-width: 500px) {
-  .template2_banner_wrap {
+  .template2_banner_wrap .content_gradient {
     .content {
-      top: 15%;
-      padding: 0 20px;
+      padding: 0px 30px !important;
+      // padding: 0 30px;
+      top: 20%;
+
       .title {
-        font-size: 35px;
-        line-height: 40px;
+        font-size: 36px;
+        line-height: 48px;
+        letter-spacing: -1px;
+        width: 100%;
       }
+
       .description {
-        font-size: 12px;
-        line-height: 18px;
-      }
-    }
-    .backgroundContainer {
-      height: 50vh;
-      .backgroundImage {
-        height: 50vh;
+        font-size: 13px;
+        line-height: 22px;
+        width: 100%;
       }
     }
   }

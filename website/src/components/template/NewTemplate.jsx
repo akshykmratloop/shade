@@ -146,7 +146,11 @@ const NewTemplate = ({content}) => {
             height={0}
           />
         </span>
-        <div className={styles.content_gradient}>
+        <div
+          className={`${language === "en" && styles.leftAlign} ${
+            styles.content_gradient
+          }`}
+        >
           <div className={styles.content}>
             <h1 className={`${styles.title}`}>
               {currentContent?.["1"]?.content?.title?.[language] ||
@@ -209,7 +213,7 @@ const NewTemplate = ({content}) => {
                     }
                     style={{
                       width: "46px",
-                      height: "46px"
+                      height: "46px",
                     }}
                     alt="icon"
                   />
