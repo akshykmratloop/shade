@@ -500,7 +500,7 @@ export async function versionsList(param, query) {
   }
 
   const params = new URLSearchParams(query).toString();
-  const url = `${api.route("versionsList")}/${param}?${params}`;
+  const url = `${api.route("versionsList")}${param}?${params}`;
 
   return await makerequest(url, "GET");
 }

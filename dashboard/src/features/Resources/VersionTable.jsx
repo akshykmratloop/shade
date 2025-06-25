@@ -36,7 +36,7 @@ const TopSideButtons = memo(
   ({
     removeFilter,
     applyFilter,
-    applySearch,
+    // applySearch,
     // openAddForm,
   }) => {
     const [filterParam, setFilterParam] = useState("");
@@ -63,12 +63,12 @@ const TopSideButtons = memo(
       if (searchText === "") {
         removeAppliedFilter();
       } else {
-        applySearch(searchText);
+        // applySearch(searchText);
       }
     }, [searchText]);
     return (
-      <div className="inline-block float-right w-full flex items-center gap-3 border dark:border-neutral-600 rounded-lg p-1">
-        <SearchBar
+      <div className="inline-block float-left ml-[auto] flex items-center gap-3  dark:border-neutral-600 rounded-lg p-1">
+        {/* <SearchBar
           searchText={searchText}
           styleClass="w-700px border-none w-full flex-1"
           setSearchText={setSearchText}
@@ -76,7 +76,7 @@ const TopSideButtons = memo(
             "Search Roles by name, role, ID or any related keywords"
           }
           outline={false}
-        />
+        /> */}
         {filterParam && (
           <button
             onClick={() => removeAppliedFilter()}
@@ -148,6 +148,8 @@ function VersionTable() {
   const [subPath, setSubPath] = useState("");
   const [deepPath, setDeepPath] = useState("");
   const [currentResourceId, setCurrentResourceId] = useState("");
+  const [searchValue, setSearchValue] = useState('')
+  const [debounceSearchValue, setDebounceValue] = useState("")
   // const [random, setRandowm] = useState(Math.random())
   const { random } = CustomContext().random;
   const { pdf } = CustomContext();
@@ -184,17 +186,6 @@ function VersionTable() {
     setVersions(filteredVersions);
   };
 
-  // APPLY SEARCH
-  const applySearch = (value) => {
-    const filteredVersions = originalVersions?.filter((version) =>
-      version?.versionNumber
-        ?.toString()
-        ?.toLowerCase()
-        ?.includes(value?.toLowerCase())
-    );
-    setCurrentPage(1);
-    setVersions(filteredVersions);
-  };
 
   // Open Right Drawer
   const openNotification = (id) => {
@@ -251,13 +242,16 @@ function VersionTable() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0)
 
+
   // Side Effects
   useEffect(() => {
     // Fetch Versions
     if (resourceId) {
       async function fetchversionsData() {
         try {
-          const response = await versionsList(resourceId);
+          const payload = { page: currentPage };
+          // payload.search = debounceSearchValue
+          const response = await versionsList(resourceId, payload);
           if (response.ok) {
             setVersions(response?.content?.versions || []);
             setOriginalVersions(response?.content?.versions ?? []); // Store the original unfiltered data
@@ -270,7 +264,7 @@ function VersionTable() {
       }
       fetchversionsData();
     }
-  }, [resourceId, random]);
+  }, [resourceId, random, currentPage]);
 
   useEffect(() => {
     setCurrentResource(
@@ -321,7 +315,7 @@ function VersionTable() {
         backButton={true}
         TopSideButtons={
           <TopSideButtons
-            applySearch={applySearch}
+            // applySearch={applySearch}
             applyFilter={applyFilter}
             removeFilter={removeFilter}
           />
