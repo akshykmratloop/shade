@@ -104,10 +104,10 @@ const ResetPass = async (req, res) => {
 };
 
 const GetAllLogs = async (req, res) => {
-  const {search, status, page, limit} = req.query;
+  const {search, status, page, limit, entity} = req.query;
   const pageNum = parseInt(page) || 1;
   const limitNum = parseInt(limit) || 10;
-  const response = await getAllLogs(search, status, pageNum, limitNum);
+  const response = await getAllLogs(search, status, pageNum, limitNum, entity);
   res.status(200).json(response);
 };
 
