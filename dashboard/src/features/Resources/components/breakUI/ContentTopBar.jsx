@@ -227,7 +227,6 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
 
 
     useEffect(() => { // Checking ig there has been any changes in the initial and running content
-        console.log(ReduxState.present?.content, savedInitialState)
         const hasChanged = !isEqual(ReduxState.present?.content, savedInitialState)
         setIsChanged(hasChanged)
     }, [ReduxState.present?.content])

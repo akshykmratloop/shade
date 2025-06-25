@@ -120,7 +120,7 @@ const NewTemplate2 = ({content}) => {
   return (
     <div>
       <section className={`${styles.template2_banner_wrap} `}>
-        <span
+        <div
           className={`${language === "en" && styles.leftAlign} ${
             styles.backgroundContainer
           }`}
@@ -135,11 +135,11 @@ const NewTemplate2 = ({content}) => {
             // src={banner.src}
             alt="about-us"
             className={styles.backgroundImage}
-            width={0}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            height={0}
+            // width={0}
+            // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            // height={0}
           />
-        </span>
+        </div>
         <div
           className={`${language === "en" && styles.leftAlign} ${
             styles.content_gradient

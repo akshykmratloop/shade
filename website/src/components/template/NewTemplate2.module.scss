@@ -65,8 +65,10 @@
   // ————— BACKGROUND CONTAINER —————
   .backgroundContainer {
     width: 100%;
-    height: 100vh;
+    height: 100vh !important;
     display: block;
+    // border: 1px solid red;
+    overflow: hidden;
 
     // if wrapper has .leftAlign, flip image
     .template4_banner_wrap.leftAlign &,

@@ -561,24 +561,23 @@ function Requests() {
                               request.flowStatus === "REJECTED" && (
                                 <button
                                   onClick={() => {
+                                    localStorage.setItem("contextId", request.resourceVersion?.resource.id)
+                                    const tempRoute = { "TEMPLATE_ONE": "temp-1", "TEMPLATE_TWO": "temp-2", "TEMPLATE_THREE": "temp-3", "TEMPLATE_FOUR": "temp-4" }
                                     const {
+                                      resourceType,
                                       relationType,
                                       resourceTag,
                                       subPage,
                                       subOfSubPage,
                                       slug,
                                     } = request.resourceVersion?.resource;
-                                    if (relationType === "CHILD") {
-                                      navigateToPage(
-                                        resourceTag?.toLowerCase(),
-                                        request.id
-                                      );
-                                    } else if (relationType !== "PARENT") {
-                                      navigateToPage(
-                                        resourceTag?.toLowerCase(),
-                                        subPage,
-                                        subOfSubPage
-                                      );
+                                    const parentId = request.resourceVersion?.resource?.parentId
+                                    if (resourceTag.slice(0, 5) === "TEMPL") {
+                                      navigateToPage(tempRoute[resourceTag])
+                                    } else if (resourceType === "SUB_PAGE") {
+                                      navigateToPage(resourceTag?.toLowerCase(), request.resourceVersion?.resource.id);
+                                    } else if (resourceType === "SUB_PAGE_ITEM") {
+                                      navigateToPage(resourceTag?.toLowerCase(), parentId, request.resourceVersion?.resource.id);
                                     } else {
                                       navigateToPage(slug?.toLowerCase());
                                     }
