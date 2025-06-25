@@ -20,6 +20,7 @@ const PageDetails = ({ data, display, setOn }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const user = useSelector((state) => state.user.user);
+  const isManager = useSelector((state) => state.user.isManager)
   const activeRole = useSelector((state) => state.user.activeRole)
   const navigate = useNavigate()
   const dispatch = useDispatch();
@@ -138,25 +139,25 @@ const PageDetails = ({ data, display, setOn }) => {
                       {`V${pageInfo?.resourceInfo?.liveVersion?.versionNumber}`}
                     </span>
                   </p>
-                  {(user?.isManager) && (
-                      <>
-                        {/* <button
+                  {(isManager) && (
+                    <>
+                      {/* <button
                           className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"
                           style={{ whiteSpace: "pre" }}
                         >
                           Restore Previous Version
                         </button> */}
-                        <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"
-                          onClick={() => {
-                            dispatch(updateResourceId({ id: data.id, name: data.titleEn }))
-                            localStorage.setItem("currentResource", JSON.stringify({ resourceId: data.id, resourceName: data.titleEn }))
-                            navigate('../versions')
-                          }}
-                        >
-                          View Version
-                        </button>
-                      </>
-                    )}
+                      <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"
+                        onClick={() => {
+                          dispatch(updateResourceId({ id: data.id, name: data.titleEn }))
+                          localStorage.setItem("currentResource", JSON.stringify({ resourceId: data.id, resourceName: data.titleEn }))
+                          navigate('../versions')
+                        }}
+                      >
+                        View Version
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
               <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
