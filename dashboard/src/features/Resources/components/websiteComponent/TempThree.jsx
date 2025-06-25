@@ -253,7 +253,7 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                         ${checkDifference(content?.[4]?.content?.images?.[0]?.url, liveContent?.[4]?.content?.images?.[0]?.url)}
                         `} alt="" />
                     </div>
-                    <div className="flex flex-col"
+                    <div className={`flex flex-col ${isPhone && "px-10 py-6"}`}
                         style={{
                             flex: `1 1 ${getDynamicSize(679)}`,
                             gap: (isComputer) && getDynamicSize(23)
@@ -261,9 +261,11 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                     >
                         <h3
                             style={{
-                                fontSize: fontSize.aboutMainPara
+                                fontSize: (isComputer || isTablet) && fontSize.aboutMainPara
                             }}
-                            className={`${checkDifference(content?.[4]?.content?.title?.[language], liveContent?.[4]?.content?.title?.[language])}`}
+                            className={`${checkDifference(content?.[4]?.content?.title?.[language], liveContent?.[4]?.content?.title?.[language])}
+                                        ${isPhone && "text-[26px] leading-[30px] mb-2 font-[400]"}
+                            `}
                         >
                             {
                                 content?.[4]?.content?.title?.[language] ||
@@ -272,9 +274,10 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                         </h3>
                         <p className={`${fontLight}
                                         ${checkDifference(content?.[4]?.content?.title?.[language], liveContent?.[4]?.content?.title?.[language])}
+                                        ${isPhone && "text-[20px] leading-[100%]"}
                                     `}
                             style={{
-                                fontSize: fontSize.mainPara
+                                fontSize: (isComputer || isTablet) && fontSize.mainPara
                             }}
                         >
                             {
@@ -283,7 +286,7 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                             }
                         </p>
                         <div
-                            className={`grid ${isComputer ? "grid-cols-3" : isTablet ? "grid-cols-3 gap-2" : "grid-cols-1 gap-2"} ${!isComputer && "mt-2"}
+                            className={`grid ${isComputer ? "grid-cols-3" : isTablet ? "grid-cols-3 gap-2" : "grid-cols-1 gap-2 mt-6"} ${!isComputer && "mt-2"}
                                         ${checkDifference(content?.[4]?.content?.cards, liveContent?.[4]?.content?.cards)}
                                         `}
                             style={{
@@ -295,7 +298,7 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                                     return (
                                         <div
                                             key={i}
-                                            className="border aspect-[1/.91] flex justify-center items-center p-4 text-center"
+                                            className={`border ${isPhone ? "aspect-[2/1]" : "aspect-[1/.91]"} flex justify-center items-center p-4 text-center`}
                                             style={{ padding: isComputer && getDynamicSize(16) }}
                                         >
                                             <p style={{ fontSize: fontSize.aboutMainPara }} className={`font-[400]

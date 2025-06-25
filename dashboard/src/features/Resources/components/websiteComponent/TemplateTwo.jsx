@@ -41,7 +41,7 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent,
                         Img_url + content?.['1']?.content?.images?.[0]?.url
                         }")`,
                     backgroundPosition: "bottom",
-                    height: isComputer ? getDynamicSize(600) : "70vh",
+                    height: isComputer ? getDynamicSize(600) : isTablet ? "60vh" : "50vh",
                     padding: (isComputer) && `${getDynamicSize(100)} ${getDynamicSize(120)}`
                 }}
             >
@@ -289,7 +289,7 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent,
                         </p>
                     </div>
 
-                    <div className={`flex gap-4  ${(isTablet || isPhone) && "grid grid-cols-3"}`}
+                    <div className={`flex gap-4  ${(isTablet) ? "grid grid-cols-3" : isPhone ? "grid grid-cols-1" : ""}`}
                         style={{
                             gap: (isComputer) && getDynamicSize(10),
                             flex: `1 1 ${getDynamicSize(870)}`,
@@ -306,7 +306,7 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent,
                                     >
                                         <img src={
                                             Img_url + e.url
-                                        } alt="" className={`w-full object-cover aspect-[1/1.8]
+                                        } alt="" className={`w-full object-cover ${isComputer ? "aspect-[1/1.8]" : "aspect-[1.5/1]"}
                                         ${checkDifference(e.url, liveContent?.['5']?.content?.images?.[i]?.url, "image")}
                                         `} />
                                     </div>
