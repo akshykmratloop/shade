@@ -25,7 +25,7 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
     return (
         <div dir={isLeftAlign ? "ltr" : "rtl"}>
             <section
-                className={`flex items-center ${!isComputer && "px-12"}`}
+                className={`flex items-center ${!isComputer && `${isTablet ? "px-12" : ""}`}`}
                 style={{
                     padding: (isComputer) && `${getDynamicSize(100)} ${getDynamicSize(150)}`,
                     minHeight: getDynamicSize(750)
@@ -37,7 +37,7 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                     }}
                 >
 
-                    <div className={`flex flex-col ${!isComputer ? `gap-4 py-10 justify-start ${isTablet? "w-3/5":""}` : "justify-center"} items-start `}
+                    <div className={`flex flex-col ${!isComputer ? `gap-4 py-10 justify-start ${isTablet ? "w-3/5" : "px-10"}` : "justify-center"} items-start `}
                         style={{
                             gap: (isComputer) && getDynamicSize(16),
                             flex: `1 1 ${getDynamicSize(483)}`
@@ -99,7 +99,7 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
             </section>
 
             <section
-                className={`bg-[#00B9F20A] ${isTablet && "p-10 my-16"}`}
+                className={`bg-[#00B9F20A] ${(isTablet || isPhone) && "p-10 my-16"}`}
                 style={{
                     padding: (isComputer) && `${getDynamicSize(100)} ${getDynamicSize(150)}`
                 }
@@ -157,7 +157,7 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                             width: "fit-content"
                         }}
                     >
-                        <article className={`bg-[#73D9F8] rounded-[6px] ${isTablet && "w-[340px] p-4"}`}
+                        <article className={`bg-[#73D9F8] rounded-[6px] ${(isTablet) ? "w-[340px] p-4" : isPhone ? "w-[300px] p-4" : ""}`}
                             style={{
                                 width: (isComputer) && getDynamicSize(362),
                                 padding: (isComputer) && getDynamicSize(20)
@@ -192,7 +192,7 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                                     <article
                                         key={idx}
                                         className="flex flex-col bg-white overflow-hidden shadow rounded-[6px]"
-                                        style={{ width: isComputer ? getDynamicSize(437) : isTablet ? getDynamicSize(680) : getDynamicSize(1000) }}
+                                        style={{ width: isComputer ? getDynamicSize(437) : isTablet ? getDynamicSize(680) : "300px" }}
                                     >
                                         <img src={Img_url +
                                             service.images?.[0]?.url
