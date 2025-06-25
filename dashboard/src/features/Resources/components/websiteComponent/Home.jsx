@@ -121,11 +121,13 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
     return (
         <div className={`w-full relative ${textAlignment} bankgothic-medium-dt bg-[white]`} >
             {/* banner 1  */}
-            <section className={`w-full relative
+            <section className={`w-full relative overflow-hidden
                 ${checkDifference(content?.["1"]?.content?.images?.[0]?.url, liveContent?.["1"]?.content?.images?.[0]?.url)}
-                `}>
+                `}
+                    style={{ height: (isComputer || isTablet) && dynamicSize(715, width) }}
+                >
                 <div
-                    className={`w-full ${isPhone && "h-fit"} relative min-h-fit block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
+                    className={`w-full ${isPhone && "h-fit"} relative min-h-fit overflow-hidden block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
                         }`}
                     style={{ height: (isComputer || isTablet) && dynamicSize(715, width) }}
                 >
