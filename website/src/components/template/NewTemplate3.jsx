@@ -78,11 +78,11 @@ const NewTemplate3 = ({content}) => {
       <section className={`${styles.template3_banner_section} `}>
         <div className="container">
           <div className={styles.template3_banner_wrapper}>
-            <div className={styles.template3_banner_header}>
+            <div className={styles.template3_banner_header} style={{padding: '0px 20px'}}>
               <h1 className={styles.template3_banner_heading}>
                 {currentContent?.["1"]?.content?.title[language]}
               </h1>
-              <p className={styles.template3_banner_para}>
+              <p className={`${styles.template3_banner_para} bank-light`}>
                 {currentContent?.["1"]?.content?.description[language]}
               </p>
               {currentContent?.["1"]?.content?.button && (
@@ -159,7 +159,7 @@ const NewTemplate3 = ({content}) => {
               <h2 className={styles.template3_third_section_content_heading}>
                 {currentContent?.["4"]?.content?.title[language]}
               </h2>
-              <p className={styles.template3_third_section_content_para}>
+              <p className={`${styles.template3_third_section_content_para} bank-light`}>
                 {currentContent?.["4"]?.content?.description[language]}
               </p>
               <div className={styles.template3_third_section_card_wrapper}>
@@ -176,24 +176,6 @@ const NewTemplate3 = ({content}) => {
           </div>
         </div>
       </section>
-
-      {/*   <section className={styles.template_third_section}>
-        <div className="container">
-          <div className={styles.template_third_section_card_wrapper}>
-            {thirdSection.map((item) => (
-              <div key={item.id} className={styles.template_third_section_card}>
-                <h2 className={styles.template_third_section_card_heading}>
-                  {item.title}
-                </h2>
-
-                <p className={styles.template_third_section_card_desc}>
-                  {item.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
     </div>
   );
 };

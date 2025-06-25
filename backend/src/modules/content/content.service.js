@@ -340,7 +340,7 @@ const rejectRequest = async (requestId, userId, rejectReason) => {
 
   logger.info({
     response: "Request Rejected successfully",
-    // request: request,
+    request: request,
   });
   return {message: "Success", request};
 };

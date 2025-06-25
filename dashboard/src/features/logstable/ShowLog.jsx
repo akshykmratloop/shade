@@ -87,60 +87,124 @@ function ShowLogs({ log, show, onClose }) {
   // Utility to get the diff keys between two objects (shallow and nested)
   function getChangedPaths(obj1, obj2, prefix = "") {
     let changes = [];
-    const keys = new Set([...Object.keys(obj1 || {}), ...Object.keys(obj2 || {})]);
+    const isArray1 = Array.isArray(obj1);
+    const isArray2 = Array.isArray(obj2);
+    if (isArray1 || isArray2) {
+      const maxLength = Math.max((obj1 || []).length, (obj2 || []).length);
+      for (let i = 0; i < maxLength; i++) {
+        const path = `${prefix}[${i}]`;
+        const val1 = obj1?.[i];
+        const val2 = obj2?.[i];
+        if (
+          typeof val1 === "object" && val1 !== null &&
+          typeof val2 === "object" && val2 !== null
+        ) {
+          changes = changes.concat(getChangedPaths(val1, val2, path));
+        } else if ((val1 ?? null) !== (val2 ?? null)) {
+          changes.push(path);
+        }
+      }
+      return changes;
+    }
+    const keys = new Set([
+      ...Object.keys(obj1 || {}),
+      ...Object.keys(obj2 || {})
+    ]);
     for (let key of keys) {
       const path = prefix ? `${prefix}.${key}` : key;
-      if (typeof obj1?.[key] === "object" && obj1?.[key] !== null && typeof obj2?.[key] === "object" && obj2?.[key] !== null) {
-        changes = changes.concat(getChangedPaths(obj1[key], obj2[key], path));
-      } else if ((obj1?.[key] ?? null) !== (obj2?.[key] ?? null)) {
+      const val1 = obj1?.[key];
+      const val2 = obj2?.[key];
+      if (
+        typeof val1 === "object" && val1 !== null &&
+        typeof val2 === "object" && val2 !== null
+      ) {
+        changes = changes.concat(getChangedPaths(val1, val2, path));
+      } else if ((val1 ?? null) !== (val2 ?? null)) {
         changes.push(path);
       }
     }
     return changes;
   }
 
-  // Utility to render JSON with highlights for changed fields
+  // Utility to render JSON with highlights for changed fields (deep, including arrays)
   function renderHighlightedJSON(obj, changedPaths, basePath = "", isOld = false, level = 0) {
+    const indent = 16; // px per level
     if (typeof obj !== "object" || obj === null) {
       return <span>{JSON.stringify(obj)}</span>;
     }
     if (Array.isArray(obj)) {
       return (
         <>
-          <div style={{ marginLeft: level * 16 }}>{'['}</div>
-          {obj.map((item, idx) => (
-            <div key={idx} style={{ marginLeft: (level + 1) * 16 }}>
-              {renderHighlightedJSON(item, changedPaths, `${basePath}[${idx}]`, isOld, level + 1)}
-              {idx < obj.length - 1 ? <span>,</span> : null}
-            </div>
-          ))}
-          <div style={{ marginLeft: level * 16 }}>{']'}</div>
+          <div style={{ marginLeft: level * indent }}>[</div>
+          {obj.map((item, idx) => {
+            const path = `${basePath}[${idx}]`;
+            const isChanged = changedPaths.includes(path);
+            const highlightStyle = isChanged
+              ? {
+                  background: isOld ? "#ffeaea" : "#fff8c6",
+                  color: isOld ? "#d32f2f" : "#7c6f00",
+                  borderRadius: 3,
+                  padding: "0 2px",
+                  border: "1px solid #e0b4b4",
+                  fontWeight: 600,
+                }
+              : {};
+            return (
+              <div key={idx} style={{ marginLeft: (level + 1) * indent, ...highlightStyle }}>
+                {renderHighlightedJSON(item, changedPaths, path, isOld, level + 1)}
+                {idx < obj.length - 1 ? <span>,</span> : null}
+              </div>
+            );
+          })}
+          <div style={{ marginLeft: level * indent }}>]</div>
         </>
       );
     }
     const entries = Object.entries(obj);
     return (
       <>
-        <div style={{ marginLeft: level * 16 }}>{'{'}</div>
+        <div style={{ marginLeft: level * indent }}>{'{'}</div>
         {entries.map(([key, value], idx) => {
           const path = basePath ? `${basePath}.${key}` : key;
           const isChanged = changedPaths.includes(path);
-          const isObjectOrArray = typeof value === 'object' && value !== null;
+          const isObjectOrArray = typeof value === "object" && value !== null;
+          const highlightStyle = isChanged
+            ? {
+                background: isOld ? "#ffeaea" : "#fff8c6",
+                color: isOld ? "#d32f2f" : "#7c6f00",
+                borderRadius: 3,
+                padding: "0 2px",
+                border: "1px solid #e0b4b4",
+                fontWeight: 600,
+              }
+            : {};
           return (
-            <div key={key} style={{ marginLeft: (level + 1) * 16, wordBreak: 'break-all' }}>
-              <span style={{ color: "#6a9955" }}>&quot;{key}&quot;</span>: {isObjectOrArray
-                ? <div>{renderHighlightedJSON(value, changedPaths, path, isOld, level + 1)}</div>
-                : isChanged
-                  ? <span style={{ background: isOld ? "#ffeaea" : "#fff8c6", color: isOld ? "#d32f2f" : "#7c6f00", borderRadius: 3, padding: "0 2px" }}>{JSON.stringify(value)}</span>
-                  : <span>{JSON.stringify(value)}</span>}
+            <div
+              key={key}
+              style={{
+                marginLeft: (level + 1) * indent,
+                wordBreak: "break-all",
+                ...highlightStyle,
+                display: "block",
+              }}
+            >
+              <span style={{ color: "#6a9955" }}>&quot;{key}&quot;</span>: {isObjectOrArray ? (
+                <>
+                  {renderHighlightedJSON(value, changedPaths, path, isOld, level + 1)}
+                </>
+              ) : (
+                <span>{JSON.stringify(value)}</span>
+              )}
               {idx < entries.length - 1 ? <span>,</span> : null}
             </div>
           );
         })}
-        <div style={{ marginLeft: level * 16 }}>{'}'}</div>
+        <div style={{ marginLeft: level * indent }}>{'}'}</div>
       </>
     );
   }
+
+  const term = log?.entity === "resource" ?  "resource" : "name";
 
   return (
     <Dialog
@@ -167,7 +231,7 @@ function ShowLogs({ log, show, onClose }) {
           </div>
 
           {
-            <div className="overflow-x-auto">
+            <div className="">
               <table className="table-auto w-full text-left mb-4">
                 <thead></thead>
                 <tbody style={{ borderBottom: "1px solid #E0E0E0 " }}>
@@ -186,7 +250,7 @@ function ShowLogs({ log, show, onClose }) {
                       {log?.user?.user?.name ?? "N/A"}
                     </td>
                     <td className="py-2 pb-6  w-1/4">
-                      {log?.oldValue?.name ?? log?.newValue?.name ?? "N/A"}
+                      {log?.oldValue?.[term] ?? log?.newValue?.[term] ?? "N/A"}
                     </td>
                   </tr>
                 </tbody>

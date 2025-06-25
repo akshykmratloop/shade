@@ -120,7 +120,7 @@ const NewTemplate2 = ({content}) => {
   return (
     <div>
       <section className={`${styles.template2_banner_wrap} `}>
-        <span
+        <div
           className={`${language === "en" && styles.leftAlign} ${
             styles.backgroundContainer
           }`}
@@ -135,19 +135,26 @@ const NewTemplate2 = ({content}) => {
             // src={banner.src}
             alt="about-us"
             className={styles.backgroundImage}
-            width={0}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            height={0}
+            // width={0}
+            // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            // height={0}
           />
-        </span>
-        <div className={styles.content}>
-          <h1 className={`${styles.title}`}>
-            {currentContent?.["1"]?.content?.title?.[language] || "Lorem ipsum"}
-          </h1>
-          <p className={`${styles.description} ${BankGothic.className}`}>
-            {currentContent?.["1"]?.content?.description?.[language] ||
-              "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia"}
-          </p>
+        </div>
+        <div
+          className={`${language === "en" && styles.leftAlign} ${
+            styles.content_gradient
+          }`}
+        >
+          <div className={styles.content}>
+            <h1 className={`${styles.title}`}>
+              {currentContent?.["1"]?.content?.title?.[language] ||
+                "Lorem ipsum"}
+            </h1>
+            <p className={`${styles.description} ${BankGothic.className}`}>
+              {currentContent?.["1"]?.content?.description?.[language] ||
+                "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia"}
+            </p>
+          </div>
         </div>
       </section>
 

@@ -1,33 +1,48 @@
 import XMarkIcon from "@heroicons/react/24/solid/XMarkIcon";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import NotificationBodyRightDrawer from "../features/common/components/NotificationBodyRightDrawer";
 import {
   closeRightDrawer,
   openRightDrawer,
 } from "../features/common/rightDrawerSlice";
-import { RIGHT_DRAWER_TYPES } from "../utils/globalConstantUtil";
+import {RIGHT_DRAWER_TYPES} from "../utils/globalConstantUtil";
 import CalendarEventsBodyRightDrawer from "../features/calendar/CalendarEventsBodyRightDrawer";
-import { useCallback, useEffect, useState } from "react";
-import { deleteNotifications, getNotificationsbyId, markAllNotificationAsRead } from "../app/fetch";
-import { setNotificationCount, incrementNotificationCount } from "../features/common/headerSlice";
+import {useCallback, useEffect, useState} from "react";
+import {
+  deleteNotifications,
+  getNotificationsbyId,
+  markAllNotificationAsRead,
+} from "../app/fetch";
+import {
+  setNotificationCount,
+  incrementNotificationCount,
+} from "../features/common/headerSlice";
 import socket from "../Socket/socket.js";
 import RequestDetails from "../features/Requests/RequestDetails.jsx";
 import VersionDetails from "../features/Resources/VersionDetails.jsx";
-import { ToastContainer } from "react-toastify";
-import { useRef } from "react";
-import { toast } from "react-toastify";
+import {ToastContainer} from "react-toastify";
+import {useRef} from "react";
+import {toast} from "react-toastify";
+import ToastPlacer from "../features/Component/ToastPlacer.jsx";
 
-function RightSidebar({ notificationData = [], notificationMeta = { totalPages: 1, page: 1 }, notificationCount = 0, setNotificationData, setNotificationMeta, setNotificationCountLocal }) {
+function RightSidebar({
+  notificationData = [],
+  notificationMeta = {totalPages: 1, page: 1},
+  notificationCount = 0,
+  setNotificationData,
+  setNotificationMeta,
+  setNotificationCountLocal,
+}) {
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
 
-  const { isOpen, bodyType, extraObject, header } = useSelector(
+  const {isOpen, bodyType, extraObject, header} = useSelector(
     (state) => state.rightDrawer
   );
   const dispatch = useDispatch();
 
   const userId = extraObject?.id;
-  const lastFetchedParams = useRef({ page: 0, search: "" });
+  const lastFetchedParams = useRef({page: 0, search: ""});
 
   const fetchNotifications = async (id, page, search = "") => {
     if (
@@ -37,7 +52,7 @@ function RightSidebar({ notificationData = [], notificationMeta = { totalPages: 
       return;
     }
 
-    lastFetchedParams.current = { page, search };
+    lastFetchedParams.current = {page, search};
 
     setLoading(true);
     try {
@@ -133,14 +148,15 @@ function RightSidebar({ notificationData = [], notificationMeta = { totalPages: 
             </button>
             <span className="ml-2 font-bold text-l">{header}</span>
 
-            {bodyType === RIGHT_DRAWER_TYPES.NOTIFICATION && notificationData?.length > 0 &&  (
-              <p
-                onClick={() => handleMarkAllAsRead(extraObject.id)}
-                className="ml-auto text-sm cursor-pointer"
-              >
-                Mark all as read
-              </p>
-            )}
+            {bodyType === RIGHT_DRAWER_TYPES.NOTIFICATION &&
+              notificationData?.length > 0 && (
+                <p
+                  onClick={() => handleMarkAllAsRead(extraObject.id)}
+                  className="ml-auto text-sm cursor-pointer"
+                >
+                  Mark all as read
+                </p>
+              )}
           </div>
 
           {/* ------------------ Content Start ------------------ */}
@@ -167,9 +183,7 @@ function RightSidebar({ notificationData = [], notificationMeta = { totalPages: 
                       closeRightDrawer={close}
                     />
                   ),
-                  [RIGHT_DRAWER_TYPES.RESOURCE_DETAILS]: (
-                    <RequestDetails />
-                  ),
+                  [RIGHT_DRAWER_TYPES.RESOURCE_DETAILS]: <RequestDetails />,
                   [RIGHT_DRAWER_TYPES.VERSION_DETAILS]: (
                     <VersionDetails close={close} />
                   ),
@@ -187,7 +201,8 @@ function RightSidebar({ notificationData = [], notificationMeta = { totalPages: 
         className=" w-screen h-full cursor-pointer "
         onClick={() => close()}
       ></section>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
+      <ToastPlacer />
     </div>
   );
 }

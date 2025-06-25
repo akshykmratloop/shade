@@ -83,13 +83,19 @@ const NewTemplate2 = ({content}) => {
             height={0}
           />
         </span>
-        <div className={styles.content}>
-          <h1 className={`${styles.title}`}>
-            {currentContent?.["1"]?.content?.title?.[language]}
-          </h1>
-          <p className={`${styles.description} ${BankGothic.className}`}>
-            {currentContent?.["1"]?.content?.description?.[language]}
-          </p>
+        <div
+          className={`${language === "en" && styles.leftAlign} ${
+            styles.content_gradient
+          }`}
+        >
+          <div className={styles.content}>
+            <h1 className={`${styles.title}`}>
+              {currentContent?.["1"]?.content?.title?.[language]}
+            </h1>
+            <p className={`${styles.description} ${BankGothic.className}`}>
+              {currentContent?.["1"]?.content?.description?.[language]}
+            </p>
+          </div>
         </div>
       </section>
 
@@ -117,12 +123,13 @@ const NewTemplate2 = ({content}) => {
                   key={item.id || idx}
                   className={`${styles.template4_first_section_image_grid} ${posClass}`}
                 >
-                  <div className={styles.template4_first_section_image}>
-                    <img
-                      src={item.url ? Img_url + item.url : ""}
-                      alt={item.altText?.[language] || "image"}
-                    />
-                  </div>
+                  {/* <div > */}
+                  <img
+                    className={styles.template4_first_section_image}
+                    src={item.url ? Img_url + item.url : ""}
+                    alt={item.altText?.[language] || "image"}
+                  />
+                  {/* </div> */}
                 </div>
               );
             })}
@@ -132,7 +139,9 @@ const NewTemplate2 = ({content}) => {
             <h2 className={styles.template4_first_section_card_heading}>
               {currentContent?.["3"]?.content?.title[language]}
             </h2>
-            <p className={styles.template4_first_section_card_desc}>
+            <p
+              className={`${styles.template4_first_section_card_desc} bank-light`}
+            >
               {currentContent?.["3"]?.content?.description[language]}
             </p>
           </div>
@@ -145,9 +154,12 @@ const NewTemplate2 = ({content}) => {
             <h2 className={styles.template4_second_section_content_heading}>
               {currentContent?.["4"]?.content?.title[language]}
             </h2>
-            <p className={styles.template4_second_section_content_para}>
-              {currentContent?.["4"]?.content?.description[language]}
-            </p>
+            <div
+              className={styles.template4_second_section_content_para}
+              dangerouslySetInnerHTML={{
+                __html: currentContent?.["4"]?.content?.description[language],
+              }}
+            ></div>
             {/* <p className={styles.template4_second_section_content_para}>
               It is a long established fact that a reader will be distracted by
               the readable content of a page when looking at its layout. The

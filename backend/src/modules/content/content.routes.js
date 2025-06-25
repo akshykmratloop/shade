@@ -1,9 +1,8 @@
 import {Router} from "express";
 import ContentController from "./content.controller.js";
-import validator from "../../validation/validator.js";
+// import validator from "../../validation/validator.js";
 // import {ContentSchema} from "../../validation/contentSchema.js";
 import tryCatchWrap from "../../errors/tryCatchWrap.js";
-import {checkPermission} from "../../helper/roleBasedAccess.js";
 import auditLogger from "../../helper/auditLogger.js";
 import contentController from "./content.controller.js";
 
@@ -11,33 +10,27 @@ const router = Router();
 
 router.post(
   "/addResource",
-  // auditLogger,
+  auditLogger,
   tryCatchWrap(ContentController.AddNewResource)
 );
 
-// const requiredPermissionsForContentManagement = ["ROLES_PERMISSION_MANAGEMENT"];
-
 router.get(
   "/getResources",
-  //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetResources)
 );
 
 router.get(
   "/getResourceInfo/:resourceId",
-  //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetResourceInfo)
 );
 
 router.get(
   "/getAssignedUsers/:resourceId",
-  //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetAssignedUsers)
 );
 
 router.get(
   "/getEligibleUsers",
-  //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetEligibleUser)
 );
 
@@ -49,35 +42,30 @@ router.post(
 
 router.patch(
   "/removeAssignedUser/:resourceId",
-  //   checkPermission(requiredPermissionsForContentManagement),
   auditLogger,
   tryCatchWrap(ContentController.RemoveAssignedUser)
 );
 
 router.get(
   "/getContent/:resourceId",
-  //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetContent)
 );
 
 router.put(
   "/updateContent",
   auditLogger,
-
-  //   checkPermission(requiredPermissionsForContentManagement),
-
   tryCatchWrap(ContentController.UpdateContent)
 );
 
 router.post(
   "/directPublishContent",
-  //   checkPermission(requiredPermissionsForContentManagement),
+  auditLogger,
   tryCatchWrap(ContentController.DirectPublishContent)
 );
 
 router.put(
   "/generateRequest",
-  //   checkPermission(requiredPermissionsForContentManagement),
+  auditLogger,
   tryCatchWrap(ContentController.GenerateRequest)
 );
 
@@ -95,27 +83,28 @@ router.get(
 
 router.post(
   "/approveRequest/:requestId",
-  //   checkPermission(requiredPermissionsForContentManagement),
+  auditLogger,
   tryCatchWrap(ContentController.ApproveRequest)
 );
 
 router.post(
   "/rejectRequest/:requestId",
-  //   checkPermission(requiredPermissionsForContentManagement),
+  auditLogger,
   tryCatchWrap(ContentController.RejectRequest)
 );
 
 router.post(
   "/scheduleRequest/:requestId",
+  auditLogger,
   //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.ScheduleRequest)
 );
 
-router.post(
-  "/publishRequest/:requestId",
-  //   checkPermission(requiredPermissionsForContentManagement),
-  tryCatchWrap(ContentController.PublishRequest)
-);
+// router.post(
+//   "/publishRequest/:requestId",
+//   //   checkPermission(requiredPermissionsForContentManagement),
+//   tryCatchWrap(ContentController.PublishRequest)
+// );
 
 router.get(
   "/getVersionsList/:resourceId",

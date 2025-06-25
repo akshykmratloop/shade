@@ -35,7 +35,8 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
                 },
                 projectId,
                 context: "projectDetail",
-                operation: 'add'
+                operation: 'add',
+                sectionIndex: indexes?.["3"]
             }
         ))
     }
@@ -51,7 +52,7 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
     const [all, setAll] = useState([])
 
     useEffect(() => {
-        if (context?.id === "N") {
+        // if (context?.id === "N") {
             async function getOptionsforServices() {
                 const response = await getAllFilters()
 
@@ -66,7 +67,7 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
             }
 
             getOptionsforServices()
-        }
+        // }
     }, [context?.id])
 
     useEffect(() => {
@@ -114,7 +115,8 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
             {/* reference doc */}
             <FileUploader id={"ProjectIDReference" + projectId} label={"Rerference doc"} fileName={"Upload your file..."} />
 
-            {context?.id === "N" &&
+            {
+            // context?.id === "N" &&
                 <>
                     <ContentSection
                         currentPath={currentPath}
@@ -123,11 +125,11 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
                             { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn, dir: "ltr" },
                             { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
                             // { input: "input", label: "Slug", updateType: "slug", value: context?.slug },
-                            ...(context?.id === "N" ? [{ input: "input", label: "Slug", updateType: "slug", value: context?.slug }] : []),
-                            ...(context?.id === "N" ? [{ input: "select", label: "Status", updateType: "filter", option: filters }] : [])
+                            ...([{ input: "input", label: "Slug", updateType: "slug", value: context?.slug, disable: context?.id === "N" ? false : true }] ),
+                    ...([{input: "select", label: "Status", updateType: "filter", option: filters }])
                         ]}
-                        section={"page-details"}
-                        language={language}
+                    section={"page-details"}
+                    language={language}
                     />
                 </>
             }
@@ -212,11 +214,12 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
                                 sectionIndex={indexes?.['3']}
                                 contentIndex={index}
                                 type={"content[index]"}
+                                allowRemoval
                             />
                         )
                     })
                 }
-                <button className="text-blue-500 cursor-pointer mb-3" onClick={addExtraSummary}>Add More Section...</button>
+                <button className="text-blue-500 cursor-pointer mb-3" onClick={addExtraSummary}>Add Section...</button>
             </div>
 
             <ContentSection

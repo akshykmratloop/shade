@@ -24,7 +24,7 @@ const HSnE = ({ currentContent, screen, language, width, highlight, liveContent 
     return (
         <div className="" dir={isLeftAlign ? "ltr" : "rtl"}>
             <section
-                className={`relative border w-full py-[100px] ${isPhone ? "px-8" : "px-10"} bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
+                className={`relative border w-full py-[100px] ${isPhone ? "px-8" : "px-10"} bg-cover bg-center ${isLeftAlign ? '' : ''}`}
                 style={{
                     backgroundImage: `url("${currentContent?.['1']?.content?.images?.[0]?.url ? Img_url + currentContent?.['1']?.content?.images?.[0]?.url : projectPageData.aiKhobarTunnel}")`,
                     backgroundPosition: "bottom",
@@ -32,7 +32,7 @@ const HSnE = ({ currentContent, screen, language, width, highlight, liveContent 
                     padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(150)}`
                 }}
             >
-                <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-end overflow-hidden">
+                <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-start overflow-hidden">
                     <div
                         style={{ width: getDynamicSize(750), height: getDynamicSize(650) }}
                         className=" rounded-full bg-white opacity-[.9] blur-[120px] mix-blend-screen"
@@ -42,7 +42,7 @@ const HSnE = ({ currentContent, screen, language, width, highlight, liveContent 
                 <div className="container relative h-full flex items-center justify-end "
                 >
                     <div
-                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-full" : isTablet ? "" : ""} flex flex-col ${isPhone ? "items-start" : "items-start space-y-4"} `}>
+                        className={`${isLeftAlign ? '' : ''} ${isPhone ? "w-full" : isTablet ? "" : "w-full"} flex flex-col ${isPhone ? "items-start" : "items-start space-y-4"} `}>
                         <h2 className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4
                                 ${checkDifference(currentContent?.['1']?.content?.title?.[language], liveContent?.['1']?.content?.title?.[language])}
                                 `}
@@ -65,9 +65,9 @@ const HSnE = ({ currentContent, screen, language, width, highlight, liveContent 
             </section>
 
 
-            <section className={`grid ${isPhone ? "grid-cols-1 p-10" : "grid-cols-2"} gap-x-20 gap-y-5 `}
+            <section className={`grid ${isPhone ? "grid-cols-1 p-10" : "grid-cols-2"} gap-x-20 gap-y-5 ${isTablet ? "p-10" : ""}`}
                 style={{
-                    padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(150)}`,
+                    padding: (isComputer) && `${getDynamicSize(100)} ${getDynamicSize(150)}`,
                     gap: `${getDynamicSize(40)} ${getDynamicSize(20)}`
                 }}
             >
@@ -75,9 +75,18 @@ const HSnE = ({ currentContent, screen, language, width, highlight, liveContent 
                     currentContent?.[2]?.content?.cards?.map((card, i) => {
 
                         return (
-                            <div className="relative pr-10 pb-5 flex gap-2" key={i}>
-                                <div className=""><img src={Img_url + card?.images?.[0]?.url} alt="" className="w-[120px] h-[50px]" /></div>
-                                <div className="flex flex-col gap-2">
+                            <div className={`relative ${isComputer && "pr-10"}  pb-5 flex gap-2`} key={i}>
+                                <div className={`${isTablet&& "w-[80px]"}`}
+                                    style={{
+                                        width: (isComputer) && getDynamicSize(83),
+                                        padding: `0px ${isComputer && getDynamicSize(12)} 0px 0px`
+                                    }}
+                                >
+                                    <img src={Img_url + card?.images?.[0]?.url} alt="" className={`w-[120px] h-[50px]`} />
+                                </div>
+                                <div className="flex flex-col gap-2"
+                                style={{width: (isTablet) && getDynamicSize(500)}}
+                                >
                                     <h3 className={`text-[#292E3D]
                                         ${checkDifference(card?.title?.[language], liveContent?.[2]?.content?.cards?.[i]?.title?.[language])}
                                         `} style={{ fontSize: fontSize.subProjectHeadings }}>{card?.title?.[language]}</h3>

@@ -251,7 +251,7 @@ const ApproveRequest = async (req, res) => {
   res.status(200).json(response);
 };
 
-const RejectRequest = async (req, res) => {
+const RejectRequest = async (req, res, next) => {
   const {requestId} = req.params;
   const userId = req.user.id;
   const {rejectReason} = req.body;

@@ -60,6 +60,8 @@ async function transformSection(section) {
 
 // Main transform function
 export default async function transformContentForAudit(input) {
+
+  console.log(input,"transform///////////////////////////////////////////")
   // Accepts either a resource version object or updateContent payload
   const version = input.newVersionEditMode || input.editModeVersionData || input.liveModeVersionData;
   const formattedContent = {
@@ -75,5 +77,19 @@ export default async function transformContentForAudit(input) {
       sections: version.sections ? await Promise.all(version.sections.map(transformSection)) : [],
     },
   };
+  // Optionally add request details if present
+  if (input.request) {
+    formattedContent.request = {
+      sender: input.request.sender?.name || null,
+      approvals: Array.isArray(input.request.approvals)
+        ? input.request.approvals.map(a => ({
+            name: a.approver?.name || null,
+            stage: a.stage,
+            status: a.status,
+            comment : a.comments
+          }))
+        : [],
+    };
+  }
   return formattedContent;
 } 

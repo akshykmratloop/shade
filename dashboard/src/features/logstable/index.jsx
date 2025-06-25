@@ -17,18 +17,28 @@ const TopSideButtons = ({
   removeFilter,
   applyFilter,
   applySearch,
+  filterParam,
+  targetParam,
+  setTargetParam,
+  setFilterParam,
   // openAddForm,
 }) => {
-  const [filterParam, setFilterParam] = useState("");
   const [searchText, setSearchText] = useState("");
   const statusFilters = ["Success", "Failure"];
+  const targetFilters = ["user", "role", "resource"];
+
   const showFiltersAndApply = (status) => {
-    applyFilter(status);
+    applyFilter({ outcome: status, target: targetParam });
     setFilterParam(status);
+  };
+  const showTargetAndApply = (target) => {
+    applyFilter({ outcome: filterParam, target });
+    setTargetParam(target);
   };
   const removeAppliedFilter = () => {
     removeFilter();
     setFilterParam("");
+    setTargetParam("");
     setSearchText("");
   };
   useEffect(() => {
@@ -37,6 +47,7 @@ const TopSideButtons = ({
     } else {
       applySearch(searchText);
     }
+    // eslint-disable-next-line
   }, [searchText]);
   return (
     <div className="inline-block float-right w-full flex items-center gap-3 border dark:border-neutral-600 rounded-lg p-1">
@@ -47,22 +58,24 @@ const TopSideButtons = ({
         placeholderText={"Search Logs by name and roles keywords"}
         outline={false}
       />
-      {filterParam && (
+      {(filterParam || targetParam) && (
         <button
           onClick={() => removeAppliedFilter()}
           className="btn btn-xs mr-2 btn-active btn-ghost normal-case"
         >
-          {filterParam}
+          {filterParam && <span>{filterParam}</span>}
+          {targetParam && <span className="ml-1">{targetParam}</span>}
           <XMarkIcon className="w-4 ml-2" />
         </button>
       )}
+      {/* Outcome Filter */}
       <div className="dropdown dropdown-bottom dropdown-end">
         <label
           tabIndex={0}
-          className="capitalize border text-[14px] self-center border-stone-300 dark:border-neutral-500 rounded-lg h-[40px] w-[91px] flex items-center gap-1 font-[300] px-[14px] py-[10px]"
+          className="capitalize border text-[14px] self-center border-stone-300 dark:border-neutral-500 rounded-lg h-[40px] w-[91px] flex items-center justify-center gap-1 font-[300] px-[14px] py-[10px]"
         >
-          <LuListFilter className="w-5 " />
-          Filter
+          <LuListFilter className="w-5" />
+          Outcome
         </label>
         <ul
           tabIndex={0}
@@ -85,6 +98,36 @@ const TopSideButtons = ({
           </li>
         </ul>
       </div>
+      {/* Target Filter */}
+      <div className="dropdown dropdown-bottom dropdown-end">
+        <label
+          tabIndex={0}
+          className="capitalize border text-[14px] self-center border-stone-300 dark:border-neutral-500 rounded-lg h-[40px] w-[91px] flex items-center gap-1 font-[300] px-[14px] py-[10px]"
+        >
+          <LuListFilter className="w-5 " />
+          Target
+        </label>
+        <ul
+          tabIndex={0}
+          className="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52 text-[#0E2354] font-[400]"
+        >
+          {targetFilters.map((target, key) => (
+            <li key={key}>
+              <button
+                className="dark:text-gray-300"
+                onClick={() => showTargetAndApply(target)}
+                style={{ textTransform: "capitalize" }}
+              >
+                {capitalizeWords(target)}
+              </button>
+            </li>
+          ))}
+          <div className="divider mt-0 mb-0"></div>
+          <li>
+            <button className="dark:text-gray-300" onClick={() => removeAppliedFilter()}>Remove Filter</button>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };
@@ -96,17 +139,24 @@ function Logs() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
   const [debouncedValue, setDebouncedValue] = useState("");
-  const [filteredLogs, setFilteredLogs] = useState("")
-
+  const [filteredLogs, setFilteredLogs] = useState("");
+  const [filterParam, setFilterParam] = useState("");
+  const [targetParam, setTargetParam] = useState("");
 
   const removeFilter = () => {
-    setFilteredLogs("")
-    setCurrentPage(1)
+    setFilteredLogs("");
+    setFilterParam("");
+    setTargetParam("");
+    setCurrentPage(1);
+    setSearchValue("");
+    setDebouncedValue("");
   };
 
-  const applyFilter = (outcome) => {
-    setFilteredLogs(outcome)
-    setCurrentPage(1)
+  const applyFilter = ({ outcome, target }) => {
+    setFilterParam(outcome || "");
+    setTargetParam(target || "");
+    setFilteredLogs({ outcome, target });
+    setCurrentPage(1);
   };
 
   function handleSearchInput(value) {
@@ -115,17 +165,9 @@ function Logs() {
     }
   }
 
-  // const applySearch = (value) => {
-  //   const filteredRoles = originalLogs?.filter((log) =>
-  //     log?.action_performed.toLowerCase().includes(value.toLowerCase())
-  //   );
-  //   setCurrentPage(1)
-  //   setLogs(filteredRoles);
-  // };
-
   // Pagination logic
-  const currentLogs = logs
-  const [totalPages, setTotalPages] = useState(0)
+  const currentLogs = logs;
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -137,24 +179,19 @@ function Logs() {
     };
   }, [searchValue]);
 
-  // useEffect(() => {
-  //   if (debouncedValue) {
-  //     applySearch(debouncedValue);
-  //   }
-  // }, [debouncedValue]);
-
   useEffect(() => {
     async function fetchRoleData() {
-      let query = { page: currentPage }
-      if (debouncedValue) query.search = debouncedValue
-      if (filteredLogs) query.status = filteredLogs
+      let query = { page: currentPage };
+      if (debouncedValue) query.search = debouncedValue;
+      if (filterParam) query.status = filterParam;
+      if (targetParam) query.entity = targetParam;
       const response = await userLogs(query);
       setLogs(response.logs ?? []);
       setOriginalLogs(response.logs ?? []); // Store the original unfiltered data
-      setTotalPages(response.pagination?.totalPages || 0)
+      setTotalPages(response.pagination?.totalPages || 0);
     }
     fetchRoleData();
-  }, [currentPage, debouncedValue, filteredLogs]);
+  }, [currentPage, debouncedValue, filterParam, targetParam]);
 
   return (
     <div className="relative min-h-full">
@@ -166,6 +203,10 @@ function Logs() {
             applySearch={handleSearchInput}
             applyFilter={applyFilter}
             removeFilter={removeFilter}
+            filterParam={filterParam}
+            targetParam={targetParam}
+            setTargetParam={setTargetParam}
+            setFilterParam={setFilterParam}
             openAddForm={() => { }}
           />
         }
@@ -193,9 +234,9 @@ function Logs() {
                   <th className="text-[#42526D] w-[150px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize">
                     Target
                   </th>
-                  <th className="text-[#42526D] w-[141px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize text-center">
+                  {/* <th className="text-[#42526D] w-[141px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize text-center">
                     IP Address
-                  </th>
+                  </th> */}
                   <th className="text-[#42526D] w-[177px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] text-center !capitalize">
                     Outcome
                   </th>
@@ -238,11 +279,11 @@ function Logs() {
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <span className="">{log?.entity || "N/A"}</span>
                         </td>
-                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                        {/* <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <span className="">
                             {log?.ipAddress?.slice(7, this?.length) || "N/A"}
                           </span>
-                        </td>
+                        </td> */}
                         <td
                           className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
                           style={{ whiteSpace: "wrap" }}

@@ -189,7 +189,7 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                             { // not for currentlyEditor
                                 (!currentlyEditor && request?.flowStatus === "PENDING") &&
                                 <div className="flex gap-2">
-                                    <div className="flex gap-3 text-[25px] items-center border-r px-2 border-r-2">
+                                    <div className={`flex gap-3 text-[25px] items-center ${!isManager && "border-r px-2 border-r-2"}`}>
                                         <div ref={commentRef} className=" flex flex-col gap-1 items-center relative">
                                             <div className="flex flex-col gap-1 items-center cursor-pointer"
                                                 onClick={() => setCommentOn(prev => !prev)}
@@ -221,19 +221,19 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                                         </div>
                                     </div>
                                     { // buttons/actions based on the roles
-                                        !isManager ?
-                                            (<div className="flex gap-2">
-                                                { // for currentlyPublisher
-                                                    currentlyPublisher &&
-                                                    <div className='flex items-center gap-1 px-3 bg-green-700 xl:h-[2.68rem] sm:h-[2rem] rounded-lg' onClick={() => setShowDateTime(true)}>
-                                                        <span className="text-white">
-                                                            <CiCalendar />
-                                                        </span>
-                                                        <span className={`text-[14px] font-lexend font-[300] dark:text-[#CBD5E1] text-[white] select-none`}>
-                                                            Publish Schedule
-                                                        </span>
+                                        !isManager && // changed ? to && manager is not allow to interfare the flow
+                                        (<div className="flex gap-2">
+                                            { // for currentlyPublisher
+                                                currentlyPublisher &&
+                                                <div className='flex items-center gap-1 px-3 bg-green-700 xl:h-[2.68rem] sm:h-[2rem] rounded-lg' onClick={() => setShowDateTime(true)}>
+                                                    <span className="text-white">
+                                                        <CiCalendar />
+                                                    </span>
+                                                    <span className={`text-[14px] font-lexend font-[300] dark:text-[#CBD5E1] text-[white] select-none`}>
+                                                        Publish Schedule
+                                                    </span>
 
-                                                        {/* <Switch
+                                                    {/* <Switch
                                                             checked={true}
                                                             onChange={() => setShowDateTime(true)}
                                                             className={`${true
@@ -248,19 +248,19 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                                                                     } inline-block h-[17px] w-[17px] bg-white rounded-full shadow-2xl border border-gray-300 transition`}
                                                             />
                                                         </Switch> */}
-                                                    </div>}
-                                                <div className="flex gap-2 px-2">
-                                                    <button onClick={() => { setOnRejectPopup(true) }} className='flex font-[500] justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
-                                                        <RxCross1 /> Reject
-                                                    </button>
-                                                    <Button text={'Approve'} functioning={() => { setPopupSubmit(true) }} classes='bg-[#29469D] font-[500] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
-                                                </div>
-                                            </div>) :
-                                            (
-                                                <div className="flex gap-2 px-2">
-                                                    <Button text={'Publish'} functioning={() => { setPopupPublish(true) }} classes='bg-[#29469D] font-[500] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
-                                                </div>
-                                            )
+                                                </div>}
+                                            <div className="flex gap-2 px-2">
+                                                <button onClick={() => { setOnRejectPopup(true) }} className='flex font-[500] justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
+                                                    <RxCross1 /> Reject
+                                                </button>
+                                                <Button text={'Approve'} functioning={() => { setPopupSubmit(true) }} classes='bg-[#29469D] font-[500] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                                            </div>
+                                        </div>)
+                                        // :(
+                                        //     <div className="flex gap-2 px-2">
+                                        //         <Button text={'Publish'} functioning={() => { setPopupPublish(true) }} classes='bg-[#29469D] font-[500] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                                        //     </div>
+                                        // )
                                     }
                                 </div>
                             }

@@ -611,7 +611,7 @@ export const fetchAllRolesForUser = async () => {
   };
 };
 
-export const findAllLogs = async (search, status, pageNum, limitNum) => {
+export const findAllLogs = async (search, status, pageNum, limitNum, entity) => {
   const skip = (pageNum - 1) * limitNum;
 
   // Define the where clause for both findMany and count
@@ -621,6 +621,7 @@ export const findAllLogs = async (search, status, pageNum, limitNum) => {
       mode: "insensitive",
     },
     ...(status ? { outcome: status } : {}),
+    ...(entity ? { entity } : {}),
   };
 
   const [logs, totalLogs] = await Promise.all([

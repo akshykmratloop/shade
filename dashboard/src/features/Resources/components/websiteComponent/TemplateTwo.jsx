@@ -30,30 +30,30 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent,
     const checkDifference = (!purpose && highlight) ? differentText?.checkDifference?.bind(differentText) : () => ""
 
     return (
-        <div>
+        <div dir={isLeftAlign ? "ltr" : "rtl"}>
             <section
                 className={`relative w-full ${isPhone ? "px-8" : ""}
                             ${checkDifference(content?.['1']?.content?.images?.[0]?.url, liveContent?.['1']?.content?.images?.[0]?.url, "image")}
-                            flex items-center bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
+                            flex items-center bg-cover bg-center ${isLeftAlign ? '' : ''}`}
                 style={{
                     backgroundImage: `url("${
                         // services.contructionTowerImage
                         Img_url + content?.['1']?.content?.images?.[0]?.url
                         }")`,
-                    backgroundPosition: "bottom",
-                    height: isComputer ? getDynamicSize(600) : "70vh",
+                    backgroundPosition: "center",
+                    height: isComputer ? getDynamicSize(600) : isTablet ? "60vh" : "50vh",
                     padding: (isComputer) && `${getDynamicSize(100)} ${getDynamicSize(120)}`
                 }}
             >
-                <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-end overflow-hidden">
+                <div className={`absolute inset-0 pointer-events-none z-0 flex items-center justify-start overflow-hidden`}>
                     <div
-                        style={{ width: getDynamicSize(750), height: getDynamicSize(650) }}
+                        style={{ width:isComputer? getDynamicSize(750):"68%" , height: getDynamicSize(650) }}
                         className="rounded-full bg-white opacity-[.9] blur-[120px] mix-blend-screen"></div>
                 </div>
 
                 <div className="container relative flex items-center justify-center">
                     <div
-                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} w-full  flex flex-col 
+                        className={` ${isLeftAlign ? '' : ''} w-full  flex flex-col 
                                     ${isPhone ? "items-start" : "items-start p-6 space-y-4"} `}
                         style={{
                             padding: (isTablet) && `${getDynamicSize(100)} ${getDynamicSize(110)}`
@@ -169,10 +169,10 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent,
                             return (
                                 <article
                                     className={`flex items-center justify-between relative ${(isPhone || isTablet) ? "flex-col" : !odd && "flex-row-reverse"}`}
-                                    style={{ gap: isComputer ? getDynamicSize(70) : getDynamicSize(10) }}
+                                    style={{ gap: isComputer ? getDynamicSize(70) : getDynamicSize(0) }}
                                     key={i}
                                 >
-                                    <div className={`${!isPhone && ''} `}
+                                    <div className={`${!isPhone && ''} border`}
                                         style={{
                                             width: isPhone ? '100%' : isTablet ? "100%" : getDynamicSize(512),
                                         }}
@@ -289,7 +289,7 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent,
                         </p>
                     </div>
 
-                    <div className={`flex gap-4  ${(isTablet || isPhone) && "grid grid-cols-3"}`}
+                    <div className={`flex gap-4  ${(isTablet) ? "grid grid-cols-3" : isPhone ? "grid grid-cols-1" : ""}`}
                         style={{
                             gap: (isComputer) && getDynamicSize(10),
                             flex: `1 1 ${getDynamicSize(870)}`,
@@ -306,7 +306,7 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent,
                                     >
                                         <img src={
                                             Img_url + e.url
-                                        } alt="" className={`w-full object-cover aspect-[1/1.8]
+                                        } alt="" className={`w-full object-cover ${isComputer ? "aspect-[1/1.8]" : "aspect-[1.5/1]"}
                                         ${checkDifference(e.url, liveContent?.['5']?.content?.images?.[i]?.url, "image")}
                                         `} />
                                     </div>
