@@ -146,14 +146,17 @@ const NewTemplate = ({content}) => {
             height={0}
           />
         </span>
-        <div className={styles.content}>
-          <h1 className={`${styles.title}`}>
-            {currentContent?.["1"]?.content?.title?.[language] || "Lorem ipsum"}
-          </h1>
-          <p className={`${styles.description} ${BankGothic.className}`}>
-            {currentContent?.["1"]?.content?.description?.[language] ||
-              "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia"}
-          </p>
+        <div className={styles.content_gradient}>
+          <div className={styles.content}>
+            <h1 className={`${styles.title}`}>
+              {currentContent?.["1"]?.content?.title?.[language] ||
+                "Lorem ipsum"}
+            </h1>
+            <p className={`${styles.description} ${BankGothic.className}`}>
+              {currentContent?.["1"]?.content?.description?.[language] ||
+                "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia"}
+            </p>
+          </div>
         </div>
       </section>
 
