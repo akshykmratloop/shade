@@ -1,34 +1,34 @@
 // libraries
-import {useEffect, useState, memo, Suspense} from "react";
-import {ToastContainer} from "react-toastify";
-import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import { useEffect, useState, memo, Suspense } from "react";
+import { ToastContainer } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 // self modules and component
 import Paginations from "../Component/Paginations";
 import SearchBar from "../../components/Input/SearchBar";
 import TitleCard from "../../components/Cards/TitleCard";
-import capitalizeWords, {TruncateText} from "../../app/capitalizeword";
+import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 import formatTimestamp from "../../app/TimeFormat";
-import {openRightDrawer} from "../../features/common/rightDrawerSlice";
-import {RIGHT_DRAWER_TYPES} from "../../utils/globalConstantUtil";
+import { openRightDrawer } from "../../features/common/rightDrawerSlice";
+import { RIGHT_DRAWER_TYPES } from "../../utils/globalConstantUtil";
 import ToggleSwitch from "../../components/Toggle/Toggle";
 
 // icons
-import {FiEye} from "react-icons/fi";
-import {LuListFilter} from "react-icons/lu";
-import {PiInfoThin} from "react-icons/pi";
+import { FiEye } from "react-icons/fi";
+import { LuListFilter } from "react-icons/lu";
+import { PiInfoThin } from "react-icons/pi";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
-import {getContent, getVersionContent, versionsList} from "../../app/fetch";
-import {Switch} from "@headlessui/react";
+import { getContent, getVersionContent, versionsList } from "../../app/fetch";
+import { Switch } from "@headlessui/react";
 import CustomContext from "../Context/CustomContext";
 import ShowPdf from "../Requests/ShowPDF";
 import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
 import AllForOne from "./components/AllForOne";
 import CloseModalButton from "../../components/Button/CloseButton";
 import createContent from "./defineContent";
-import {updateMainContent} from "../common/homeContentSlice";
-import {setPlatform} from "../common/platformSlice";
+import { updateMainContent } from "../common/homeContentSlice";
+import { setPlatform } from "../common/platformSlice";
 // import { Switch } from "@headlessui/react";
 // import { FiEdit } from "react-icons/fi";
 
@@ -103,7 +103,7 @@ const TopSideButtons = memo(
                 <a
                   className="dark:text-gray-300"
                   onClick={() => showFiltersAndApply(status)}
-                  style={{textTransform: "capitalize"}}
+                  style={{ textTransform: "capitalize" }}
                 >
                   {capitalizeWords(status)}
                 </a>
@@ -140,7 +140,6 @@ function VersionTable() {
   const [originalVersions, setOriginalVersions] = useState([]);
   const [selectedVersion, setSelectedVersion] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
   const [contentLoader, setContentLoader] = useState(false);
   const [preview, setPreview] = useState(false);
   const [rawContent, setRawContent] = useState(null);
@@ -150,10 +149,11 @@ function VersionTable() {
   const [deepPath, setDeepPath] = useState("");
   const [currentResourceId, setCurrentResourceId] = useState("");
   // const [random, setRandowm] = useState(Math.random())
-  const {random} = CustomContext().random;
-  const {pdf} = CustomContext();
-  const {showPDF, setShowPDF} = pdf;
+  const { random } = CustomContext().random;
+  const { pdf } = CustomContext();
+  const { showPDF, setShowPDF } = pdf;
   // const [activeIndex, setActiveIndex] = useState(null);
+
 
   // redux state
   const userObj = useSelector((state) => state.user);
@@ -163,9 +163,9 @@ function VersionTable() {
     resourceName: "",
   });
 
-  const {resourceId, resourceName} = currentResource;
+  const { resourceId, resourceName } = currentResource;
 
-  const {isManager} = userObj;
+  const { isManager } = userObj;
 
   // Fucntions
   const navigate = useNavigate();
@@ -202,7 +202,7 @@ function VersionTable() {
       openRightDrawer({
         header: "Version Details",
         bodyType: RIGHT_DRAWER_TYPES.VERSION_DETAILS,
-        extraObject: {id},
+        extraObject: { id },
       })
     );
   };
@@ -243,11 +243,13 @@ function VersionTable() {
   };
 
   // Pagination logic
-  const versionsPerPage = 20;
-  const indexOfLastUser = currentPage * versionsPerPage;
-  const indexOfFirstUser = indexOfLastUser - versionsPerPage;
-  const currentVersions = versions?.slice(indexOfFirstUser, indexOfLastUser);
-  const totalPages = Math.ceil(versions?.length / versionsPerPage);
+  // const versionsPerPage = 10;
+  // const indexOfLastUser = currentPage * versionsPerPage;
+  // const indexOfFirstUser = indexOfLastUser - versionsPerPage;
+  const currentVersions = versions
+  // const totalPages = Math.ceil(versions?.length / versionsPerPage);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0)
 
   // Side Effects
   useEffect(() => {
@@ -258,6 +260,8 @@ function VersionTable() {
           const response = await versionsList(resourceId);
           if (response.ok) {
             setVersions(response?.content?.versions || []);
+            setOriginalVersions(response?.content?.versions ?? []); // Store the original unfiltered data
+            setTotalPages(response?.content?.pagination.totalPages)
           }
           setOriginalVersions(response?.content?.versions || []); // Store the original unfiltered data
         } catch (err) {
@@ -293,7 +297,7 @@ function VersionTable() {
               relationType: response.data.relationType,
               editVersion: response.data.versionData,
             };
-            dispatch(updateMainContent({currentPath: "content", payload}));
+            dispatch(updateMainContent({ currentPath: "content", payload }));
             setRawContent(createContent(payload));
             setRoute(payload);
             // if(res)
@@ -326,14 +330,14 @@ function VersionTable() {
         <div className="min-h-[28.2rem] flex flex-col justify-between">
           <div className=" w-full border dark:border-stone-600 rounded-2xl">
             <table className="table text-center min-w-full dark:text-[white]">
-              <thead className="" style={{borderRadius: ""}}>
+              <thead className="" style={{ borderRadius: "" }}>
                 <tr
                   className="!capitalize"
-                  style={{textTransform: "capitalize"}}
+                  style={{ textTransform: "capitalize" }}
                 >
                   <th
                     className="font-medium text-[12px] text-left font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
-                    style={{position: "static", width: "363px"}}
+                    style={{ position: "static", width: "363px" }}
                   >
                     Version Number
                   </th>
@@ -355,7 +359,7 @@ function VersionTable() {
                       <tr
                         key={index}
                         className="font-light "
-                        style={{height: "65px"}}
+                        style={{ height: "65px" }}
                       >
                         {/* 1 */}
                         <td
@@ -377,14 +381,13 @@ function VersionTable() {
                                                                 before:text-2xl flex h-7 
                                                             items-center justify-center 
                                                             gap-1 px-1 py-0 font-[500] 
-                                                          ${
-                                                            statusStyles[
-                                                              version
-                                                                ?.versionStatus
-                                                            ]
-                                                          }
+                                                          ${statusStyles[
+                                  version
+                                    ?.versionStatus
+                                  ]
+                                  }
                                                             rounded-2xl`}
-                                style={{textTransform: "capitalize"}}
+                                style={{ textTransform: "capitalize" }}
                               >
                                 <span className="">
                                   {capitalizeWords(version?.versionStatus)}
@@ -397,7 +400,7 @@ function VersionTable() {
                         {/* 3 */}
                         <td
                           className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                          style={{whiteSpace: ""}}
+                          style={{ whiteSpace: "" }}
                         >
                           <span className="">
                             {formatTimestamp(version?.publishedAt)}

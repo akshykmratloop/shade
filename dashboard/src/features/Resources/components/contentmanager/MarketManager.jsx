@@ -60,7 +60,7 @@ const MarketManager = ({ language, currentContent, currentPath, indexes, outOfEd
     return (
         <div className="w-full">
             {/* reference doc */}
-            <FileUploader id={"marketReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"marketReference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
             {/** Hero Banner */}
             <ContentSection
                 currentPath={currentPath}

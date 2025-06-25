@@ -32,7 +32,7 @@ const VisionManager = ({ content, currentPath, language, indexes, outOfEditing }
     return (
         <div>
             {/* reference doc */}
-            <FileUploader id={"SnR-Polilcy-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"SnR-Polilcy-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
             {/** Hero Banner */}
             <ContentSection
                 currentPath={currentPath}

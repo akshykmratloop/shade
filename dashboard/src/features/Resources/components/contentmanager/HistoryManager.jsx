@@ -6,13 +6,13 @@ import ContentSection from "../breakUI/ContentSections"
 // import { useDispatch } from "react-redux"
 // import { updateCardAndItemsArray, updatePoliciesItems } from "../../../common/homeContentSlice"
 
-const HistoryManager = ({ content, currentPath, language, indexes }) => {
+const HistoryManager = ({ content, currentPath, language, indexes, outOfEditing }) => {
 
 
     return (
         <div>
             {/* reference doc */}
-            <FileUploader id={"History-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"History-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
 
             {/** Hero Banner */}
             <ContentSection
@@ -27,6 +27,7 @@ const HistoryManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['1']}
+                outOfEditing={outOfEditing}
             />
 
             <ContentSection
@@ -39,6 +40,7 @@ const HistoryManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['2']}
+                outOfEditing={outOfEditing}
             />
 
             <ContentSection
@@ -54,6 +56,7 @@ const HistoryManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['2']}
+                outOfEditing={outOfEditing}
             />
 
         </div>

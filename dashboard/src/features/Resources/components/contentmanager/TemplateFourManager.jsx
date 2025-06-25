@@ -49,7 +49,7 @@ const TemplateFourManager = ({ content, currentPath, language, indexes, outOfEdi
     return (
         <div>
             {/* reference doc */}
-            <FileUploader id={"Temp-Four-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"Temp-Four-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
 
             {
                 // context?.id === "N" &&

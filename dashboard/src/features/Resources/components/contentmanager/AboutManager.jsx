@@ -25,7 +25,7 @@ const AboutManager = ({ content, currentPath, language, indexes, outOfEditing })
     return (
         <div className="w-full">
             {/* reference doc */}
-            <FileUploader id={"aboutReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"aboutReference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
             {/* services */}
             <div className="w-full">
                 <ContentSection

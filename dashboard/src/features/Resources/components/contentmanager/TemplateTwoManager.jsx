@@ -85,7 +85,7 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes, outOfEdit
     return (
         <div>
             {/* reference doc */}
-            <FileUploader id={"Temp-Two-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"Temp-Two-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
 
             {
                 // context?.id === "N" &&

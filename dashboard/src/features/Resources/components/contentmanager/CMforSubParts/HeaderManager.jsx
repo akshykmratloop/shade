@@ -4,7 +4,7 @@ import ContentSection from "../../breakUI/ContentSections"
 import DynamicContentSection from "../../breakUI/DynamicContentSection"
 import { updateCardAndItemsArray } from "../../../../common/homeContentSlice";
 
-const HeaderManager = ({ language, currentContent, currentPath, indexes }) => {
+const HeaderManager = ({ language, currentContent, currentPath, indexes, outOfEditing }) => {
     const dispatch = useDispatch();
 
     const addNav = () => {
@@ -30,7 +30,7 @@ const HeaderManager = ({ language, currentContent, currentPath, indexes }) => {
     return (
         <div className="w-full">
             {/* reference doc */}
-            <FileUploader id={"headerReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"headerReference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
 
             <ContentSection
                 currentPath={currentPath}
@@ -44,6 +44,7 @@ const HeaderManager = ({ language, currentContent, currentPath, indexes }) => {
                 currentContent={currentContent}
                 isBorder={false}
                 sectionIndex={indexes?.['2']}
+                outOfEditing={outOfEditing}
             />
 
             {currentContent?.['1']?.content?.map((section, i, a) => {
@@ -68,6 +69,7 @@ const HeaderManager = ({ language, currentContent, currentPath, indexes }) => {
                             sectionIndex={indexes?.['1']}
                             allowRemoval={moreThanFive && !isContactButton}
                             type={"content[index]"}
+                            outOfEditing={outOfEditing}
                         />
 
                     </div>

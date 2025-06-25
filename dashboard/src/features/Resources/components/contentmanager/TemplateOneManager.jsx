@@ -79,7 +79,7 @@ const TemplateOneManager = ({ content, currentPath, language, indexes, outOfEdit
     return (
         <div>
             {/* reference doc */}
-            <FileUploader id={"Temp-One-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"Temp-One-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
 
             {
                 // context?.id === "N" &&
