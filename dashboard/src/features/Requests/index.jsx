@@ -24,6 +24,7 @@ import { PiInfoThin } from "react-icons/pi";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import ShowPdf from "./ShowPDF";
 import CustomContext from "../Context/CustomContext";
+import ToastPlacer from "../Component/ToastPlacer";
 // import { Switch } from "@headlessui/react";
 // import { FiEdit } from "react-icons/fi";
 
@@ -649,6 +650,7 @@ function Requests() {
           />
         )}
       <ToastContainer />
+      <ToastPlacer />
     </div>
   );
 }

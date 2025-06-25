@@ -328,7 +328,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
             className="rounded-md h-[2.5rem] w-[8rem] px-4 flex-[1] text-sm bg-[#25439B] text-white"
             disabled={debouncingState}
           >
-            {debouncingState ? <span className=""><PulseLoader size={5} color="#fff" /></span> : "Save"}
+            {debouncingState ? <span className=""><PulseLoader size={5} color="#fff" /></span> : "Save"}  
           </button>
         </div>
       </div>

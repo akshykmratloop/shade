@@ -23,6 +23,7 @@ import { GrUndo, GrRedo } from "react-icons/gr";
 import { LuEye } from "react-icons/lu";
 // import { RxCross1 } from "react-icons/rx";
 import { Switch } from '@headlessui/react';
+import { runToast } from '../../../Component/ToastPlacer';
 
 
 
@@ -81,21 +82,23 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
             const response = await updateContent(paylaod)
             if (response.ok) {
                 if (isToastify) {
-                    toast.success("Changes has been saved", {
-                        style: { backgroundColor: "#187e3d", color: "white" },
-                        autoClose: 1000, // Closes after 1 second
-                        pauseOnHover: false, // Does not pause on hover
-                    })
+                    // toast.success("Changes has been saved", {
+                    //     style: { backgroundColor: "#187e3d", color: "white" },
+                    //     autoClose: 1000, // Closes after 1 second
+                    //     pauseOnHover: false, // Does not pause on hover
+                    // })
+                    runToast("SUCCESS", "Changes have been draft")
                 }
             } else {
                 throw new Error(response.message)
             }
         } catch (err) {
-            toast.error(err, {
-                style: { backgroundColor: "#187e3d", color: "white" },
-                autoClose: 1000, // Closes after 1 second
-                pauseOnHover: false, // Does not pause on hover
-            })
+            // toast.error(err, {
+            //     style: { backgroundColor: "#187e3d", color: "white" },
+            //     autoClose: 1000, // Closes after 1 second
+            //     pauseOnHover: false, // Does not pause on hover
+            // })
+            runToast("ERROR", err)
         }
     }
 
@@ -106,11 +109,12 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
             const response = await generateRequest(paylaod)
             if (response.ok) {
                 dispatch(submitings())
-                toast.success("Changes has been saved", {
-                    style: { backgroundColor: "#187e3d", color: "white" },
-                    autoClose: 1000, // Closes after 1 second
-                    pauseOnHover: false, // Does not pause on hover
-                })
+                // toast.success("Changes has been saved", {
+                //     style: { backgroundColor: "#187e3d", color: "white" },
+                //     autoClose: 1000, // Closes after 1 second
+                //     pauseOnHover: false, // Does not pause on hover
+                // })
+                runToast("SUCCESS", "Changes have been saved")
                 setTimeout(() => {
                     navigate(-1);
                     // navigate(0)
@@ -119,11 +123,12 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
                 throw new Error(response.message)
             }
         } catch (err) {
-            toast.error(err, {
-                style: { backgroundColor: "#187e3d", color: "white" },
-                autoClose: 1000, // Closes after 1 second
-                pauseOnHover: false, // Does not pause on hover
-            })
+            // toast.error(err, {
+            //     style: { backgroundColor: "#187e3d", color: "white" },
+            //     autoClose: 1000, // Closes after 1 second
+            //     pauseOnHover: false, // Does not pause on hover
+            // })
+            runToast("ERROR", err)
         }
     }
 
@@ -134,11 +139,12 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
             const response = await publishContent(payload)
             if (response.message === "Success") {
                 dispatch(submitings())
-                toast.success("Changes have been published", {
-                    style: { backgroundColor: "#187e3d", color: "white" },
-                    autoClose: 1000, // Closes after 1 second
-                    pauseOnHover: false, // Does not pause on hover
-                })
+                // toast.success("Changes have been published", {
+                //     style: { backgroundColor: "#187e3d", color: "white" },
+                //     autoClose: 1000, // Closes after 1 second
+                //     pauseOnHover: false, // Does not pause on hover
+                // })
+                runToast("SUCCESS", "Changes have been published")
                 setTimeout(() => {
                     navigate(-1)
                 }, 650)
@@ -157,16 +163,17 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
     async function PublishNewPage() {
         if (!isManager) return toast.error("You are not allowed to publish the content directly!", { autoClose: 600 })
         const payload = baseTransform(ReduxState.present.content, ReduxState.filters)
-        console.log(payload)
+        // console.log(payload)
         try {
             const response = await addResource(payload)
             if (response.message === "Success") {
                 dispatch(submitings())
-                toast.success("New Page has been created", {
-                    style: { backgroundColor: "#187e3d", color: "white" },
-                    autoClose: 1000, // Closes after 1 second
-                    pauseOnHover: false, // Does not pause on hover
-                })
+                // toast.success("New Page has been created", {
+                //     style: { backgroundColor: "#187e3d", color: "white" },
+                //     autoClose: 1000, // Closes after 1 second
+                //     pauseOnHover: false, // Does not pause on hover
+                // })
+                runToast("SUCCESS", "New Page has been created")
                 setTimeout(() => {
                     navigate(-1)
                 }, 650)
@@ -174,11 +181,12 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
                 throw new Error(response.message)
             }
         } catch (err) {
-            toast.error(err, {
-                style: { backgroundColor: "#187e3d", color: "white" },
-                autoClose: 1000, // Closes after 1 second
-                pauseOnHover: false, // Does not pause on hover
-            })
+            // toast.error(err, {
+            //     style: { backgroundColor: "#187e3d", color: "white" },
+            //     autoClose: 1000, // Closes after 1 second
+            //     pauseOnHover: false, // Does not pause on hover
+            // })
+                runToast("FAILURE", err)
         }
     }
 
