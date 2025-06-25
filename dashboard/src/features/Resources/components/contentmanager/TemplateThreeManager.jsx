@@ -112,7 +112,7 @@ const TemplateThreeManager = ({ content, currentPath, language, indexes, outOfEd
                 Heading={"Cards"}
                 inputs={[
                     { input: "input", label: "Title", updateType: "title", value: content?.['3']?.content?.title?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", maxLength: 200, value: content?.['3']?.content?.description?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 500, value: content?.['3']?.content?.description?.[language] },
                 ]}
                 section={"banner"}
                 language={language}
@@ -134,7 +134,7 @@ const TemplateThreeManager = ({ content, currentPath, language, indexes, outOfEd
                                 subHeading={`Card ${(i + 1)}`}
                                 inputs={[
                                     { input: "input", label: "Title", updateType: "title", value: section?.title?.[language] },
-                                    { input: "textarea", label: "Description", updateType: "description", maxLength: 150, value: section?.description?.[language] },
+                                    { input: "textarea", label: "Description", updateType: "description", maxLength: 250, value: section?.description?.[language] },
                                 ]}
                                 inputFiles={[{ label: "Image", id: `grid${i}`, order: 1, url: section?.images?.[0]?.url }]}
                                 index={i}

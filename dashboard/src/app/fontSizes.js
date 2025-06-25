@@ -55,7 +55,7 @@ const fontSizes = {
         experiencePara: 16, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 55,
         subProjectParas: 16, subProjectBoxHeading: 35, subProjectBoxPara: 16, subProjectButtons: 18,
         clientSection: 36, testimonialsHead: 36, testimonialsHeading: 40, testimonialsPosition: 12,
-        testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 50, cardTitle: 50,
+        testimonialsQuote: 29, testimonialsCompany: 16, SnRSubHeading: 50, cardTitle: 50,
         // about
         aboutMainPara: 45, aboutPaddingX: 50,
         aboutVideoW: 639, aboutVideoH: 457, // video size but not applied to the video

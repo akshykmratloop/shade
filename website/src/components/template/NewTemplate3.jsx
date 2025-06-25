@@ -159,7 +159,7 @@ const NewTemplate3 = ({content}) => {
               <h2 className={styles.template3_third_section_content_heading}>
                 {currentContent?.["4"]?.content?.title[language]}
               </h2>
-              <p className={styles.template3_third_section_content_para}>
+              <p className={`${styles.template3_third_section_content_para} bank-light`}>
                 {currentContent?.["4"]?.content?.description[language]}
               </p>
               <div className={styles.template3_third_section_card_wrapper}>
