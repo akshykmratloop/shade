@@ -82,14 +82,14 @@ const TemplateOneManager = ({ content, currentPath, language, indexes, outOfEdit
             <FileUploader id={"Temp-One-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
 
             {
-                context?.id === "N" &&
+                // context?.id === "N" &&
                 <ContentSection
                     currentPath={currentPath}
                     Heading={"Page - Details"}
                     inputs={[
                         { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn, dir: "ltr" },
                         { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
-                        ...(context?.id === "N" ? [{ input: "input", label: "Slug", updateType: "slug", value: context?.slug }] : []),
+                        ...(  [{ input: "input", label: "Slug", updateType: "slug", value: context?.slug, disable: context?.id === "N" ? false : true, dir:"ltr" }]),
                     ]}
                     section={"page-details"}
                     language={language}
@@ -102,10 +102,10 @@ const TemplateOneManager = ({ content, currentPath, language, indexes, outOfEdit
                 currentPath={currentPath}
                 Heading={"Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['1']?.content?.title?.[language] },
+                    { input: "input", label: "Heading", updateType: "title", value: content?.['1']?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", value: content?.['1']?.content?.description?.[language] },
                 ]}
-                inputFiles={[{ label: "Backround Image", id: "ServiceBanner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
+                inputFiles={[{ label: "Backround Image", id: "Temp1Banner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
                 section={"banner"}
                 language={language}
                 currentContent={content}
@@ -125,7 +125,7 @@ const TemplateOneManager = ({ content, currentPath, language, indexes, outOfEdit
                                 currentPath={currentPath}
                                 subHeading={`Grid ${(i + 1)}`}
                                 inputs={[
-                                    { input: "input", label: "Heading/title", updateType: "title", value: section?.title?.[language] },
+                                    { input: "input", label: "Title", updateType: "title", value: section?.title?.[language] },
                                     { input: "textarea", label: "Description", updateType: "description", value: section?.description?.[language] },
                                 ]}
                                 inputFiles={[{ label: "Image", id: `grid${i}`, order: 1, url: section?.images?.[0]?.url }]}
@@ -182,15 +182,15 @@ const TemplateOneManager = ({ content, currentPath, language, indexes, outOfEdit
                         )
                     })
                 }
-               {
-               !outOfEditing &&
-               <button
-                    className="text-blue-500 cursor-pointer my-3 pt-3"
-                    onClick={() => addExtraSummary(indexes?.['3'], 3)}
-                    disabled={outOfEditing}
-                >
-                    Add More Section...
-                </button>}
+                {
+                    !outOfEditing &&
+                    <button
+                        className="text-blue-500 cursor-pointer my-3 pt-3"
+                        onClick={() => addExtraSummary(indexes?.['3'], 3)}
+                        disabled={outOfEditing}
+                    >
+                        Add Section...
+                    </button>}
             </div>
 
             <div className="mt-4 border-b pb-3">
@@ -223,14 +223,14 @@ const TemplateOneManager = ({ content, currentPath, language, indexes, outOfEdit
                         )
                     })
                 }
-               {
-               !outOfEditing &&
-               <button
-                    className="text-blue-500 cursor-pointer my-3 pt-3"
-                    onClick={() => addExtraSummary(indexes?.['4'], 4)}
-                >
-                    Add More Section...
-                </button>}
+                {
+                    !outOfEditing &&
+                    <button
+                        className="text-blue-500 cursor-pointer my-3 pt-3"
+                        onClick={() => addExtraSummary(indexes?.['4'], 4)}
+                    >
+                        Add Section...
+                    </button>}
             </div>
 
 

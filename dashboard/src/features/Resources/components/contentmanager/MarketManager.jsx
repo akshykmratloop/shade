@@ -66,7 +66,7 @@ const MarketManager = ({ language, currentContent, currentPath, indexes, outOfEd
                 currentPath={currentPath}
                 Heading={"Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: currentContent?.['1']?.content?.title?.[language] },
+                    { input: "input", label: "Heading", updateType: "title", value: currentContent?.['1']?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", maxLength: 300, value: currentContent?.['1']?.content?.description?.[language] },
                     { input: "input", label: "Button Text", updateType: "button", value: currentContent?.['1']?.content?.button?.[0]?.text?.[language], index: 0 }
                 ]}
@@ -83,7 +83,7 @@ const MarketManager = ({ language, currentContent, currentPath, indexes, outOfEd
                 currentPath={currentPath}
                 Heading={"Sub Heading"}
                 inputs={[
-                    { input: "input", label: "Heading/title", maxLength: 55, updateType: "title", value: currentContent?.['3']?.content?.introSection?.title?.[language] },
+                    { input: "input", label: "Title", maxLength: 55, updateType: "title", value: currentContent?.['3']?.content?.introSection?.title?.[language] },
                     { input: "textarea", label: "Description", maxLength: 400, updateType: "description", value: currentContent?.['3']?.content?.introSection?.description?.[language] },
                     { input: "input", label: "Button for projects", maxLength: 15, updateType: "button", value: currentContent?.['3']?.content?.button?.[0]?.text?.[language], index: 0 }
                 ]}
@@ -117,7 +117,7 @@ const MarketManager = ({ language, currentContent, currentPath, indexes, outOfEd
                 currentPath={currentPath}
                 Heading={"Quote"}
                 inputs={[
-                    { input: "textarea", label: "Heading/title", updateType: "text", maxLength: 300, value: currentContent?.['2']?.content?.text?.[language] },
+                    { input: "textarea", label: "Title", updateType: "text", maxLength: 300, value: currentContent?.['2']?.content?.text?.[language] },
                     { input: "input", label: "Description", updateType: "author", value: currentContent?.['2']?.content?.author?.[language] },
                 ]}
                 section={"quote"}
@@ -128,39 +128,12 @@ const MarketManager = ({ language, currentContent, currentPath, indexes, outOfEd
 
             />
 
-            {/* Market Lists */}
-            {/* <div>
-                <h1>Market Lists</h1>
-                {
-                    currentContent?.tabSection?.tabs.map((element, index) => {
-
-                        return (
-                            <div key={index}>
-                                <MultiSelectPro
-                                    options={currentContent?.tabSection.marketItems}
-                                    currentPath={currentPath}
-                                    section={"tabSection"}
-                                    language={language}
-                                    label={element.title.en}
-                                    id={element.id}
-                                    tabName={"Select Markets"}
-                                    referenceOriginal={{ dir: "markets", index: 0 }}
-                                    currentContent={currentContent}
-                                    sectionIndex={indexes?.["4"]}
-                                    outOfEditing={outOfEditing}
-
-                                />
-                            </div>
-                        )
-                    })
-                }
-            </div> */}
             {/* testimonials */}
             <ContentSection
                 currentPath={currentPath}
                 Heading={"Testimonials"}
                 inputs={[
-                    { input: "input", label: "Heading/title", maxLength: 55, updateType: "title", value: currentContent?.['4']?.content?.title[language] },
+                    { input: "input", label: "Title", maxLength: 55, updateType: "title", value: currentContent?.['4']?.content?.title[language] },
                 ]}
                 section={"Testimonials heading"}
                 language={language}

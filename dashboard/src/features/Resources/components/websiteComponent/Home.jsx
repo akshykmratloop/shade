@@ -73,6 +73,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
 
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
+    const getDynamicSize = (size) => dynamicSize(size, width)
 
     const scrollRef = useRef(null);
 
@@ -124,10 +125,15 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                 ${checkDifference(content?.["1"]?.content?.images?.[0]?.url, liveContent?.["1"]?.content?.images?.[0]?.url)}
                 `}>
                 <div
-                    className={`w-full ${isPhone && "h-fit border"}  min-h-fit block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
+                    className={`w-full ${isPhone && "h-fit"} relative min-h-fit block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
                         }`}
                     style={{ height: (isComputer || isTablet) && dynamicSize(715, width) }}
                 >
+                    <div className="absolute inset-0 pointer-events-none z-[1] flex items-center justify-start overflow-hidden">
+                        <div
+                            style={{ width: getDynamicSize(950), height: getDynamicSize(650) }}
+                            className="rounded-full bg-white opacity-[.9] blur-[120px] mix-blend-screen"></div>
+                    </div>
                     <img
                         dir={isLeftAlign ? "ltr" : "rtl"}
                         src={`${Img_url}${content?.["1"]?.content?.images?.[0]?.url}`}
@@ -138,8 +144,10 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                 </div>
                 <div
                     className={`container mx-auto absolute ${isComputer ? "top-[20%]" : "top-16"}  left-0 right-0 px-4`}>
+
                     <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px] py-10" : "px-[80px]"}`}
                         style={{ paddingLeft: isComputer && dynamicSize(140, width) }}>
+
                         <h1 className={`${(checkDifference(content?.["1"]?.content?.title[language], liveContent?.["1"]?.content?.title[language]))} text-[#292E3D] text-[45px] tracking-[0px]  leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
                             style={{ fontSize: fontSize?.mainHeading, lineHeight: isComputer && `${(width / 1526) * 4.5}rem`, }}
                         >
@@ -594,7 +602,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         }
                         {content?.["7"]?.items?.length > 1 &&
                             <Swiper
-                                modules={[Navigation, Autoplay, EffectCoverflow]}More actions
+                                modules={[Navigation, Autoplay, EffectCoverflow]} More actions
                                 grabCursor={true}
                                 centeredSlides={true}
                                 slidesPerView={isPhone ? 1 : 2}

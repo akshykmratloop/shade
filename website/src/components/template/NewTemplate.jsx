@@ -207,6 +207,10 @@ const NewTemplate = ({content}) => {
                         ? Img_url + item.images?.[0]?.url
                         : ""
                     }
+                    style={{
+                      width: "46px",
+                      height: "46px"
+                    }}
                     alt="icon"
                   />
                   <h2 className={styles.template_second_section_card_heading}>

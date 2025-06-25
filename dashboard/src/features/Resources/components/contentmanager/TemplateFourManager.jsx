@@ -49,17 +49,17 @@ const TemplateFourManager = ({ content, currentPath, language, indexes, outOfEdi
     return (
         <div>
             {/* reference doc */}
-            <FileUploader id={"Temp-Two-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"Temp-Four-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
 
             {
-                context?.id === "N" &&
+                // context?.id === "N" &&
                 <ContentSection
                     currentPath={currentPath}
                     Heading={"Page - Details"}
                     inputs={[
                         { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn, dir: "ltr" },
                         { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
-                        ...(context?.id === "N" ? [{ input: "input", label: "Slug", updateType: "slug", value: context?.slug }] : []),
+                        ...([{ input: "input", label: "Slug", updateType: "slug", value: context?.slug, disable: context?.id === "N" ? false : true, dir:"ltr" }]),
                     ]}
                     section={"page-details"}
                     language={language}
@@ -72,10 +72,10 @@ const TemplateFourManager = ({ content, currentPath, language, indexes, outOfEdi
                 currentPath={currentPath}
                 Heading={"Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['1']?.content?.title?.[language] },
+                    { input: "input", label: "Heading", updateType: "title", value: content?.['1']?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", maxLength: 400, value: content?.['1']?.content?.description?.[language] },
                 ]}
-                inputFiles={[{ label: "Backround Image", id: "ServiceBanner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
+                inputFiles={[{ label: "Backround Image", id: "Template4Banner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
                 section={"banner"}
                 language={language}
                 currentContent={content}
@@ -150,7 +150,7 @@ const TemplateFourManager = ({ content, currentPath, language, indexes, outOfEdi
                                     { input: "input", label: "Title", updateType: "title", value: section?.title?.[language] },
                                     { input: "textarea", label: "Description", updateType: "description", maxLength: 400, value: section?.description?.[language] },
                                 ]}
-                                inputFiles={[{ label: "Icon", id: "ServiceBanner", order: 1, url: section?.images?.[0]?.url }]}
+                                inputFiles={[{ label: "Icon", id: `icontemp4${i}`, order: 1, url: section?.images?.[0]?.url }]}
                                 index={i}
                                 isBorder={false}
                                 section={"cards"}

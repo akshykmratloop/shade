@@ -35,10 +35,10 @@ const HSnEManager = ({ content, currentPath, language, indexes }) => {
                 currentPath={currentPath}
                 Heading={"Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['1']?.content?.title?.[language] },
+                    { input: "input", label: "Heading", updateType: "title", value: content?.['1']?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", value: content?.['1']?.content?.description?.[language] },
                 ]}
-                inputFiles={[{ label: "Backround Image", id: "ServiceBanner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
+                inputFiles={[{ label: "Backround Image", id: "HSE-Banner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
                 section={"banner"}
                 language={language}
                 currentContent={content}
@@ -55,10 +55,10 @@ const HSnEManager = ({ content, currentPath, language, indexes }) => {
                             Heading={"Card " + (i + 1)}
                             currentPath={currentPath}
                             inputs={[
-                                { input: "input", label: "Heading/title", updateType: "title", value: card?.title?.[language] },
+                                { input: "input", label: "Title", updateType: "title", value: card?.title?.[language] },
                                 { input: "textarea", label: "Description", updateType: "description", value: card?.description?.[language] },
                             ]}
-                            inputFiles={[{ label: "Icon", id: "ServiceBanner", order: 1, url: card?.images?.[0]?.url }]}
+                            inputFiles={[{ label: "Icon", id: `HSEIcons${i}`, order: 1, url: card?.images?.[0]?.url }]}
                             section={"cards"}
                             subSection={"cards"}
                             index={i}
@@ -73,7 +73,7 @@ const HSnEManager = ({ content, currentPath, language, indexes }) => {
             <ContentSection
                 Heading={"Feature Image"}
                 currentPath={currentPath}
-                inputFiles={[{ label: "Feature Image", id: "ServiceBanner", order: 1, url: content?.['2']?.content?.images?.[0]?.url }]}
+                inputFiles={[{ label: "Feature Image", id: `Feature-HSE`, order: 1, url: content?.['2']?.content?.images?.[0]?.url }]}
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['2']}
@@ -83,7 +83,7 @@ const HSnEManager = ({ content, currentPath, language, indexes }) => {
                 Heading={"Section 2"}
                 currentPath={currentPath}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
+                    { input: "input", label: "Title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
                     { input: "richtext", label: "Description", updateType: "description", value: content?.['2']?.content?.description?.[language] },
                 ]}
                 // section={"procedures"}
@@ -114,7 +114,7 @@ const HSnEManager = ({ content, currentPath, language, indexes }) => {
                             />)
                     })
                 }
-                <button className="text-blue-500 cursor-pointer mb-3" onClick={() => addExtraSummary('whatWeDo')}>Add More Section...</button>
+                <button className="text-blue-500 cursor-pointer mb-3" onClick={() => addExtraSummary('whatWeDo')}>Add Section...</button>
             </div>
 
 

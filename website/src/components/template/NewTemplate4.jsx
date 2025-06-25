@@ -1,11 +1,11 @@
-import {useGlobalContext} from "@/contexts/GlobalContext";
+import { useGlobalContext } from "@/contexts/GlobalContext";
 import localFont from "next/font/local";
 import styles from "@/components/template/NewTemplate4.module.scss";
 import React from "react";
 import banner from "@/assets/images/Hero.png";
 import templateImg from "@/assets/images/templateImage.png";
 import templateIcon from "../../assets/icons/templateIcon.svg";
-import {Img_url} from "@/common/CreateContent";
+import { Img_url } from "@/common/CreateContent";
 
 const firstSection = {
   id: 1,
@@ -13,9 +13,9 @@ const firstSection = {
   description:
     "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia. Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia.",
   imgs: [
-    {id: 1, img: templateImg},
-    {id: 2, img: templateImg},
-    {id: 3, img: templateImg},
+    { id: 1, img: templateImg },
+    { id: 2, img: templateImg },
+    { id: 3, img: templateImg },
     // {id: 4, img: templateImg},
   ],
 };
@@ -49,7 +49,7 @@ const BankGothic = localFont({
   display: "swap",
 });
 
-const NewTemplate2 = ({content}) => {
+const NewTemplate2 = ({ content }) => {
   const {
     language,
     // content
@@ -64,12 +64,11 @@ const NewTemplate2 = ({content}) => {
     <div>
       <section className={`${styles.template4_banner_wrap} `}>
         <span
-          className={`${language === "en" && styles.leftAlign} ${
-            styles.backgroundContainer
-          }`}
+          className={`${language === "en" && styles.leftAlign} ${styles.backgroundContainer
+            }`}
         >
           <img
-            style={{objectPosition: "bottom", objectFit: "cover"}}
+            style={{ objectPosition: "bottom", objectFit: "cover" }}
             src={
               currentContent?.["1"]?.content?.images?.[0]?.url
                 ? Img_url + currentContent?.["1"]?.content?.images?.[0]?.url
@@ -133,7 +132,7 @@ const NewTemplate2 = ({content}) => {
             <h2 className={styles.template4_first_section_card_heading}>
               {currentContent?.["3"]?.content?.title[language]}
             </h2>
-            <p className={styles.template4_first_section_card_desc}>
+            <p className={`${styles.template4_first_section_card_desc} bank-light`}>
               {currentContent?.["3"]?.content?.description[language]}
             </p>
           </div>
@@ -146,9 +145,13 @@ const NewTemplate2 = ({content}) => {
             <h2 className={styles.template4_second_section_content_heading}>
               {currentContent?.["4"]?.content?.title[language]}
             </h2>
-            <p className={styles.template4_second_section_content_para}>
-              {currentContent?.["4"]?.content?.description[language]}
-            </p>
+            <div className={styles.template4_second_section_content_para}
+              dangerouslySetInnerHTML={{
+                __html:
+                  currentContent?.["4"]?.content?.description[language]
+              }}
+            >
+            </div>
             {/* <p className={styles.template4_second_section_content_para}>
               It is a long established fact that a reader will be distracted by
               the readable content of a page when looking at its layout. The
@@ -179,7 +182,8 @@ const NewTemplate2 = ({content}) => {
                     {item.title[language]}
                   </h2>
                 </div>
-                <p className={styles.template4_third_section_card_desc}>
+                <p className={styles.template4_third_section_card_desc}
+                >
                   {item.description[language]}
                 </p>
               </div>
