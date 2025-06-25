@@ -40,14 +40,14 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent,
                         // services.contructionTowerImage
                         Img_url + content?.['1']?.content?.images?.[0]?.url
                         }")`,
-                    backgroundPosition: "bottom",
+                    backgroundPosition: "center",
                     height: isComputer ? getDynamicSize(600) : isTablet ? "60vh" : "50vh",
                     padding: (isComputer) && `${getDynamicSize(100)} ${getDynamicSize(120)}`
                 }}
             >
                 <div className={`absolute inset-0 pointer-events-none z-0 flex items-center justify-start overflow-hidden`}>
                     <div
-                        style={{ width: getDynamicSize(750), height: getDynamicSize(650) }}
+                        style={{ width:isComputer? getDynamicSize(750):"68%" , height: getDynamicSize(650) }}
                         className="rounded-full bg-white opacity-[.9] blur-[120px] mix-blend-screen"></div>
                 </div>
 
@@ -169,10 +169,10 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent,
                             return (
                                 <article
                                     className={`flex items-center justify-between relative ${(isPhone || isTablet) ? "flex-col" : !odd && "flex-row-reverse"}`}
-                                    style={{ gap: isComputer ? getDynamicSize(70) : getDynamicSize(10) }}
+                                    style={{ gap: isComputer ? getDynamicSize(70) : getDynamicSize(0) }}
                                     key={i}
                                 >
-                                    <div className={`${!isPhone && ''} `}
+                                    <div className={`${!isPhone && ''} border`}
                                         style={{
                                             width: isPhone ? '100%' : isTablet ? "100%" : getDynamicSize(512),
                                         }}
