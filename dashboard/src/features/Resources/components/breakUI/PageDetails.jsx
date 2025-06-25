@@ -138,8 +138,7 @@ const PageDetails = ({ data, display, setOn }) => {
                       {`V${pageInfo?.resourceInfo?.liveVersion?.versionNumber}`}
                     </span>
                   </p>
-                  {(user?.isSuperUser ||
-                    activeRole?.permissions?.includes("PAGE_MANAGEMENT")) && (
+                  {(user?.isManager) && (
                       <>
                         {/* <button
                           className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"

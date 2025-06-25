@@ -49,15 +49,15 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                                 letterSpacing: (isComputer) && getDynamicSize(-5),
                                 lineHeight: (isComputer) && getDynamicSize(50)
                             }}
-                            className={`
+                            className={`font-[700]
                                 ${checkDifference(content?.[1]?.content?.title?.[language], liveContent?.[1]?.content?.title?.[language])}
                                 `}
                         >
                             {content?.[1]?.content?.title?.[language] || "LOREM IPSUM"}
                         </h2>
                         <p
-                            style={{ fontSize: fontSize.testimonialsQuote }}
-                            className={` text-[#0E172FB2]
+                            style={{ fontSize: (isComputer || isTablet) && fontSize.testimonialsQuote }}
+                            className={` text-[#0E172FB2] text-[12px]
                                 ${checkDifference(content?.[1]?.content?.description?.[language], liveContent?.[1]?.content?.description?.[language])}
                                 `}
                         >
