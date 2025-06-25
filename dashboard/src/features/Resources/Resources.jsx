@@ -160,7 +160,7 @@ function Resources() {
   }, [handleResize]);
 
   useEffect(() => { // Fetch Resource's Content from server
-    if (currentResourceId) {
+    if (currentResourceId && preview) {
       async function fetchResourceContent() {
         setContentLoader(true)
         try {
@@ -187,7 +187,7 @@ function Resources() {
       }
       fetchResourceContent()
     }
-  }, [currentResourceId, preview])
+  }, [currentResourceId])
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -331,7 +331,12 @@ function Resources() {
             < div className="fixed top-0 left-0 z-[55] w-screen h-screen bg-stone-900/30 overflow-y-scroll customscroller">
               <Suspense fallback={<FallBackLoader />}>
                 <div className="">
-                  <CloseModalButton onClickClose={() => { setPreview(false); setRawContent(null) }} className={"fixed top-4 right-8 z-[56]"} />
+                  <CloseModalButton onClickClose={() => {
+                    setPreview(false);
+                    setRawContent(null);
+                    setCurrentResourceId("")
+                    dispatch(updateMainContent({ currentPath: "content", payload: undefined,  }))
+                  }} className={"fixed top-4 right-8 z-[56]"} />
                 </div>
 
                 <AllForOne

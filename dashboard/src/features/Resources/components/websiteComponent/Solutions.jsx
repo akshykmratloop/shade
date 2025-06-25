@@ -19,13 +19,10 @@ const SolutionPage = ({ currentContent, language, screen, width, highlight, live
     const isLeftAlign = language === 'en'
     const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
 
-
     // Font and Size
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
     const getDynamicSize = (size) => dynamicSize(size, width)
     const fontLight = useSelector(state => state.fontStyle.light)
-
-
 
     return (
         <div className=" bankgothic-medium-dt pb-8" dir={language === 'en' ? 'ltr' : "rtl"}>
