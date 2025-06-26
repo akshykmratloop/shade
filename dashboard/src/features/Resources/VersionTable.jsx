@@ -30,6 +30,7 @@ import createContent from "./defineContent";
 import { updateMainContent } from "../common/homeContentSlice";
 import { setPlatform } from "../common/platformSlice";
 import ToastPlacer from "../Component/ToastPlacer";
+import LanguageSwitch from "./components/breakUI/SwitchLang";
 // import { Switch } from "@headlessui/react";
 // import { FiEdit } from "react-icons/fi";
 
@@ -489,6 +490,9 @@ function VersionTable() {
                   }}
                   className={"fixed top-4 right-8 z-[56]"}
                 />
+                <div className="w-[10%] fixed top-[30px] rounded-md p-5 bg-gray-100 dark:bg-cyan-800 z-30">
+                  <LanguageSwitch language={language} setLanguage={setLanguage} />
+                </div>
               </div>
 
               <AllForOne
