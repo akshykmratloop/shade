@@ -3,21 +3,34 @@ import FileUploader from "../../../../../components/Input/InputFileUploader"
 import ContentSection from "../../breakUI/ContentSections"
 import DynamicContentSection from "../../breakUI/DynamicContentSection"
 import { updateCardAndItemsArray } from "../../../../common/homeContentSlice";
+import Select from "../../../../../components/Input/Select";
 
 const HeaderManager = ({ language, currentContent, currentPath, indexes, outOfEditing }) => {
     const dispatch = useDispatch();
 
-    const addNav = () => {
+    const lists = [
+        { id: "one", nameEn: "one", nameAr: "ek", url: "/one" },
+        { id: "two", nameEn: "two", nameAr: "do", url: "/two" },
+        { id: "three", nameEn: "three", nameAr: "teen", url: "/three" }
+    ]
 
+    const listName = {}
+
+    lists.forEach((e, i) => {
+        listName[e.nameEn] = e
+    })
+
+    const addNav = (name, value) => {
+        console.log(listName[name])
         dispatch(updateCardAndItemsArray({
             sectionIndex: 0,
             operation: 'add',
             insert: {
                 nav: {
-                    ar: "",
-                    en: ""
+                    ar: listName[name].nameAr,
+                    en: listName[name].nameEn
                 },
-                url: "",
+                url: listName[name].id,
             }
         }))
     }
@@ -75,7 +88,26 @@ const HeaderManager = ({ language, currentContent, currentPath, indexes, outOfEd
                     </div>
                 )
             })}
-            <button className="text-blue-500 cursor-pointer mb-3" onClick={() => addNav()}>Add More Section...</button>
+            {/* <button className="text-blue-500 cursor-pointer mb-3" onClick={() => addNav()}>Add More Section...</button> */}
+
+            {/* <ContentSection
+                currentPath={currentPath}
+                Heading={"Page - Details"}
+                inputs={[
+                    ...(context?.id === "N" ? [{ input: "select", label: "Add new navigation", updateType: "", option: serviceParents }] : [])
+                ]}
+                section={"page-details"}
+                language={language}
+                outOfEditing={outOfEditing}
+            /> */}
+            <Select
+                options={lists}
+                label={"create a new label"}
+                baseClass={"w-full"}
+                width={"w-full"}
+                setterOnChange={addNav}
+                language={language}
+            />
         </div>
     )
 }

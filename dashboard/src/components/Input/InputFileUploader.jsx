@@ -39,7 +39,6 @@ const FileUploader = ({ label, baseClass, id, currentPath, outOfEditing, order }
     //         // dispatch(updateImages({ section: id, src: fileURL, type: "refDoc" }));
     //     }
     // }, [fileURL]);
-    console.log(outOfEditing)
 
     return (
         <div className={`relative ${baseClass} mt-2 mb-4 flex flex-col `}>

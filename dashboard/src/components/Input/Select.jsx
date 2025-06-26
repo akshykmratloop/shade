@@ -34,6 +34,7 @@ const Select = ({
     };
 
     const nameLan = language === "en" ? "nameEn" : "nameAr"
+
     const titleLan = language === "en" ? "titleEn" : "titleAr"
 
     return (
@@ -47,7 +48,6 @@ const Select = ({
                 >
                     <option value="" className="" disabled selected dir={language === "ar" ? "rtl" : "ltr"}> {language === "ar" ? "اختر" : "Select"} </option>
                     {options?.map((option, i) => {
-                        // console.log(option)
                         return (
                             <option dir={language === "ar" ? "rtl" : "ltr"} value={option?.id} key={option + i} className={`${optionsClass || "text-stone-700"} `}>
                                 {option?.[nameLan] || option?.name}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "@/components/header/Header.module.scss";
 import Logo from "@/assets/brand-logo/logo.svg";
 import Image from "next/image";
@@ -18,8 +18,10 @@ const BankGothic = localFont({
 const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
   const { language, toggleLanguage, content, headerData } = useGlobalContext();
   const currentContent = createContent(headerData.content).content;
+  const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
 
-  console.log(currentContent)
+  const isLeftAlign = language === "en"
+  // console.log(currentContent)
   const navItems = currentContent?.["1"]?.content || [];
   const mainNavItems = navItems.slice(0, 6);
   const extraNavItems = navItems.slice(6);
@@ -27,6 +29,9 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [isModal, setIsModal] = useState(false);
+
+  const moreModalRef = useRef(null)
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,6 +53,20 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
   //   // router.push('/contact-us', { scroll: false })
   //   window.open("/contact-us", "_blank", "noopener,noreferrer");
   // };
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (moreModalRef.current && !moreModalRef.current.contains(e.target)) {
+        setIsMoreModalOpen(false)
+      };
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [])
 
   const handleNavbar = () => {
     setIsOpenNavbar(!isOpenNavbar);
@@ -84,7 +103,7 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
                   return (<Link
                     key={i}
                     href={nav?.url}
-                    className={`${styles.menuItem} ${pathname === "/solution" ? styles.active : ""
+                    className={`${styles.menuItem} ${pathname === nav?.url ? styles.active : ""
                       }`}
                   >
                     {nav?.nav?.[language]}
@@ -100,6 +119,25 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
                     {currentContent?.["2"]?.content?.extraKey?.[language]}
                   </p>
                 </p>
+              )}
+              {isMoreModalOpen && (
+                <div ref={moreModalRef}
+                  className={`${styles.moremenu}`} //"absolute top-[70%] mt-2 left-[58%] w-[150px] bg-white rounded-lg shadow-lg p-4 z-50"
+                >
+                  <ul className={""}>
+                    {extraNavItems.map((item, ind) => (
+                      <li key={item.url + ind}>
+                        <Link
+                          href={item.url}
+                          className={`${pathname === item?.url ? styles.active : ""}`}
+                          onClick={() => setIsMoreModalOpen(false)}
+                        >
+                          {item?.nav?.[language]}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               )}
             </nav>
 

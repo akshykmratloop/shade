@@ -67,11 +67,13 @@
           width: 100px;
           height: 34px;
           margin: 9px;
+
           input {
             opacity: 0;
             width: 0;
             height: 0;
           }
+
           .slider {
             position: absolute;
             cursor: pointer;
@@ -83,6 +85,7 @@
             -webkit-transition: 0.4s;
             transition: 2s cubic-bezier(0, 1, 0.5, 1);
             border-radius: 4px;
+
             span {
               position: absolute;
               top: 50%;
@@ -91,17 +94,21 @@
               display: flex;
               justify-content: space-around;
               width: 90%;
+
               p {
                 font-size: 13px;
+
                 &.active {
                   color: white; // Active color
                 }
+
                 &.notActive {
                   color: var(--secondary-light); // Not active color
                 }
               }
             }
           }
+
           .slider:before {
             position: absolute;
             content: "";
@@ -114,7 +121,8 @@
             transition: 2s cubic-bezier(0, 1, 0.5, 1);
             border-radius: 3px;
           }
-          input:checked + .slider:before {
+
+          input:checked+.slider:before {
             -webkit-transform: translateX(45px);
             -ms-transform: translateX(45px);
             transform: translateX(45px);
@@ -148,6 +156,7 @@
         transition: all 0.2s ease;
         cursor: pointer;
         letter-spacing: 0.32px;
+
         &.noPadding {
           height: 40px;
           padding: 0 !important;
@@ -187,6 +196,7 @@
       display: flex;
       justify-content: space-around;
       align-items: center;
+      position: relative;
       /* gap: 45px; */
       width: 680px;
 
@@ -452,7 +462,9 @@
       align-items: center;
       justify-content: flex-end;
       gap: 16px;
+
       &.centerBtn {
+
         .close_btn,
         .apply_btn {
           padding: 10px 16px;
@@ -488,13 +500,16 @@
     padding: 6px 20px;
     border-radius: 30px;
   }
+
   .headerWrapper .header {
     .group_btn .contactButton {
       display: none;
     }
+
     .group_btn .humberger {
       display: block;
     }
+
     .menu {
       display: none;
     }
@@ -517,5 +532,34 @@
     left: 0;
     border-radius: 0;
     padding: 4px 8px;
+  }
+}
+
+
+.moremenu {
+  position: absolute;
+  top: 70%;
+  margin-top: 8px;
+  left: 85%;
+  width: 150px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 1px 1px 4px #00000030;
+  padding: 1rem;
+  z-index: 50;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: start;
+    color: var(--secondary-light); // Not active color
+
+    li {
+      &:hover,
+      &.active {
+        color: var(--secondary);
+      }
+    }
   }
 }
