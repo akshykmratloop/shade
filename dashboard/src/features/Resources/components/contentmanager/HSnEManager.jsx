@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux"
 import { updateAffiliatesCardsArray } from "../../../common/homeContentSlice"
 import DynamicContentSection from "../breakUI/DynamicContentSection"
 
-const HSnEManager = ({ content, currentPath, language, indexes }) => {
+const HSnEManager = ({ content, currentPath, language, indexes, outOfEditing }) => {
     const dispatch = useDispatch()
     const addExtraSummary = () => {
         dispatch(updateAffiliatesCardsArray(
@@ -29,7 +29,7 @@ const HSnEManager = ({ content, currentPath, language, indexes }) => {
     return (
         <div>
             {/* reference doc */}
-            <FileUploader id={"SnR-Polilcy-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"SnR-Polilcy-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
             {/** Hero Banner */}
             <ContentSection
                 currentPath={currentPath}
@@ -43,6 +43,7 @@ const HSnEManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['1']}
+                outOfEditing={outOfEditing}
             />
 
 
@@ -65,6 +66,7 @@ const HSnEManager = ({ content, currentPath, language, indexes }) => {
                             language={language}
                             currentContent={content}
                             sectionIndex={indexes?.['2']}
+                            outOfEditing={outOfEditing}
                         />
                     )
                 })
@@ -77,6 +79,7 @@ const HSnEManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['2']}
+                outOfEditing={outOfEditing}
             />
 
             <ContentSection
@@ -90,6 +93,7 @@ const HSnEManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['2']}
+                outOfEditing={outOfEditing}
             />
 
             <div className="mt-4 border-b">
@@ -111,6 +115,7 @@ const HSnEManager = ({ content, currentPath, language, indexes }) => {
                                 currentContent={content}
                                 sectionIndex={indexes?.['2']}
                                 order={section.order}
+                                outOfEditing={outOfEditing}
                             />)
                     })
                 }

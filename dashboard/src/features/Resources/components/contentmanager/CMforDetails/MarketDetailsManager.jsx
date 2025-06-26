@@ -76,7 +76,7 @@ const MarketDetailsManager = ({ language, content, indexes, currentPath, service
     return (
         <div>
             {/* reference doc */}
-            <FileUploader id={"Market-Details-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"Market-Details-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
 
             {context?.id === "N" &&
                 <>
@@ -91,6 +91,7 @@ const MarketDetailsManager = ({ language, content, indexes, currentPath, service
                         ]}
                         section={"page-details"}
                         language={language}
+                        outOfEditing={outOfEditing}
                     />
                 </>
             }
@@ -105,6 +106,7 @@ const MarketDetailsManager = ({ language, content, indexes, currentPath, service
                 section={"thumbnail"}
                 language={language}
                 currentContent={content}
+                outOfEditing={outOfEditing}
             />
 
             {/** Hero Banner */}

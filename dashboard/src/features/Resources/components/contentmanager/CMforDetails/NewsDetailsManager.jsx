@@ -7,7 +7,7 @@ import MultiSelect from "../../breakUI/MultiSelect"
 import { useEffect, useState } from "react"
 import { getResources } from "../../../../../app/fetch"
 
-const NewsDetailManager = ({ newsId, content, currentPath, language, indexes }) => {
+const NewsDetailManager = ({ newsId, content, currentPath, language, indexes, outOfEditing }) => {
     const dispatch = useDispatch();
     const [newsList, setNewsList] = useState([])
     const newsIndex = 0
@@ -71,7 +71,7 @@ const NewsDetailManager = ({ newsId, content, currentPath, language, indexes }) 
 
     return (
         <div>
-            <FileUploader id={"NewsDetailsIDReference" + newsId} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"NewsDetailsIDReference" + newsId} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
 
             {context?.id === "N" &&
                 <ContentSection
@@ -85,6 +85,7 @@ const NewsDetailManager = ({ newsId, content, currentPath, language, indexes }) 
                     ]}
                     section={"page-details"}
                     language={language}
+                    outOfEditing={outOfEditing}
                 />
             }
 
@@ -98,6 +99,7 @@ const NewsDetailManager = ({ newsId, content, currentPath, language, indexes }) 
                 section={"thumbnail"}
                 language={language}
                 currentContent={content}
+                outOfEditing={outOfEditing}
             />
             {/** Hero Banner */}
             <ContentSection
@@ -114,6 +116,7 @@ const NewsDetailManager = ({ newsId, content, currentPath, language, indexes }) 
                 currentContent={content}
                 projectId={newsIndex + 1}
                 sectionIndex={indexes?.['1']}
+                outOfEditing={outOfEditing}
             />
 
             <div className="mt-4 border-b">
@@ -141,6 +144,7 @@ const NewsDetailManager = ({ newsId, content, currentPath, language, indexes }) 
                                 newsId={newsId}
                                 allowRemoval={true}
                                 sectionIndex={indexes?.['2']}
+                                outOfEditing={outOfEditing}
                             />
                         )
                     })
@@ -163,6 +167,7 @@ const NewsDetailManager = ({ newsId, content, currentPath, language, indexes }) 
                 currentContent={content}
                 projectId={newsIndex + 1}
                 sectionIndex={indexes?.['3']}
+                outOfEditing={outOfEditing}
             />
         </div>
     )

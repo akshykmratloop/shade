@@ -4,8 +4,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./DateTimeCustom.css";
 import CloseModalButton from "../../components/Button/CloseButton";
 import { schedulePublish } from "../../app/fetch";
+import { runToast } from "../Component/ToastPlacer";
+import { isSameDay } from "date-fns";
 
-const DateTime = ({ onClose, display, requestId }) => {
+const DateTime = ({ onClose, display, requestId, parentClose }) => {
     const [date, setDate] = useState("");
     const [time, setTime] = useState(""); // Empty for placeholder
     const [hour, setHour] = useState("");
@@ -14,6 +16,13 @@ const DateTime = ({ onClose, display, requestId }) => {
 
     const modalRef = useRef(null);
     const timePopupRef = useRef(null);
+
+    const now = new Date();
+
+    const isToday = date && isSameDay(date, now);
+    const currentHour = now.getHours();
+    const currentMinute = now.getMinutes();
+
 
     const closeModal = () => onClose(false);
 
@@ -40,29 +49,32 @@ const DateTime = ({ onClose, display, requestId }) => {
             return;
         }
 
-        // Clone the selected date
-        const finalDate = new Date(date);
-
-        // Set selected time (hour, minute, zero seconds & ms)
+        const finalDate = new Date(date);          // clone the chosen day
         finalDate.setHours(Number(hour));
-        finalDate.setMinutes(Number(minute));
-        finalDate.setSeconds(0);
-        finalDate.setMilliseconds(0);
+        finalDate.setMinutes(Number(minute), 0, 0);
 
-        // Convert to ISO 8601 UTC format
+        if (finalDate < new Date()) {              // ⛔ still in the past
+            alert("Please choose a future date and time.");
+            return;
+        }
+
         const isoTimestamp = finalDate.toISOString();
 
         // Now you can use this ISO string as needed
         try {
             const response = await schedulePublish(requestId, { date: isoTimestamp })
-            console.log(response)
+            // console.log(response)
             if (response.ok) {
+                runToast("SUCCESS", "Request has been scheduled to publish")
                 closeModal()
+                parentClose()
             } else {
-                
+                // Throw new Error("")
+                runToast("ERROR", "An Error Occured")
             }
         } catch (err) {
             console.error(err)
+            runToast("ERROR", err.message || "An Error Occured")
         }
     };
 
@@ -124,6 +136,7 @@ const DateTime = ({ onClose, display, requestId }) => {
                             <DatePicker
                                 selected={date}
                                 onChange={(d) => setDate(d)}
+                                minDate={now}
                                 dateFormat="dd-MM-yyyy"
                                 placeholderText="Select a date"
                                 className="w-full h-10 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white text-black dark:bg-[#232b3a] dark:text-white dark:border-gray-600 text-[15px] datepicker-input"
@@ -152,6 +165,7 @@ const DateTime = ({ onClose, display, requestId }) => {
                                         <div className="flex flex-col gap-1 max-h-[140px] overflow-y-auto hideScroller">
                                             {Array.from({ length: 24 }, (_, i) => {
                                                 const value = String(i).padStart(2, "0");
+                                                const tooPast = isToday && i < currentHour;
                                                 return (
                                                     <button
                                                         key={value}
@@ -170,6 +184,10 @@ const DateTime = ({ onClose, display, requestId }) => {
                                         <div className="flex flex-col gap-1 max-h-[140px] overflow-y-auto hideScroller">
                                             {Array.from({ length: 60 }, (_, i) => {
                                                 const value = String(i).padStart(2, "0");
+                                                const tooPast =
+                                                    isToday &&
+                                                    Number(hour) === currentHour &&                // same hour
+                                                    i < currentMinute;                             // but minute already passed
                                                 return (
                                                     <button
                                                         key={value}

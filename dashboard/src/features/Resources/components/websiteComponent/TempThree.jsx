@@ -143,8 +143,8 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                                 ${(checkDifference(content?.['3']?.items, liveContent?.['3']?.items))}
                             `}
                     style={{
-                        padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(60)}`,
-                        paddingBottom: (isComputer || isTablet) && `${getDynamicSize(60)}`,
+                        padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(60)} ${getDynamicSize(60)} `,
+                        // paddingBottom: (isComputer || isTablet) && `${getDynamicSize(60)}`,
                     }}
                 >
                     <section

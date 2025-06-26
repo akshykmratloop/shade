@@ -5,7 +5,7 @@ const OrganizationManager = ({ language, content, indexes, currentPath, outOfEdi
 
     return (
         <div>
-            <FileUploader id={"organizations-Details-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"organizations-Details-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
 
             {/** Hero Banner */}
             <ContentSection

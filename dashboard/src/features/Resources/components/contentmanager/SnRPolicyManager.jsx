@@ -7,8 +7,8 @@ import DynamicContentSection from "../breakUI/DynamicContentSection"
 import { useDispatch, useSelector } from "react-redux"
 import { updateCardAndItemsArray, updatePoliciesItems } from "../../../common/homeContentSlice"
 
-const SnRPoliciesManager = ({ content, currentPath, language, indexes }) => {
-    const [policiesList, setPoliciesList] = useState(null)
+const SnRPoliciesManager = ({ content, currentPath, language, indexes, outOfEditing }) => {
+    // const [policiesList, setPoliciesList] = useState(null)
     const dispatch = useDispatch()
 
     const context = useSelector(state => state.homeContent?.present?.content)
@@ -45,36 +45,36 @@ const SnRPoliciesManager = ({ content, currentPath, language, indexes }) => {
         ))
     }
 
-    useEffect(() => {
-        async function getOptionsforServices() {
-            const response = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SAFETY_RESPONSIBILITY", apiCallType: "INTERNAL", fetchType: "CONTENT" })
-            if (response.message === "Success") {
-                let options = response?.resources?.resources?.map((e, i) => ({
-                    id: e.id,
-                    order: i + 1,
-                    slug: e.slug,
-                    titleEn: e.titleEn,
-                    titleAr: e.titleAr,
-                    icon: e?.icon,
-                    image: e?.image,
-                    descriptions: [
-                        e?.liveModeVersionData?.sections?.[0]?.content?.description,
-                        e?.liveModeVersionData?.sections?.[1]?.content?.description,
-                        e?.liveModeVersionData?.sections?.[1]?.content?.procedures?.description,
-                        e?.liveModeVersionData?.sections?.[1]?.content?.procedures?.terms?.[0]?.description,
-                    ]
-                }))
-                setPoliciesList(options)
-            }
-        }
+    // useEffect(() => {
+    //     async function getOptionsforServices() {
+    //         const response = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SAFETY_RESPONSIBILITY", apiCallType: "INTERNAL", fetchType: "CONTENT" })
+    //         if (response.message === "Success") {
+    //             let options = response?.resources?.resources?.map((e, i) => ({
+    //                 id: e.id,
+    //                 order: i + 1,
+    //                 slug: e.slug,
+    //                 titleEn: e.titleEn,
+    //                 titleAr: e.titleAr,
+    //                 icon: e?.icon,
+    //                 image: e?.image,
+    //                 descriptions: [
+    //                     e?.liveModeVersionData?.sections?.[0]?.content?.description,
+    //                     e?.liveModeVersionData?.sections?.[1]?.content?.description,
+    //                     e?.liveModeVersionData?.sections?.[1]?.content?.procedures?.description,
+    //                     e?.liveModeVersionData?.sections?.[1]?.content?.procedures?.terms?.[0]?.description,
+    //                 ]
+    //             }))
+    //             setPoliciesList(options)
+    //         }
+    //     }
 
-        // getOptionsforServices()
-    }, [])
+    //     // getOptionsforServices()
+    // }, [])
 
     return (
         <div>
             {/* reference doc */}
-            <FileUploader id={"SnR-Polilcy-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"SnR-Polilcy-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
 
             {context?.id === "N" &&
                 <ContentSection
@@ -88,6 +88,7 @@ const SnRPoliciesManager = ({ content, currentPath, language, indexes }) => {
                     ]}
                     section={"page-details"}
                     language={language}
+                    outOfEditing={outOfEditing}
                 />
             }
 
@@ -101,6 +102,7 @@ const SnRPoliciesManager = ({ content, currentPath, language, indexes }) => {
                 section={"thumbnail"}
                 language={language}
                 currentContent={content}
+                outOfEditing={outOfEditing}
             />
             {/** Hero Banner */}
             <ContentSection
@@ -115,6 +117,7 @@ const SnRPoliciesManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['1']}
+                outOfEditing={outOfEditing}
             />
             <ContentSection
                 Heading={"Sub Heading"}
@@ -126,6 +129,7 @@ const SnRPoliciesManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['2']}
+                outOfEditing={outOfEditing}
             />
 
             <ContentSection
@@ -139,6 +143,7 @@ const SnRPoliciesManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['2']}
+                outOfEditing={outOfEditing}
             />
 
             {
@@ -159,6 +164,7 @@ const SnRPoliciesManager = ({ content, currentPath, language, indexes }) => {
                             sectionIndex={indexes?.['2']}
                             allowRemoval={true}
                             type={"content[index]"}
+                            outOfEditing={outOfEditing}
                         />
                     )
                 })

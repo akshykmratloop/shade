@@ -55,7 +55,7 @@ const TemplateThreeManager = ({ content, currentPath, language, indexes, outOfEd
     return (
         <div>
             {/* reference doc */}
-            <FileUploader id={"Temp-Three-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"Temp-Three-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
 
             {
                 // context?.id === "N" &&

@@ -8,7 +8,7 @@ import content from "../../websiteComponent/content.json"
 import { useDispatch } from "react-redux";
 
 
-const FooterManager = ({ language, currentContent, currentPath, indexes }) => {
+const FooterManager = ({ language, currentContent, currentPath, indexes, outOfEditing }) => {
     // const socialIcons = useSelector((state) => state.homeContent.present.images.socialIcons)
     const dispatch = useDispatch()
 
@@ -18,7 +18,7 @@ const FooterManager = ({ language, currentContent, currentPath, indexes }) => {
     return (
         <div className="w-full">
             {/* reference doc */}
-            <FileUploader id={"footerReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"footerReference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
             {/** Hero Banner */}
 
             <ContentSection
@@ -32,6 +32,7 @@ const FooterManager = ({ language, currentContent, currentPath, indexes }) => {
                 language={language}
                 currentContent={currentContent}
                 sectionIndex={indexes?.['1']}
+                outOfEditing={outOfEditing}
             />
 
             {
@@ -49,6 +50,7 @@ const FooterManager = ({ language, currentContent, currentPath, indexes }) => {
                                 isBorder={false}
                                 sectionIndex={indexes?.['2']}
                                 contentIndex={index}
+                                outOfEditing={outOfEditing}
                             />
                             {section.links?.map((item, i, array) => {
                                 const isLast = i === array.length - 1;
@@ -69,6 +71,7 @@ const FooterManager = ({ language, currentContent, currentPath, indexes }) => {
                                         sectionIndex={indexes?.['2']}
                                         contentIndex={index}
                                         index={+i}
+                                        outOfEditing={outOfEditing}
                                     />
                                 )
                             })}
@@ -96,6 +99,7 @@ const FooterManager = ({ language, currentContent, currentPath, indexes }) => {
                 isBorder={true}
                 currentContent={currentContent}
                 sectionIndex={indexes?.['3']}
+                outOfEditing={outOfEditing}
             />
 
             {/* social icons */}
@@ -117,6 +121,7 @@ const FooterManager = ({ language, currentContent, currentPath, indexes }) => {
                 currentContent={currentContent}
                 allowExtraInput={true}
                 sectionIndex={indexes?.['3']}
+                outOfEditing={outOfEditing}
             />
 
         </div>

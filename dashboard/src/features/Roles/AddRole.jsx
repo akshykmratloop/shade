@@ -13,6 +13,8 @@ import updateToasify from "../../app/toastify";
 import CloseModalButton from "../../components/Button/CloseButton";
 import { useDispatch, useSelector } from "react-redux";
 import { switchDebounce } from "../common/debounceSlice";
+import { runToast } from "../Component/ToastPlacer";
+import { PulseLoader } from "react-spinners";
 
 const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
   console.log(role);
@@ -55,14 +57,15 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
     });
     if (!validation) return;
 
-    let loadingToastId = null
+    // let loadingToastId = null
 
     try {
       dispatch(switchDebounce(true))
 
-      loadingToastId = toast.loading("Processing request...", {
-        autoClose: 2000,
-      });
+      // loadingToastId = toast.loading("", {
+      //   autoClose: 2000,
+      // });
+      runToast("LOAD", "Processing request...")
 
       const rolePayload = {
         name: roleData?.name,
@@ -78,19 +81,21 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
       }
 
       if (response.ok) {
-        updateToasify(
-          loadingToastId,
-          `Request successful!🎉. ${response.message}`,
-          "success",
-          1000
-        );
+        // updateToasify(
+        //   loadingToastId,
+        //   `Request successful!🎉. ${response.message}`,
+        //   "success",
+        //   1000
+        // );
+        runToast("SUCCESS", `Request successful!🎉. ${response.message}`)
       } else {
-        updateToasify(
-          loadingToastId,
-          `Request failed. ${response.message}`,
-          "error",
-          2000
-        );
+        // updateToasify(
+        //   loadingToastId,
+        //   `Request failed. ${response.message}`,
+        //   "error",
+        //   2000
+        runToast("ERROR", `Request failed. ${response.message}`)
+        // );
       }
     } catch (err) {
       console.log(err?.message)
@@ -340,8 +345,9 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
             <button
               type="submit"
               className="rounded-md h-[2.5rem] w-[8rem] px-4 text-sm bg-[#25439B] text-[white]"
+              disabled={debouncingState ? true : false}
             >
-              Save
+              {debouncingState ? <span className=""><PulseLoader size={5} color="#fff" /></span> : "Save"}
             </button>
           </div>
         </form>
