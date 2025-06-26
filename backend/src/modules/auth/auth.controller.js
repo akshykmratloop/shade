@@ -11,6 +11,7 @@ import {
   forgotPasswordVerify,
   updatePassword,
   getAllLogs,
+  deleteLogsByDateRange as serviceDeleteLogsByDateRange,
 } from "./auth.service.js";
 
 const Login = async (req, res) => {
@@ -104,11 +105,24 @@ const ResetPass = async (req, res) => {
 };
 
 const GetAllLogs = async (req, res) => {
-  const {search, status, page, limit, entity} = req.query;
+  const {search, status, page, limit, entity, startDate, endDate} = req.query;
   const pageNum = parseInt(page) || 1;
   const limitNum = parseInt(limit) || 10;
-  const response = await getAllLogs(search, status, pageNum, limitNum, entity);
+  const response = await getAllLogs(search, status, pageNum, limitNum, entity, startDate, endDate);
   res.status(200).json(response);
+};
+
+const DeleteLogsByDateRange = async (req, res) => {
+  const { startDate, endDate } = req.body;
+  if (!startDate || !endDate) {
+    return res.status(400).json({ message: "startDate and endDate are required" });
+  }
+  try {
+    const count = await serviceDeleteLogsByDateRange(startDate, endDate);
+    res.status(200).json({ message: `Deleted ${count} logs`, count });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 export default {
@@ -123,4 +137,5 @@ export default {
   ResendOTP,
   ResetPass,
   GetAllLogs,
+  DeleteLogsByDateRange,
 };

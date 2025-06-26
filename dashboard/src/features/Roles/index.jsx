@@ -18,6 +18,7 @@ import RoleDetailsModal from "./ShowRole";
 import updateToasify from "../../app/toastify";
 import capitalizeWords from "../../app/capitalizeword";
 import Paginations from "../Component/Paginations";
+import ToastPlacer, { runToast } from "../Component/ToastPlacer";
 
 const TopSideButtons = ({
   removeFilter,
@@ -132,40 +133,42 @@ function Roles() {
 
 
   const statusChange = async (role) => {
-    let loadingToastId = toast.loading("Proceeding..."); // starting the loading in toaster
+    // let loadingToastId = toast.loading("Proceeding..."); // starting the loading in toaster
+    runToast("LOAD", "Proceeding...")
     try {
 
       let response;
       if (role?.status === "ACTIVE") response = await deactivateRole(role);
       else response = await activateRole(role);
       if (response?.ok) {
-        updateToasify(
-          loadingToastId,
-          `Request successful. ${response.message}`,
-          "success",
-          2000
-        ); // updating the toaster
-        toast.dismiss(loadingToastId) // to deactivate to running taost
-        setTimeout(() => {
-          loadingToastId = undefined
-        }, 2000)
+        // updateToasify(
+        //   loadingToastId,
+        //   `Request successful. ${response.message}`,
+        //   "success",
+        //   2000
+        // ); // updating the toaster
+        runToast("SUCCESS", `Request successful. ${response.message}`)
+        // setTimeout(() => {
+        //   loadingToastId = undefined
+        // }, 2000)
         setChangesInRole((prev) => !prev);
       } else {
-        updateToasify(
-          loadingToastId,
-          `Request failed. ${response.message}`,
-          "error",
-          2000
-        ); // updating the toaster
-        setTimeout(() => {
-          loadingToastId = undefined
-          toast.dismiss(loadingToastId) // to deactivate to running taost
-        }, 2000)
+        // updateToasify(
+        //   loadingToastId,
+        //   `Request failed. ${response.message}`,
+        //   "error",
+        //   2000
+        // ); // updating the toaster
+        runToast("ERROR", `Request failed. ${response.message}`)
+        // setTimeout(() => {
+        //   loadingToastId = undefined
+        //   toast.dismiss(loadingToastId) // to deactivate to running taost
+        // }, 2000)
       }
     } catch (err) {
       console.log(err)
     }
-    toast.dismiss(loadingToastId); // to deactivate to running taost
+    // toast.dismiss(loadingToastId); // to deactivate to running taost
   };
 
 
@@ -386,7 +389,8 @@ function Roles() {
           }}
         />
       )}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
+      <ToastPlacer />
     </div>
   );
 }

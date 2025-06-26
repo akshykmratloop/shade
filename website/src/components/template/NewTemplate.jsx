@@ -167,7 +167,7 @@ const NewTemplate = ({content}) => {
       <section className={`${styles.template_first_section}`}>
         <div className="container">
           <div className={`${styles.template_first_section_card_wrapper}`}>
-            {currentContent?.["2"]?.content?.cards.map((item, idx) => (
+            {currentContent?.["2"]?.content?.cards?.map((item, idx) => (
               <div
                 key={item.id || idx}
                 className={`${styles.template_first_section_card}`}

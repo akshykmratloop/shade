@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 import { getResources, getAllFilters } from "../../../../../app/fetch"
 
 
-const ProjectDetailManager = ({ projectId, currentContent: content, currentPath, language, indexes }) => {
+const ProjectDetailManager = ({ projectId, currentContent: content, currentPath, language, indexes, outOfEditing }) => {
     const [filters, setFilters] = useState([])
     const dispatch = useDispatch()
     const slug = useSelector(state => state?.homeContent?.present?.content?.slug)
@@ -113,7 +113,7 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
     return (
         <div className="w-full">
             {/* reference doc */}
-            <FileUploader id={"ProjectIDReference" + projectId} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"ProjectIDReference" + projectId} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
 
             {
             // context?.id === "N" &&
@@ -130,6 +130,7 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
                         ]}
                     section={"page-details"}
                     language={language}
+                    outOfEditing={outOfEditing}
                     />
                 </>
             }
@@ -144,6 +145,7 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
                 section={"thumbnail"}
                 language={language}
                 currentContent={content}
+                outOfEditing={outOfEditing}
             />
             {/** Hero Banner */}
             <ContentSection
@@ -162,6 +164,7 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
                 currentContent={content}
                 projectId={projectId}
                 sectionIndex={indexes?.['1']}
+                outOfEditing={outOfEditing}
             />
             <div className="mt-4">
                 <h3 className={`font-semibold text-[1.25rem] mb-4`}>Cards</h3>
@@ -186,6 +189,7 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
                                 projectId={projectId}
                                 isBorder={lastIndex}
                                 sectionIndex={indexes?.['2']}
+                                outOfEditing={outOfEditing}
                             />
                         )
                     })
@@ -214,7 +218,8 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
                                 sectionIndex={indexes?.['3']}
                                 contentIndex={index}
                                 type={"content[index]"}
-                                allowRemoval
+                                allowRemoval={true}
+                                outOfEditing={outOfEditing}
                             />
                         )
                     })
@@ -235,6 +240,7 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
                 projectId={projectId}
                 allowExtraInput={true}
                 sectionIndex={indexes?.['4']}
+                outOfEditing={outOfEditing}
             />
 
             <MultiSelect
@@ -251,6 +257,7 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
                 projectId={projectId}
                 sectionIndex={indexes?.['5']}
                 maxLimit={6}
+                outOfEditing={outOfEditing}
             />
 
         </div>

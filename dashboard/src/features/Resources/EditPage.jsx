@@ -20,6 +20,7 @@ import { getContent } from "../../app/fetch";
 import { submitings, updateComment, updateIsEditMode, updateMainContent } from "../common/homeContentSlice";
 import { saveInitialContentValue } from "../common/InitialContentSlice";
 import { structures } from "./components/websiteComponent/structures/PageStructure";
+import ToastPlacer from "../Component/ToastPlacer";
 
 const Page404 = lazy(() => import('../../pages/protected/404'))
 const AllForOne = lazy(() => import("./components/AllForOne"));
@@ -244,6 +245,7 @@ const EditPage = () => {
 
                     </Suspense>}
             <ToastContainer />
+            <ToastPlacer />
         </div >
 
     )

@@ -7,7 +7,7 @@ import { updateMainContent } from "../../../common/homeContentSlice";
 import { getResources } from "../../../../app/fetch"
 
 
-const ProjectManager = ({ currentPath, currentContent, language, indexes }) => {
+const ProjectManager = ({ currentPath, currentContent, language, indexes, outOfEditing }) => {
 
     const [all, setAll] = useState([])
     const [ongoing, setOngoing] = useState([])
@@ -63,7 +63,7 @@ const ProjectManager = ({ currentPath, currentContent, language, indexes }) => {
     return (
         <div className="w-full">
             {/* reference doc */}
-            <FileUploader id={"projectReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"projectReference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
             {/** Hero Banner */}
             <ContentSection
                 currentPath={currentPath}
@@ -78,7 +78,7 @@ const ProjectManager = ({ currentPath, currentContent, language, indexes }) => {
                 language={language}
                 currentContent={currentContent}
                 sectionIndex={indexes?.["1"]}
-
+                outOfEditing={outOfEditing}
             />
 
             <div className="py-2 pt-6">
@@ -106,6 +106,7 @@ const ProjectManager = ({ currentPath, currentContent, language, indexes }) => {
                                     currentContent={currentContent}
                                     sectionIndex={indexes?.["2"]}
                                     bottomBorder={lastIndex}
+                                    outOfEditing={outOfEditing}
                                 />
                             </div>
                         )

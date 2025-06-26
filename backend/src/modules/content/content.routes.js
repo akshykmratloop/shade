@@ -71,13 +71,11 @@ router.put(
 
 router.get(
   "/getRequests",
-  //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetRequest)
 );
 
 router.get(
   "/getRequestInfo/:requestId",
-  //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetRequestInfo)
 );
 
@@ -96,7 +94,6 @@ router.post(
 router.post(
   "/scheduleRequest/:requestId",
   auditLogger,
-  //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.ScheduleRequest)
 );
 
@@ -108,39 +105,31 @@ router.post(
 
 router.get(
   "/getVersionsList/:resourceId",
-  //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetVersionsList)
 );
 
 router.get(
   "/getVersionInfo/:versionId",
-  //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetVersionInfo)
 );
 
 router.get(
   "/restoreVersion/:versionId",
-  //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.RestoreVersion)
 );
 
 router.delete(
   "/deleteAllContentData",
-  // authenticateUser,
-  // checkPermission(["SUPER_ADMIN"]),
-  // auditLogger,
   tryCatchWrap(ContentController.DeleteAllContentData)
 );
 
 router.put(
   "/deactivateResource/:resourceId",
-  //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.DeactivateResources)
 );
 
 router.put(
   "/activateResource/:resourceId",
-  //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.ActivateResources)
 );
 
@@ -151,7 +140,6 @@ router.get(
 
 router.get(
   "/getVersionContent/:versionId",
-  //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetVersionContent)
 );
 

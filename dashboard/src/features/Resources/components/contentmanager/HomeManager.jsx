@@ -90,7 +90,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                                 titleEn: e.titleEn,
                                 titleAr: e.titleAr,
                                 icon: e.resourceTag === "SERVICE" ? e.liveModeVersionData?.icon : e.icon,
-                                image:e.resourceTag === "SERVICE" ? e.liveModeVersionData?.imageF: e.image,
+                                image: e.resourceTag === "SERVICE" ? e.liveModeVersionData?.imageF : e.image,
                                 ...getExtra(e),
                             })
                         });
@@ -104,7 +104,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
 
         getOptionsForServices();
     }, []);
-
+    console.log(outOfEditing)
 
     return ( /// Component
         <div className="w-full">

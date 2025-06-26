@@ -5,7 +5,7 @@ const AffiliatesManager = ({ language, content, indexes, currentPath, outOfEditi
 
     return (
         <div>
-            <FileUploader id={"Affiliates-Details-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"Affiliates-Details-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
 
             {/** Hero Banner */}
             <ContentSection

@@ -39,20 +39,21 @@ const FileUploader = ({ label, baseClass, id, currentPath, outOfEditing, order }
     //         // dispatch(updateImages({ section: id, src: fileURL, type: "refDoc" }));
     //     }
     // }, [fileURL]);
+    console.log(outOfEditing)
 
     return (
         <div className={`relative ${baseClass} mt-2 mb-4 flex flex-col `}>
 
             <label htmlFor={id} className="label-text sm:text-xs xl:text-sm mb-1 text-[#6B7888]">{label}</label>
-
+            {outOfEditing &&
+                <div className="absolute bg-stone-300/30 bottom-0 left-0 z-[35] cursor-not-allowed w-full h-[60%] select-none">
+                </div>}
             {/* File Input Bar */}
             <div className="relative w-full rounded-md overflow-hidden cursor-pointer bg-[#F4F4F4] dark:bg-[#2a303c] flex items-center p-2"
                 onClick={() => setIsSelectorOpen(true)}
 
             >
-                {outOfEditing &&
-                    <div className="absolute bg-stone-300/30 top-0 left-0 z-[35] cursor-not-allowed w-full h-full select-none">
-                    </div>}
+
                 {/* <input
                     type="file"
                     id={id}

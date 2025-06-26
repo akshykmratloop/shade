@@ -5,7 +5,7 @@ import ContentSection from "../../breakUI/ContentSections"
 import FileUploader from "../../../../../components/Input/InputFileUploader"
 import content from '../../websiteComponent/content.json'
 
-const TestimonyManager = ({ testimonyId, currentContent, currentPath, language, indexes }) => {
+const TestimonyManager = ({ testimonyId, currentContent, currentPath, language, indexes, outOfEditing }) => {
     const dispatch = useDispatch()
 
     const context = useSelector(state => state.homeContent?.present?.content)
@@ -14,7 +14,7 @@ const TestimonyManager = ({ testimonyId, currentContent, currentPath, language, 
 
     return (
         <div>
-            <FileUploader id={"testimonyReference/" + testimonyId} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"testimonyReference/" + testimonyId} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
 
             {context?.id === "N" &&
                 <>
@@ -29,6 +29,7 @@ const TestimonyManager = ({ testimonyId, currentContent, currentPath, language, 
                         ]}
                         section={"page-details"}
                         language={language}
+                        outOfEditing={outOfEditing}
                     />
                 </>
             }
@@ -46,7 +47,7 @@ const TestimonyManager = ({ testimonyId, currentContent, currentPath, language, 
                 inputFiles={[
                     { label: "Backround Image", id: "testimony/" + (testimonyId), url: content?.images?.[0]?.url, order: 1 },
                 ]}
-
+                outOfEditing={outOfEditing}
                 section={"testimonials"}
                 language={language}
                 currentContent={currentContent}

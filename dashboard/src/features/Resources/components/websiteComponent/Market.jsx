@@ -17,6 +17,9 @@ import {
 import { TruncateText } from "../../../../app/capitalizeword";
 import { Img_url } from "../../../../routes/backend";
 import dynamicSize, { defineDevice, differentText, generatefontSize } from "../../../../app/fontSizes";
+import { FaArrowLeftLong, FaRegBuilding } from "react-icons/fa6";
+import bracket_l from "../../../../assets/bracket-l.svg"
+import bracket_r from "../../../../assets/bracket-r.svg"
 
 const MarketPage = ({ language, screen, currentContent, highlight, liveContent, purpose }) => {
     const testimonialPrevRef = useRef(null);
@@ -236,19 +239,15 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent, 
                 <div className="container flex justify-center items-center">
                     <div className="relative w-[634px] p-[45px] h-[327px] flex flex-col items-center justify-center bg-white rounded-lg">
                         <div
-                            className={`absolute top-0 ${isPhone ? "left-5" : "left-0"} ${isPhone ? "h-[350px]" : "h-[327px]"} w-[154px] bg-no-repeat bg-center`}
-                            style={{
-                                backgroundImage:
-                                    "url('https://frequencyimage.s3.ap-south-1.amazonaws.com/dedcd7a4-2f65-4cde-bbc3-008818e2581d-Pattern.svg')",
-                            }}
-                        ></div>
+                            className={`absolute top-0 ${isPhone ? "-left-36" : "-left-40"} ${isPhone ? "h-[350px]" : "h-[327px]"} w-full`}
+                        >
+                            <img src={bracket_l} style={{ height: "110%" }} alt="" />
+                        </div>
                         <div
-                            className={`absolute top-0 ${isPhone ? "right-5" : "right-0"} ${isPhone ? "h-[350px]" : "h-[327px]"} w-[154px] bg-no-repeat bg-center`}
-                            style={{
-                                backgroundImage:
-                                    "url('https://frequencyimage.s3.ap-south-1.amazonaws.com/ac99188b-3b99-4708-b075-8a660e9aac8f-Pattern%20%281%29.svg')",
-                            }}
-                        ></div>
+                            className={`absolute -top-0 ${isPhone ? "-right-36" : "-right-40"} ${isPhone ? "h-[350px]" : "h-[327px]"} bg-tranparent bg-no-repeat bg-center`}
+                        >
+                            <img src={bracket_r} style={{ height: "110%" }} alt="" />
+                        </div>
                         <img
                             src={doubleQuotes}
                             width="40"
@@ -301,7 +300,7 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent, 
                         }
                         {currentContent?.["4"]?.items?.length > 1 &&
                             <Swiper
-                            key={language}
+                                key={language}
                                 modules={[Navigation, Autoplay, EffectCoverflow]}
                                 grabCursor={true}
                                 centeredSlides={true}
@@ -369,13 +368,7 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent, 
                                                         {testimonial?.liveModeVersionData?.sections?.[0]?.content?.quote?.[language]}
                                                     </p>
                                                     <div className={`flex items-center justify- gap-2`}>
-                                                        <img
-                                                            src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
-                                                            height={18}
-                                                            width={18}
-                                                            alt={testimonial?.name}
-                                                            className="h-[18px] w-[18px]"
-                                                        />
+                                                        <span><FaRegBuilding /></span>
                                                         <p className={`text-gray-500 text-base font-bold ${isLeftAlign ? "text-left" : "text-right"}`}
                                                             style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                                         >
@@ -392,30 +385,32 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent, 
                         }
 
 
-                        <div className={`flex justify-center items-center gap-7 mt-5 ${!isLeftAlign && "flex-row-reverse"}`} dir={isLeftAlign ? "ltr" : "rtl"}>
+                        <div className={`flex justify-center items-center gap-7 mt-5 ${!isLeftAlign && "flex-row-reverse"} text-[#00B9F2]`} dir={isLeftAlign ? "ltr" : "rtl"}>
                             <button
                                 ref={testimonialNextRef}
                                 className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
                             >
-                                <img
+                                {/* <img
                                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
                                     width="22"
                                     height="17"
                                     alt=""
                                     className={``}
-                                />
+                                /> */}
+                                <span className={``} style={{ fontSize: fontSize.aboutMainPara }}><FaArrowLeftLong /></span>
                             </button>
                             <button
                                 ref={testimonialPrevRef}
                                 className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
                             >
-                                <img
+                                {/* <img
                                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
                                     width="22"
                                     height="17"
                                     alt=""
                                     className={``}
-                                />
+                                /> */}
+                                <span dir="" className={`scale-x-[-1]`} style={{ fontSize: fontSize.aboutMainPara }}><FaArrowLeftLong /></span>
                             </button>
 
                         </div>

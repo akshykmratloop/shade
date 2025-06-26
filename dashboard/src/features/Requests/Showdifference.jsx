@@ -23,6 +23,7 @@ import { approveRequest, rejectedRequest } from "../../app/fetch";
 import { toast } from "react-toastify";
 import ShowPdf from "./ShowPDF";
 import { CiCalendar } from "react-icons/ci";
+import { runToast } from "../Component/ToastPlacer";
 
 
 
@@ -80,24 +81,27 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
     const approveRequestFunc = async (id) => {
         const response = await approveRequest(id)
         if (response.ok) {
-            toast.success("Request has been approved")
+            runToast("SUCCESS", "Request has been approved")
             refreshList()
             onClose()
 
         } else {
-            toast.error(response.message)
+            // toast.error(response.message)
+            runToast("ERROR", response.meesage)
         }
     }
 
     const RejectRequestFunc = async (id, body) => {
         const response = await rejectedRequest(id, { rejectReason: body })
         if (response.ok) {
-            toast.success("Request has been Rejected")
+            // toast.success("Request has been Rejected")
+            runToast("SUCCESS", "Request has been Rejected")
             refreshList()
             onClose()
             return true
         } else {
-            toast.error(response.meesage, { autoClose: 1000, hideProgressBar: true })
+            // toast.error(response.meesage, { autoClose: 1000, hideProgressBar: true })
+            runToast("ERROR", response.meesage)
         }
     }
 
@@ -126,7 +130,7 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
         };
     }, []);
 
-    console.log(liveVersion, editVersion)
+    // console.log(liveVersion, editVersion)
 
 
     useEffect(() => {
@@ -302,7 +306,7 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                     </div>
                     {
                         showDateTime &&
-                        <DateTime onClose={setShowDateTime} display={showDateTime} requestId={requestId} />
+                        <DateTime onClose={setShowDateTime} display={showDateTime} requestId={requestId} parentClose={onClose} />
                     }
                     {
                         onRejectPopup &&
