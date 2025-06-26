@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import localFont from "next/font/local";
 import ContactUsModal from "./ContactUsModal";
 import { useGlobalContext } from "../../contexts/GlobalContext";
+import createContent from "@/common/CreateContent";
 
 // Font files can be colocated inside of `app`
 const BankGothic = localFont({
@@ -15,8 +16,10 @@ const BankGothic = localFont({
 });
 
 const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
-  const { language, toggleLanguage, content } = useGlobalContext();
-  const currentContent = content?.header;
+  const { language, toggleLanguage, content, headerData } = useGlobalContext();
+  const currentContent = createContent(headerData.content).content;
+
+  console.log(currentContent)
   // const router = useRouter()
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
@@ -58,9 +61,8 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
     <>
       <div className="container">
         <header
-          className={`${styles.headerWrapper} ${
-            scrolled ? styles.stickyActive : ""
-          }`}
+          className={`${styles.headerWrapper} ${scrolled ? styles.stickyActive : ""
+            }`}
         >
           <div className={styles.header}>
             <Link href="/" className={styles.logo}>
@@ -74,62 +76,17 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
             </Link>
 
             <nav className={styles.menu}>
-              <Link
-                href="/solution"
-                className={`${styles.menuItem} ${
-                  pathname === "/solution" ? styles.active : ""
-                }`}
-              >
-                {currentContent?.solution[language]}
-              </Link>
-              <Link
-                href="/about-us"
-                className={`${styles.menuItem} ${
-                  pathname === "/about-us" ? styles.active : ""
-                }`}
-              >
-                {currentContent?.about[language]}
-              </Link>
-              <Link
-                href="/services"
-                className={`${styles.menuItem} ${
-                  pathname === "/services" ? styles.active : ""
-                }`}
-              >
-                {currentContent?.services[language]}
-              </Link>
-              <Link
-                href="/market"
-                className={`${styles.menuItem} ${
-                  pathname === "/market" || pathname?.startsWith("/market/") ? styles.active : ""
-                }`}
-              >
-                {currentContent?.market[language]}
-              </Link>
-              <Link
-                href="/project"
-                className={`${styles.menuItem} ${
-                  pathname === "/project" || pathname?.startsWith("/project/") ? styles.active : ""
-                }`}
-              >
-                {currentContent?.project[language]}
-              </Link>
-              <Link
-                href="/career"
-                className={`${styles.menuItem} ${
-                  pathname === "/career" || pathname?.startsWith("/career/") ? styles.active : ""
-                }`}
-              >
-                {currentContent?.career[language]}
-              </Link>
-              <Link
-                href="/news-and-blogs"
-                className={`${styles.menuItem} ${
-                  pathname === "/news-and-blogs" || pathname?.startsWith("/news-and-blogs/") ? styles.active : ""
-                }`}
-              >
-                {currentContent?.news[language]}
-              </Link>
+              {
+                currentContent?.['1']?.content?.map((nav, i) => {
+                  return (<Link
+                    href={nav?.url}
+                    className={`${styles.menuItem} ${pathname === "/solution" ? styles.active : ""
+                      }`}
+                  >
+                    {nav?.nav?.[language]}
+                  </Link>)
+                })
+              }
             </nav>
 
             <div className={styles.group_btn}>
@@ -143,16 +100,14 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
                   <span className={styles.slider + " " + styles.blue}>
                     <span className={styles.shortName}>
                       <p
-                        className={`${language === "en" && styles.notActive} ${
-                          language === "ar" && styles.notActive
-                        }`}
+                        className={`${language === "en" && styles.notActive} ${language === "ar" && styles.notActive
+                          }`}
                       >
                         {language === "en" ? "ARB" : "ENG"}
                       </p>
                       <p
-                        className={`${language === "en" && styles.active} ${
-                          language === "ar" && styles.active
-                        }`}
+                        className={`${language === "en" && styles.active} ${language === "ar" && styles.active
+                          }`}
                       >
                         {language === "en" ? "ENG" : "ARB"}
                       </p>
@@ -164,7 +119,7 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
                 className={`${styles.contactButton} ${BankGothic.className} ${language === "en" && styles.noPadding}`}
                 onClick={handleContactUS}
               >
-                {currentContent?.contact[language]}
+                {currentContent?.contact?.[language]}
               </button>
               <button className={styles.humberger} onClick={handleNavbar}>
                 <span></span>
@@ -176,7 +131,7 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
         </header>
       </div>
 
-      <ContactUsModal  isModal={isModal} onClose={handleContactUSClose} />
+      <ContactUsModal isModal={isModal} onClose={handleContactUSClose} />
     </>
   );
 };

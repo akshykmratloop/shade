@@ -8,13 +8,14 @@ import {
   getEligibleUsers,
   removeAssignedUsers,
 } from "../../../../app/fetch";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import capitalizeWords, { TruncateText } from "../../../../app/capitalizeword";
 import { useDispatch, useSelector } from "react-redux";
 import { switchDebounce } from "../../../common/debounceSlice";
 import SkeletonLoader from "../../../../components/Loader/SkeletonLoader";
-import updateToasify from "../../../../app/toastify";
+// import updateToasify from "../../../../app/toastify";
 import { isEqual } from "lodash";
+import { runToast } from "../../../Component/ToastPlacer"
 
 const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   const initialObj = {
@@ -51,69 +52,100 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   }
 
   ////////////////////////////////////////////
-  async function onSubmit(e) {
-    e.preventDefault();
-    if (!isChanged) return
-    if (debouncingState) return
+async function onSubmit(e) {
+  e.preventDefault();
+  if (!isChanged || debouncingState) return;
 
-    const valueArray = Object.values(formObj);
-    const keyArray = Object.keys(formObj);
-    let sameDoubledValue = false;
-    const verifierSet = new Set(formObj.verifiers.map((e) => e.id));
+  const { manager, verifiers } = formObj;
+  const verifierIds = verifiers.map(v => v.id);
+  const keyArray = Object.keys(formObj).filter(k => k !== "verifiers"); // only top-level keys
+  const duplicateMap = new Map();
+  const emptyFields = [];
 
-    for (let i = 0; i < valueArray?.length; i++) {
-      if (verifierSet.has(valueArray[i])) sameDoubledValue = true;
-      for (let j = i + 1; j < valueArray?.length; j++) {
-        if (valueArray[i] === valueArray[j]) sameDoubledValue = true;
-      }
-      if (keyArray[i] !== "manager" && valueArray[i] === "") {
-        return toast.error(`Please select ${capitalizeWords(keyArray[i])}`);
-      }
-    }
-
-    if (verifierSet.has("")) {
-      return toast.error(`${formObj.verifiers.length > 1 ? "Varifiers' fields" : "Varifier's field"} field can not be empty`);
-    }
-    let loadingToastId
-    try {
-      dispatch(switchDebounce(true))
-      loadingToastId = toast.loading("Updating", { style: { backgroundColor: "#3B82F6", color: "#fff" } }); // starting the loading in toaster
-      if (!sameDoubledValue) {
-        const response = await assignUser(formObj)
-        console.log(response)
-        if (response.ok) {
-          updateToasify(loadingToastId, "Page assigned Successfully 🎉", "success", 1000) // updating the toaster
-
-          setTimeout(() => {
-
-            closeButton()
-            reRender(Math.random())
-            dispatch(switchDebounce(false))
-          }, 700)
-        } else {
-          throw new Error(response.message)
-        }
-      } else {
-        return updateToasify(loadingToastId, `Error! duplicate selection has been found`, "error", 1000)
-      }
-    } catch (err) {
-      console.log(err?.message)
-      updateToasify(loadingToastId, `${err?.message}`, "error", 1000)
-    } finally {
-      setTimeout(() => {
-
-        dispatch(switchDebounce(false))
-      }, 700)
-      // toast.dismiss(loadingToastId)
+  // Check empty top-level fields (except manager)
+  for (const key of keyArray) {
+    if (key !== "manager" && formObj[key] === "") {
+      emptyFields.push(capitalizeWords(key));
     }
   }
+
+  // Check empty verifier fields
+  if (verifierIds.includes("")) {
+    return runToast(
+      "ERROR",
+      `${verifierIds.length > 1 ? "Varifiers' fields" : "Varifier's field"} field can not be empty`
+    );
+  }
+
+  // Collect all field-value pairs with label
+  const valuePairs = [
+    { key: "manager", value: manager },
+    ...verifierIds.map((id, idx) => ({ key: `verifier_${idx + 1}`, value: id }))
+  ];
+
+  // Detect duplicates
+  for (let i = 0; i < valuePairs.length; i++) {
+    for (let j = i + 1; j < valuePairs.length; j++) {
+      if (valuePairs[i].value === valuePairs[j].value) {
+        const dupVal = valuePairs[i].value;
+        if (!duplicateMap.has(dupVal)) {
+          duplicateMap.set(dupVal, new Set());
+        }
+        duplicateMap.get(dupVal).add(valuePairs[i].key);
+        duplicateMap.get(dupVal).add(valuePairs[j].key);
+      }
+    }
+  }
+
+  // Show errors
+  if (emptyFields.length > 0) {
+    return runToast("ERROR", `Please select ${emptyFields.join(", ")}`);
+  }
+
+  if (duplicateMap.size > 0) {
+    const messages = [];
+    for (const [value, keys] of duplicateMap.entries()) {
+      messages.push(`'${value}' in: ${Array.from(keys).join(", ")}`);
+    }
+    return runToast("ERROR", `Duplicate value(s) found → ${messages.join(" | ")}`);
+  }
+
+  // Proceed with submission
+  try {
+    dispatch(switchDebounce(true));
+    runToast("LOAD", "Updating...");
+
+    const response = await assignUser(formObj);
+    console.log(response);
+
+    if (response.ok) {
+      runToast("SUCCESS", "Page assigned Successfully 🎉");
+      setTimeout(() => {
+        closeButton();
+        reRender(Math.random());
+        dispatch(switchDebounce(false));
+      }, 700);
+    } else {
+      throw new Error(response.message);
+    }
+  } catch (err) {
+    console.log(err?.message);
+    runToast("ERROR", typeof err === "string" ? err : err?.message);
+  } finally {
+    setTimeout(() => {
+      dispatch(switchDebounce(false));
+    }, 700);
+  }
+}
+
+
   ////////////////////////////////////////////////////////
 
   async function removeAllUsers() {
     if (debouncingState) return
 
     dispatch(switchDebounce(true))
-    let loadingToastId = toast.loading("Removing all users...", { style: { backgroundColor: "#3B82F6", color: "#fff" } })
+    runToast("LOAD", "Removing all users...")
     try {
       const response = await removeAssignedUsers(resourceId)
 
@@ -124,15 +156,14 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
         setFetchedData(false)
         setIsChanged(false)
         reRender(Math.random())
-        updateToasify(loadingToastId, "Users has been removed successfully!", "success", 700)
+        runToast("SUCCESS", "Users has been removed successfully!")
       } else {
-        updateToasify(loadingToastId, `${response.message}`, "failure", 700)
+        runToast("ERROR", `${response.message}`)
       }
     } catch (err) {
       console.log(err)
-      updateToasify(loadingToastId, `${err.message}`, 700)
+      runToast("ERROR", `${err.message}`)
     } finally {
-      // toast.dismiss(loadingToastId)
       dispatch(switchDebounce(false))
     }
   }

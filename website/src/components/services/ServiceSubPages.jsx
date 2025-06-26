@@ -131,7 +131,7 @@ const ServiceSubPages = ({content}) => {
       <section className={styles.other_service_section}>
         <div className="container">
           <h2 className={styles.other_service_heading}>Other Service</h2>
-          <div className={styles.other_service_wrapper}>
+          <div className={`${styles.other_service_wrapper} rm-scroll`}>
             {currentContent?.["3"]?.items?.map((item, idx) => (
               <div key={idx} className={styles.other_service_card}>
                 <img
@@ -139,6 +139,7 @@ const ServiceSubPages = ({content}) => {
                   alt=""
                   width={435}
                   height={206}
+                  style={{objectFit: "cover", objectPosition: "center"}}
                 />
                 <div className={styles.other_service_card_details}>
                   <h2 className={styles.other_service_card_heading}>

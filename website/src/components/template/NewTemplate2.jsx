@@ -169,9 +169,9 @@ const NewTemplate2 = ({content}) => {
             </p>
           </div>
           <div className={styles.template2_first_section_card_wrapper}>
-            {currentContent?.["3"]?.content?.cards.map((card) => (
+            {currentContent?.["3"]?.content?.cards.map((card, i) => (
               <div
-                key={card.id}
+                key={card.id + i}
                 className={styles.template2_first_section_card}
               >
                 <p className={styles.template2_first_section_card_para}>
@@ -190,7 +190,7 @@ const NewTemplate2 = ({content}) => {
               const isEven = index % 2 === 0;
               return (
                 <div
-                  key={item.id}
+                  key={item.id+index}
                   className={`${styles.template2_second_section_card} ${
                     isEven ? styles.card_layout_left : styles.card_layout_right
                   }`}

@@ -4,7 +4,7 @@ import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../breakUI/ContentSections"
 import MultiSelect from "../breakUI/MultiSelect"
 
-const SnRManager = ({ content, currentPath, language, indexes }) => {
+const SnRManager = ({ content, currentPath, language, indexes, outOfEditing }) => {
     const [policiesList, setPoliciesList] = useState(null)
 
     useEffect(() => {
@@ -35,8 +35,8 @@ const SnRManager = ({ content, currentPath, language, indexes }) => {
 
     return (
         <div>
-            {/* reference doc */}
-            <FileUploader id={"SnRIDReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            {/* reference doc */} 
+            <FileUploader id={"SnRIDReference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
             {/** Hero Banner */}
             <ContentSection
                 currentPath={currentPath}
@@ -51,6 +51,7 @@ const SnRManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['1']}
+                outOfEditing={outOfEditing}
             />
             <ContentSection
                 Heading={"Buttons"}
@@ -62,6 +63,7 @@ const SnRManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['2']}
+                outOfEditing={outOfEditing}
             />
 
             <MultiSelect
@@ -75,6 +77,7 @@ const SnRManager = ({ content, currentPath, language, indexes }) => {
                 referenceOriginal={{ dir: "home" }}
                 currentContent={content}
                 sectionIndex={indexes?.['2']}
+                outOfEditing={outOfEditing}
             />
         </div>
     )

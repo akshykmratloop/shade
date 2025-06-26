@@ -18,6 +18,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
+import { FaArrowLeftLong } from "react-icons/fa6";
+
 
 // import blankImage from "../../../../assets/images/blankImage.webp";
 import { TruncateText } from "../../../../app/capitalizeword";
@@ -25,6 +27,8 @@ import dynamicSize, { generatefontSize } from "../../../../app/fontSizes";
 import { differentText } from "../../../../app/fontSizes";
 // import contentJSON from './content.json'
 import { Img_url } from "../../../../routes/backend";
+import { FaRegBuilding } from "react-icons/fa";
+
 
 function defineDevice(screen) {
     if (screen > 900) {
@@ -36,11 +40,11 @@ function defineDevice(screen) {
     }
 }
 
-const HomePage = ({ language, screen, fullScreen, highlight, content, currentContent, liveContent, width }) => {
+const HomePage = ({ language, screen, fullScreen, highlight, content, currentContent, liveContent, width, purpose }) => {
     // const dispatch = useDispatch()
-    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+    const checkDifference = (!purpose && highlight) ? differentText?.checkDifference?.bind(differentText) : () => ""
     const isComputer = screen > 900;
-    const isTablet = screen < 900 && screen > 730;
+    const isTablet = screen < 900 && screen > 540;
     const isPhone = screen < 450;
     const fontLight = useSelector(state => state.fontStyle.light)
     // const platform = useSelector(state => state.platform.platform)
@@ -124,12 +128,12 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
             <section className={`w-full relative overflow-hidden
                 ${checkDifference(content?.["1"]?.content?.images?.[0]?.url, liveContent?.["1"]?.content?.images?.[0]?.url)}
                 `}
-                    style={{ height: (isComputer || isTablet) && dynamicSize(715, width) }}
-                >
+                style={{ height: (isComputer) ? dynamicSize(715, width) : isTablet ? "80vh" : "70vh" }}
+            >
                 <div
                     className={`w-full ${isPhone && "h-fit"} relative min-h-fit overflow-hidden block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
                         }`}
-                    style={{ height: (isComputer || isTablet) && dynamicSize(715, width) }}
+                    style={{ height: (isComputer) ? dynamicSize(715, width) : isTablet ? "80vh" : "70vh" }}
                 >
                     <div className="absolute inset-0 pointer-events-none z-[1] flex items-center justify-start overflow-hidden">
                         <div
@@ -346,13 +350,16 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                 style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                 onClick={() => { }}>
                                 {currentContent?.["5"]?.button?.[0]?.text?.[language]}
-                                <img
+                                {/* <img
                                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/5d82e78b-cb95-4768-abfe-247369079ce6-bi_arrow-up.svg"
                                     width="18"
                                     height="17"
                                     alt=""
                                     className={`w-[18px] h-[17px] ${isLeftAlign ? 'transform scale-x-[-1]' : ''}`}
-                                />
+                                /> */}
+                                <span className={`${isLeftAlign ? ' scale-x-[-1]' : ''} text-[18px] -translate-y-2`}
+                                    style={{ fontSize: fontSize.aboutMainPara, transform: `translateY(-12px) ${isLeftAlign && "scaleX(-1)"}` }}
+                                ><FaArrowLeftLong /></span>
                             </button>
                         )}
                     </div>
@@ -398,9 +405,9 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             ))}
                         </div>
 
-                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[500px]" : ""} 
+                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[500px] border" : ""} 
                         `}
-                            style={{ width: (isComputer || fullScreen) ? dynamicSize(800, width) : (!isComputer && fullScreen) ? dynamicSize(1030, width) : "" }}
+                            style={{ width: ((isComputer || fullScreen) && !isTablet) ? dynamicSize(800, width) : (!isComputer && fullScreen) ? dynamicSize(1030, width) : "" }}
                         >
                             <Swiper
                                 key={language} //More actions
@@ -469,19 +476,21 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
                             {/* Custom buttons */}
                             <div
-                                className={`flex items-center justify-between relative mt-8 font-sans`}
-                                style={{ width: isComputer ? "" : isPhone ? "220px" : `${(400 / 1180) * screen}px` }}
+                                dir={isLeftAlign ? "ltr" : "rtl"}
+                                className={`flex items-center justify-between relative mt-8 font-sans ${!isLeftAlign && "flex-row-reverse"} border w-full`}
+                                style={{ width: isComputer ? "" : isPhone ? "220px" : `` }}
                             // ${projectChunks?.length <= 1 ? 'hidden' : ''}
                             >
-                                <button ref={prevRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : ""} justify-center  bg-white transition-all duration-200`}
+                                <button ref={prevRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : "w-[280px]"} justify-center  bg-white transition-all duration-200`}
                                     style={{ fontSize: isComputer && dynamicSize(18, width), width: isComputer && dynamicSize(280, width) }}>
-                                    <img
+                                    {/* <img
                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
                                         width="18"
                                         height="17"
                                         alt=""
                                         className={`w-[18px] h-[17px] ${language === "en" && 'transform scale-x-[-1]'}`}
-                                    />
+                                    /> */}
+                                    <span className={``} style={{ fontSize: fontSize.aboutMainPara }}><FaArrowLeftLong /></span>
 
                                     {!isPhone &&
                                         currentContent?.["5"]?.buttons?.[1]?.text?.[language]
@@ -492,13 +501,15 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                     {!isPhone &&
                                         currentContent?.["5"]?.buttons?.[2]?.text?.[language]
                                     }
-                                    <img
+                                    {/* <img
                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
                                         width="18"
                                         height="17"
                                         alt=""
                                         className={`w-[18px] h-[17px] ${isLeftAlign && 'transform scale-x-[-1]'}`}
-                                    />
+                                    /> */}
+                                    <span style={{ fontSize: fontSize.aboutMainPara }} className={`scale-x-[-1]`}><FaArrowLeftLong /></span>
+
                                 </button>
                             </div>
                         </div>
@@ -508,7 +519,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
             {/* client section 6 */}
             <section className="bg-[#00B9F2] py-12 relative" >
-                <img
+                {/* <img
                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/98d10161-fc9a-464f-86cb-7f69a0bebbd5-Group%2061%20%281%29.svg"
                     width="143"
                     height="144"
@@ -521,7 +532,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     height="181"
                     alt="about-us"
                     className="absolute z-[0] bottom-0 right-0"
-                />
+                /> */}
                 <div className="container mx-auto z-[2] relative">
                     <div className="text-center mb-8 px-4">
                         <h2 className={`text-white text-3xl font-bold mb-4 
@@ -668,13 +679,14 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                                         {testimonial?.liveModeVersionData?.sections?.[0]?.content?.quote?.[language]}
                                                     </p>
                                                     <div className={`flex items-center justify- gap-2`}>
-                                                        <img
+                                                        {/* <img
                                                             src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
                                                             height={18}
                                                             width={18}
                                                             alt={testimonial?.name}
                                                             className="h-[18px] w-[18px]"
-                                                        />
+                                                        /> */}
+                                                        <span><FaRegBuilding /></span>
                                                         <p className={`text-gray-500 text-base font-bold ${isLeftAlign ? "text-left" : "text-right"}`}
                                                             style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                                         >
@@ -691,30 +703,34 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         }
 
 
-                        <div className={`flex justify-center items-center gap-7 mt-5 ${!isLeftAlign && "flex-row-reverse"}`}>
+                        <div
+                            dir={isLeftAlign ? "ltr" : "rtl"}
+                            className={`flex justify-center items-center gap-7 mt-5 ${!isLeftAlign && "flex-row-reverse"} text-[#00b9f2]`}>
                             <button
                                 ref={testimonialPrevRef}
                                 className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
                             >
-                                <img
+                                {/* <img
                                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
                                     width="22"
                                     height="17"
                                     alt=""
                                     className={`${isLeftAlign && 'scale-x-[-1]'}`}
-                                />
+                                /> */}
+                                <span className={``} style={{ fontSize: fontSize.aboutMainPara }}><FaArrowLeftLong /></span>
                             </button>
                             <button
                                 ref={testimonialNextRef}
                                 className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
                             >
-                                <img
+                                {/* <img
                                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
                                     width="22"
                                     height="17"
                                     alt=""
                                     className={`${isLeftAlign && 'scale-x-[-1]'}`}
-                                />
+                                /> */}
+                                <span dir="" className={`scale-x-[-1]`} style={{ fontSize: fontSize.aboutMainPara }}><FaArrowLeftLong /></span>
                             </button>
                         </div>
                     </div>

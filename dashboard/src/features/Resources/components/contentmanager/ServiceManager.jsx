@@ -5,7 +5,7 @@ import ContentSection from "../breakUI/ContentSections"
 import MultiSelect from "../breakUI/MultiSelect"
 import { useSelector } from "react-redux"
 
-const ServiceManager = ({ currentContent, currentPath, language, indexes }) => {
+const ServiceManager = ({ currentContent, currentPath, language, indexes, outOfEditing }) => {
     const [subService, setServicesOptions] = useState(null)
 
 
@@ -33,7 +33,7 @@ const ServiceManager = ({ currentContent, currentPath, language, indexes }) => {
     return (
         <div>
             {/* reference doc */}
-            <FileUploader id={"ServiceIDReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"ServiceIDReference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
             {/** Hero Banner */}
           
 
@@ -50,6 +50,7 @@ const ServiceManager = ({ currentContent, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={currentContent}
                 sectionIndex={indexes?.['1']}
+                outOfEditing={outOfEditing}
             />
             <ContentSection
                 Heading={"Buttons"}
@@ -62,6 +63,7 @@ const ServiceManager = ({ currentContent, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={currentContent}
                 sectionIndex={indexes?.['2']}
+                outOfEditing={outOfEditing}
             />
 
             <MultiSelect
@@ -75,6 +77,7 @@ const ServiceManager = ({ currentContent, currentPath, language, indexes }) => {
                 referenceOriginal={{ dir: "home" }}
                 currentContent={currentContent}
                 sectionIndex={indexes?.['2']}
+                outOfEditing={outOfEditing}
             />
         </div>
     )

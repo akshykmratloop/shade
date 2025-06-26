@@ -72,6 +72,7 @@ const SubServiceDetailManager = ({ serviceId, content, currentPath, language, de
                     ]}
                     section={"page-details"}
                     language={language}
+                    outOfEditing={outOfEditing}
                 />
             }
 
@@ -85,6 +86,7 @@ const SubServiceDetailManager = ({ serviceId, content, currentPath, language, de
                 section={"thumbnail"}
                 language={language}
                 currentContent={content}
+                outOfEditing={outOfEditing}
             />
 
             {/** Hero Banner */}

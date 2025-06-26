@@ -122,7 +122,7 @@ const NewTemplate = ({content}) => {
 
   const currentContent = content;
 
-  console.log("NewTemplate content:", currentContent);
+  // console.log("NewTemplate content:", currentContent);
   return (
     <div>
       <section className={`${styles.template_banner_wrap} `}>
@@ -169,7 +169,7 @@ const NewTemplate = ({content}) => {
           <div className={`${styles.template_first_section_card_wrapper}`}>
             {currentContent?.["2"]?.content?.cards?.map((item, idx) => (
               <div
-                key={item.id || idx}
+                key={idx + Math.random()}
                 className={`${styles.template_first_section_card}`}
               >
                 <div className={`${styles.template_first_section_card_image}`}>
@@ -199,9 +199,9 @@ const NewTemplate = ({content}) => {
       <section className={styles.template_second_section}>
         <div className="container">
           <div className={styles.template_second_section_card_wrapper}>
-            {currentContent?.["3"]?.content?.cards.map((item) => (
+            {currentContent?.["3"]?.content?.cards?.map((item, i) => (
               <div
-                key={item.id}
+                key={ i + Math.random()}
                 className={styles.template_second_section_card}
               >
                 <div className={styles.template_second_section_card_header}>
@@ -235,8 +235,8 @@ const NewTemplate = ({content}) => {
       <section className={styles.template_third_section}>
         <div className="container">
           <div className={styles.template_third_section_card_wrapper}>
-            {currentContent?.["4"]?.content?.cards.map((item) => (
-              <div key={item.id} className={styles.template_third_section_card}>
+            {currentContent?.["4"]?.content?.cards?.map((item, i) => (
+              <div key={i + Math.random()} className={styles.template_third_section_card}>
                 <h2 className={styles.template_third_section_card_heading}>
                   {item.title[language]}
                 </h2>

@@ -152,7 +152,7 @@ const AllForOne = ({
     return (
         <div
             ref={divRef}
-            className={`dark:text-[#2A303C] mt-0 transition-custom border-stone-200 border mx-auto w-full ${fontRegular} bg-[white] 
+            className={`dark:text-[#2A303C] mt-0 transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt ${fontRegular} bg-[white] 
             ${fullScreen ? "overflow-y-hidden" : "overflow-y-scroll"} 
             ${hideScroll ? "rm-scroll" : "customscroller"}`}
             style={{

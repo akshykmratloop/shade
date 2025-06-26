@@ -120,7 +120,7 @@ const NewTemplate2 = ({content}) => {
 
               return (
                 <div
-                  key={item.id || idx}
+                  key={item.id + idx}
                   className={`${styles.template4_first_section_image_grid} ${posClass}`}
                 >
                   {/* <div > */}
@@ -181,7 +181,7 @@ const NewTemplate2 = ({content}) => {
           <div className={styles.template4_third_section_card_wrapper}>
             {currentContent?.["5"]?.content?.cards.map((item, idx) => (
               <div
-                key={item.id || idx}
+                key={item.id + idx}
                 className={styles.template4_third_section_card}
               >
                 <div className={styles.template4_third_section_card_header}>

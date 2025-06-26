@@ -6,7 +6,7 @@ import MultiSelectSM from "../breakUI/MultiSelectSM"
 // import { useDispatch } from "react-redux";
 import { getResources } from "../../../../app/fetch";
 
-const NewsManager = ({ language, content, currentPath, indexes }) => {
+const NewsManager = ({ language, content, currentPath, indexes, outOfEditing }) => {
     const [newses, setNewses] = useState([])
 
 
@@ -34,7 +34,7 @@ const NewsManager = ({ language, content, currentPath, indexes }) => {
     }, [])
     return (
         <div className="w-full">
-            <FileUploader id={"newsReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"newsReference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
 
             {/* Banner */}
             <ContentSection
@@ -50,6 +50,7 @@ const NewsManager = ({ language, content, currentPath, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['1']}
+                outOfEditing={outOfEditing}
             />
 
             {/* select main news */}
@@ -64,6 +65,7 @@ const NewsManager = ({ language, content, currentPath, indexes }) => {
                 listOptions={newses}
                 options={content?.['2']?.items}
                 sectionIndex={indexes?.['2']}
+                outOfEditing={outOfEditing}
             />
 
             <ContentSection
@@ -77,6 +79,7 @@ const NewsManager = ({ language, content, currentPath, indexes }) => {
                 currentContent={content}
                 sectionIndex={indexes?.['3']}
                 isBorder={false}
+                outOfEditing={outOfEditing}
             />
 
             {/* select latest news */}
@@ -92,6 +95,7 @@ const NewsManager = ({ language, content, currentPath, indexes }) => {
                 referenceOriginal={{ dir: "news", index: 0 }}
                 currentContent={content}
                 sectionIndex={indexes?.['3']}
+                outOfEditing={outOfEditing}
             />
 
             {/* select trending news */}
@@ -107,6 +111,7 @@ const NewsManager = ({ language, content, currentPath, indexes }) => {
                 listOptions={newses}
                 options={content?.['4']?.items}
                 sectionIndex={indexes?.['4']}
+                outOfEditing={outOfEditing}
             />
 
         </div>

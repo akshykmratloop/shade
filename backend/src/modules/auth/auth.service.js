@@ -15,6 +15,7 @@ import {
   deleteOTP,
   createOrUpdateOtpAttempts,
   findAllLogs,
+  deleteLogsByDateRange as repoDeleteLogsByDateRange,
 } from "../../repository/user.repository.js";
 import {generateRandomOTP} from "../../helper/generateOtp.js";
 
@@ -227,8 +228,12 @@ const generateOtpAndSendOnEmail = async (user, deviceId, otpOrigin) => {
   return otp;
 };
 
-const getAllLogs = async (search, status, pageNum, limitNum, entity) => {
-  return await findAllLogs(search, status, pageNum, limitNum, entity);
+const getAllLogs = async (search, status, pageNum, limitNum, entity, startDate, endDate) => {
+  return await findAllLogs(search, status, pageNum, limitNum, entity, startDate, endDate);
+};
+
+const deleteLogsByDateRange = async (startDate, endDate) => {
+  return await repoDeleteLogsByDateRange(startDate, endDate);
 };
 
 export {
@@ -243,4 +248,5 @@ export {
   resendOTP,
   resetPass,
   getAllLogs,
+  deleteLogsByDateRange,
 };

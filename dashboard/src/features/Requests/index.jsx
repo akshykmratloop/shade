@@ -24,6 +24,7 @@ import { PiInfoThin } from "react-icons/pi";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import ShowPdf from "./ShowPDF";
 import CustomContext from "../Context/CustomContext";
+import ToastPlacer from "../Component/ToastPlacer";
 // import { Switch } from "@headlessui/react";
 // import { FiEdit } from "react-icons/fi";
 
@@ -494,12 +495,12 @@ function Requests() {
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <p
                             className={`min-w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
-                              ${request.flowStatus === "SCHEDULED" ||
+                              ${request.flowStatus === "SCHEDULED" ? "text-green-600 bg-yellow-300 before:text-green-600 px-1" :
                                 request.flowStatus === "PUBLISHED"
-                                ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
-                                : request.flowStatus === "PENDING"
-                                  ? "text-blue-600 bg-sky-200 before:text-blue-600 "
-                                  : "text-red-600 bg-pink-200 before:text-red-600 "
+                                  ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
+                                  : request.flowStatus === "PENDING"
+                                    ? "text-blue-600 bg-sky-200 before:text-blue-600 "
+                                    : "text-red-600 bg-pink-200 before:text-red-600 "
                               } 
                                 rounded-2xl`}
                             style={{ textTransform: "capitalize" }}
@@ -648,7 +649,8 @@ function Requests() {
             }}
           />
         )}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
+      <ToastPlacer />
     </div>
   );
 }

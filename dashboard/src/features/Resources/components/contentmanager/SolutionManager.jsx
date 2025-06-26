@@ -1,11 +1,11 @@
 // import { useEffect } from "react";
 import FileUploader from "../../../../components/Input/InputFileUploader";
 import ContentSection from "../breakUI/ContentSections";
-import {  updateCardAndItemsArray } from "../../../common/homeContentSlice";
+import { updateCardAndItemsArray } from "../../../common/homeContentSlice";
 import { useDispatch } from "react-redux";
 import DynamicContentSection from "../breakUI/DynamicContentSection";
 
-const SolutionManager = ({ currentPath, language, currentContent, indexes }) => {
+const SolutionManager = ({ currentPath, language, currentContent, indexes, outOfEditing }) => {
     const dispatch = useDispatch()
 
     const addExtraSummary = () => {
@@ -30,7 +30,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
     return (
         <div className="w-full">
             {/* reference doc */}
-            <FileUploader id={"solutionReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"solutionReference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
             {/* banner */}
             <ContentSection
                 currentPath={currentPath}
@@ -45,6 +45,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                 language={language}
                 currentContent={currentContent}
                 sectionIndex={indexes?.['1']}
+                outOfEditing={outOfEditing}
             />
 
             <div className="mt-4 border-b">
@@ -69,6 +70,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                                 sectionIndex={indexes?.['2']}
                                 contentIndex={index}
                                 allowRemoval={true}
+                                outOfEditing={outOfEditing}
                             />
                         )
                     })
@@ -90,7 +92,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                 currentContent={currentContent}
                 allowExtraInput={true}
                 sectionIndex={indexes?.['3']}
-
+                outOfEditing={outOfEditing}
             />
         </div>
     )
