@@ -29,6 +29,7 @@ import CloseModalButton from "../../components/Button/CloseButton";
 import createContent from "./defineContent";
 import { updateMainContent } from "../common/homeContentSlice";
 import { setPlatform } from "../common/platformSlice";
+import ToastPlacer from "../Component/ToastPlacer";
 // import { Switch } from "@headlessui/react";
 // import { FiEdit } from "react-icons/fi";
 
@@ -504,7 +505,8 @@ function VersionTable() {
             </Suspense>
           </div>
         ))}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
+      <ToastPlacer />
     </div>
   );
 }

@@ -18,7 +18,6 @@ import patch from "../../contexts/svg/path.jsx";
 import {useGlobalContext} from "../../contexts/GlobalContext";
 import {useRouter} from "next/router";
 import {Img_url} from "@/common/CreateContent";
-import {Link} from "react-router-dom";
 const ContactUsModal = dynamic(() => import("../header/ContactUsModal"), {
   ssr: false,
 });
