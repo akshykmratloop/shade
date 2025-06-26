@@ -14,7 +14,7 @@ model UserAuditLog {
   auditLogId String   @unique
   userId     String
   user       User     @relation(fields: [userId], references: [id])
-  auditLog   AuditLog @relation(fields: [auditLogId], references: [id])
+  auditLog   AuditLog @relation(fields: [auditLogId], references: [id], onDelete: Cascade)
   createdAt  DateTime @default(now())
 
   @@id([auditLogId, userId]) // primary key as combination of both id

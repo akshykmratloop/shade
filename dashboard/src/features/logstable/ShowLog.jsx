@@ -139,6 +139,7 @@ function ShowLogs({ log, show, onClose }) {
           {obj.map((item, idx) => {
             const path = `${basePath}[${idx}]`;
             const isChanged = changedPaths.includes(path);
+            // Highlight the full line (including brackets and commas)
             const highlightStyle = isChanged
               ? {
                   background: isOld ? "#ffeaea" : "#fff8c6",
@@ -147,8 +148,9 @@ function ShowLogs({ log, show, onClose }) {
                   padding: "0 2px",
                   border: "1px solid #e0b4b4",
                   fontWeight: 600,
+                  display: "block",
                 }
-              : {};
+              : { display: "block" };
             return (
               <div key={idx} style={{ marginLeft: (level + 1) * indent, ...highlightStyle }}>
                 {renderHighlightedJSON(item, changedPaths, path, isOld, level + 1)}
@@ -163,11 +165,13 @@ function ShowLogs({ log, show, onClose }) {
     const entries = Object.entries(obj);
     return (
       <>
-        <div style={{ marginLeft: level * indent }}>{'{'}</div>
+        <div style={{ marginLeft: level * indent }}>{'{'}
+        </div>
         {entries.map(([key, value], idx) => {
           const path = basePath ? `${basePath}.${key}` : key;
           const isChanged = changedPaths.includes(path);
           const isObjectOrArray = typeof value === "object" && value !== null;
+          // Highlight the full line (including key and value)
           const highlightStyle = isChanged
             ? {
                 background: isOld ? "#ffeaea" : "#fff8c6",
@@ -176,8 +180,9 @@ function ShowLogs({ log, show, onClose }) {
                 padding: "0 2px",
                 border: "1px solid #e0b4b4",
                 fontWeight: 600,
+                display: "block",
               }
-            : {};
+            : { display: "block" };
           return (
             <div
               key={key}
@@ -185,7 +190,6 @@ function ShowLogs({ log, show, onClose }) {
                 marginLeft: (level + 1) * indent,
                 wordBreak: "break-all",
                 ...highlightStyle,
-                display: "block",
               }}
             >
               <span style={{ color: "#6a9955" }}>&quot;{key}&quot;</span>: {isObjectOrArray ? (
@@ -204,7 +208,7 @@ function ShowLogs({ log, show, onClose }) {
     );
   }
 
-  const term = log?.entity === "resource" ?  "resource" : "name";
+  const term =  log?.actionType === "CREATE RESOURCE" ? "titleAr" :  log?.entity === "resource" ?  "resource" : "name";
 
   return (
     <Dialog
@@ -322,7 +326,7 @@ function ShowLogs({ log, show, onClose }) {
                     <button
                       onClick={() => setFullScreen(true)}
                       title="Full Screen Compare"
-                      className="absolute right-0 top-0 z-10 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded p-1"
+                      className="absolute right-0 top-[-6px] z-10 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded p-1"
                       style={{ display: fullScreen ? 'none' : 'block' }}
                     >
                       <ArrowsPointingOutIcon className="w-5 h-5" />
@@ -330,7 +334,7 @@ function ShowLogs({ log, show, onClose }) {
                     {/* Normal Compare View */}
                     <div className="flex gap-3 mt-4" style={{ filter: fullScreen ? 'blur(2px)' : 'none', pointerEvents: fullScreen ? 'none' : 'auto' }}>
                       {log?.oldValue && (
-                        <div className="w-1/2">
+                        <div className={log?.oldValue && !log?.newValue ? "w-full" : "w-1/2"}>
                           <div className="font-[500] mb-1">Old Value (JSON)</div>
                           <pre className="bg-gray-100 dark:bg-gray-900 rounded p-2 text-xs" style={{overflowX: 'auto', whiteSpace: 'pre', fontFamily: 'monospace'}}>
                             <code>{renderHighlightedJSON(log.oldValue, changedPaths, "", true)}</code>
@@ -338,7 +342,7 @@ function ShowLogs({ log, show, onClose }) {
                         </div>
                       )}
                       {log?.newValue && (
-                        <div className="w-1/2">
+                        <div className={log?.newValue && !log?.oldValue ? "w-full" : "w-1/2"}>
                           <div className="font-[500] mb-1">New Value (JSON)</div>
                           <pre className="bg-gray-100 dark:bg-gray-900 rounded p-2 text-xs" style={{overflowX: 'auto', whiteSpace: 'pre', fontFamily: 'monospace'}}>
                             <code>{renderHighlightedJSON(log.newValue, changedPaths, "", false)}</code>
@@ -360,7 +364,7 @@ function ShowLogs({ log, show, onClose }) {
                         </div>
                         <div className="flex w-[90vw] h-[90vh] gap-4 bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 overflow-auto">
                           {log?.oldValue && (
-                            <div className="w-1/2 h-full flex flex-col">
+                            <div className={log?.oldValue && !log?.newValue ? "w-full h-full flex flex-col" : "w-1/2 h-full flex flex-col"}>
                               <div className="font-[500] mb-1">Old Value (JSON)</div>
                               <pre className="bg-gray-100 dark:bg-gray-900 rounded p-2 text-xs flex-1 overflow-auto" style={{whiteSpace: 'pre', fontFamily: 'monospace'}}>
                                 <code>{renderHighlightedJSON(log.oldValue, changedPaths, "", true)}</code>
@@ -368,7 +372,7 @@ function ShowLogs({ log, show, onClose }) {
                             </div>
                           )}
                           {log?.newValue && (
-                            <div className="w-1/2 h-full flex flex-col">
+                            <div className={log?.newValue && !log?.oldValue ? "w-full h-full flex flex-col" : "w-1/2 h-full flex flex-col"}>
                               <div className="font-[500] mb-1">New Value (JSON)</div>
                               <pre className="bg-gray-100 dark:bg-gray-900 rounded p-2 text-xs flex-1 overflow-auto" style={{whiteSpace: 'pre', fontFamily: 'monospace'}}>
                                 <code>{renderHighlightedJSON(log.newValue, changedPaths, "", false)}</code>

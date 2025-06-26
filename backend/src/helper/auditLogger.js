@@ -66,7 +66,7 @@ function resolveAction(req, method, entity) {
     {
       match: (req) =>
         req.baseUrl.includes("content") && req.path.startsWith("/addResource"),
-      actionType: "CREATE",
+      actionType: "CREATE RESOURCE",
       action_performed: "Added a new resource",
     },
     // Add more custom actions here as needed
@@ -286,8 +286,8 @@ const auditLogger = async (req, res, responseBodyOrNext) => {
     req.body.id ||
     req.body.resourceId ||
     res?.user?.id ||
-    responseBodyOrNext.id;
-  null;
+    responseBodyOrNext.id ||
+    req.body.id || req.body.slug || req.body.parentId || null;
   const ipAddress = req.ip;
   const browserInfo = req.headers["user-agent"];
 
@@ -418,10 +418,7 @@ const auditLogger = async (req, res, responseBodyOrNext) => {
       } else {
         oldValue = approvalAudit;
       }
-    } else if (actionType === "CREATE") {
-      newValue = req.body;
-      entityId = req.body.id || req.body.slug || req.body.parentId || null;
-    }
+    } 
   } else if (
     ["UPDATE", "DELETE", "ASSIGN", "REMOVE"].includes(actionType) &&
     entityId
@@ -455,7 +452,11 @@ const auditLogger = async (req, res, responseBodyOrNext) => {
       (actionType === "REQUEST GENERATED" && entity === "resource" && entityId)
     ) {
       // Already set above
-    } else if (
+    }  
+    else if (actionType === "CREATE RESOURCE") {
+      newValue = req.body;
+    }
+    else if (
       (actionType === "REJECT" ||
         actionType === "APPROVE" ||
         actionType === "PUBLISH" ||

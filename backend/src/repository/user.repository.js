@@ -611,8 +611,32 @@ export const fetchAllRolesForUser = async () => {
   };
 };
 
-export const findAllLogs = async (search, status, pageNum, limitNum, entity) => {
+export const findAllLogs = async (search, status, pageNum, limitNum, entity, startDate, endDate) => {
   const skip = (pageNum - 1) * limitNum;
+
+  // Helper function to create date range that includes the entire end date
+  const createDateRange = (start, end) => {
+    const startDateTime = new Date(start);
+    const endDateTime = new Date(end);
+    
+    // Set start date to beginning of day (00:00:00.000)
+    startDateTime.setHours(0, 0, 0, 0);
+    
+    // Set end date to end of day (23:59:59.999)
+    endDateTime.setHours(23, 59, 59, 999);
+    
+    console.log('Date Range Debug:', {
+      originalStart: start,
+      originalEnd: end,
+      adjustedStart: startDateTime.toISOString(),
+      adjustedEnd: endDateTime.toISOString()
+    });
+    
+    return {
+      gte: startDateTime,
+      lte: endDateTime,
+    };
+  };
 
   // Define the where clause for both findMany and count
   const whereClause = {
@@ -622,6 +646,11 @@ export const findAllLogs = async (search, status, pageNum, limitNum, entity) => 
     },
     ...(status ? { outcome: status } : {}),
     ...(entity ? { entity } : {}),
+    ...(startDate && endDate
+      ? {
+          timestamp: createDateRange(startDate, endDate),
+        }
+      : {}),
   };
 
   const [logs, totalLogs] = await Promise.all([
@@ -663,4 +692,39 @@ export const updateProfileImage = async (userId, imageUrl) => {
   });
 
   return profileImage;
+};
+
+export const deleteLogsByDateRange = async (startDate, endDate) => {
+  if (!startDate || !endDate) throw new Error('Both startDate and endDate are required');
+  
+  // Helper function to create date range that includes the entire end date
+  const createDateRange = (start, end) => {
+    const startDateTime = new Date(start);
+    const endDateTime = new Date(end);
+    
+    // Set start date to beginning of day (00:00:00.000)
+    startDateTime.setHours(0, 0, 0, 0);
+    
+    // Set end date to end of day (23:59:59.999)
+    endDateTime.setHours(23, 59, 59, 999);
+    
+    console.log('Delete Date Range Debug:', {
+      originalStart: start,
+      originalEnd: end,
+      adjustedStart: startDateTime.toISOString(),
+      adjustedEnd: endDateTime.toISOString()
+    });
+    
+    return {
+      gte: startDateTime,
+      lte: endDateTime,
+    };
+  };
+
+  const result = await prismaClient.auditLog.deleteMany({
+    where: {
+      timestamp: createDateRange(startDate, endDate),
+    },
+  });
+  return result.count;
 };

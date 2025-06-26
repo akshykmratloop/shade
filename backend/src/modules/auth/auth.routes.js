@@ -87,5 +87,12 @@ router.get(
   tryCatchWrap(AuthController.GetAllLogs)
 );
 
+router.post(
+  "/logs/delete",
+  authenticateUser,
+  checkPermission(requiredPermissionsLog),
+  tryCatchWrap(AuthController.DeleteLogsByDateRange)
+);
+
 export default router;
 
