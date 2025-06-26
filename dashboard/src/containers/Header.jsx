@@ -137,6 +137,8 @@ function Header() {
 
     // handler to re‑fetch the unread count
     const handleNew = async (payload) => {
+      alert("msg")
+
       if (payload.userId !== userId) return;
       const res = await getNotificationsbyId(userId);
       const unread = res.notifications?.notifications?.filter(
@@ -153,15 +155,15 @@ function Header() {
       // let roles = response.result?.roles?.filter((e) => e.status === "ACTIVE");
 
       const userObj = response.result;
+
       // console.log("userObj", userObj);
 
       dispatch(updateUser({ data: userObj, type: "update" }));
       localStorage.setItem("user", JSON.stringify(userObj));
     };
 
-    socket.on("role_created", handleNew);
-    socket.on("user_created", handleNew);
-    socket.on("user_updated", handleNew);
+    // socket.on("user_created", handleNew);
+    // socket.on("user_updated", handleNew);
     socket.on("userUpdated", handleUserUpdate);
     // socket.on("user_updated", handleNew);
     // …listen to any other event names you emit
@@ -169,29 +171,14 @@ function Header() {
     // …listen to any other event names you emit
 
     return () => {
-      socket.off("role_created", handleNew);
-      socket.off("user_updated", handleNew);
-      socket.off("user_created", handleNew);
+      // socket.off("user_updated", handleNew);
+      // socket.off("user_created", handleNew);
       socket.off("userUpdated", handleUserUpdate);
       // socket.off("user_updated", handleNew);
     };
   }, [userId, dispatch]);
 
-  // useEffect(() => {
-  //   async function fetchUnreadCount() {
-  //     try {
-  //       const result = await getNotificationsbyId(user?.id);
-  //       const unreadCount =
-  //         result?.notifications?.filter((n) => !n.isRead).length || 0;
-  //       dispatch(setNotificationCount(unreadCount));
-  //     } catch (error) {
-  //       console.error("Failed to fetch notifications count", error);
-  //     }
-  //   }
-  //   if (user?.id) {
-  //     fetchUnreadCount();
-  //   }
-  // }, [user?.id]);
+ 
 
   return (
     <div className="py-4 px-2 pr-4">
