@@ -20,6 +20,9 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
   const currentContent = createContent(headerData.content).content;
 
   console.log(currentContent)
+  const navItems = currentContent?.["1"]?.content || [];
+  const mainNavItems = navItems.slice(0, 6);
+  const extraNavItems = navItems.slice(6);
   // const router = useRouter()
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
@@ -77,8 +80,9 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
 
             <nav className={styles.menu}>
               {
-                currentContent?.['1']?.content?.map((nav, i) => {
+                mainNavItems?.map((nav, i) => {
                   return (<Link
+                    key={i}
                     href={nav?.url}
                     className={`${styles.menuItem} ${pathname === "/solution" ? styles.active : ""
                       }`}
@@ -87,6 +91,16 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
                   </Link>)
                 })
               }
+              {extraNavItems.length > 0 && (
+                <p
+                  onClick={() => setIsMoreModalOpen(true)}
+                  className={`${styles.menuItem}`}
+                >
+                  <p className={``}>
+                    {currentContent?.["2"]?.content?.extraKey?.[language]}
+                  </p>
+                </p>
+              )}
             </nav>
 
             <div className={styles.group_btn}>
