@@ -7,6 +7,7 @@ import NewTemplate4 from "@/components/template/NewTemplate4";
 import {backendAPI} from "@/contexts/GlobalContext";
 import Head from "next/head";
 import {useEffect, useState} from "react";
+import Custom404 from "./404";
 
 const TEMPLATE_COMPONENTS = {
   TEMPLATE_ONE: NewTemplate,
@@ -69,7 +70,7 @@ export default function Template({apiData}) {
   }, [apiData]);
 
   if (isLoading || !TemplateComponent) {
-    return <Loader />;
+    return <Custom404 />;
   }
 
   return (
