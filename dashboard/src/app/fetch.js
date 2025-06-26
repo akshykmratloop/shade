@@ -596,3 +596,12 @@ export async function fetchAllImages(query) {
 
   return await makerequest(url, "GET");
 }
+
+export async function deleteLogsByDateRange({ startDate, endDate }) {
+  return await makerequest(
+    api.route("userLogs") + "/delete",
+    "POST",
+    JSON.stringify({ startDate, endDate }),
+    ContentType.json
+  );
+}
