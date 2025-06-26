@@ -228,7 +228,7 @@ const HomePage = ({content}) => {
                 <div className={styles.card_body}>
                   <Image
                     className={styles.icon}
-                    src={Img_url + card?.iconName}
+                    src={Img_url + card?.icon}
                     width={40}
                     height={40}
                     alt="services-icon"

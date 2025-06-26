@@ -160,3 +160,13 @@ ul {
 .bank-light{
   font-family: "BankGothic-Medium-lt";
 }
+
+
+.rm-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.rm-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}

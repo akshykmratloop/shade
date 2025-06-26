@@ -199,7 +199,7 @@ const NewTemplate = ({content}) => {
       <section className={styles.template_second_section}>
         <div className="container">
           <div className={styles.template_second_section_card_wrapper}>
-            {currentContent?.["3"]?.content?.cards.map((item) => (
+            {currentContent?.["3"]?.content?.cards?.map((item) => (
               <div
                 key={item.id}
                 className={styles.template_second_section_card}
@@ -235,7 +235,7 @@ const NewTemplate = ({content}) => {
       <section className={styles.template_third_section}>
         <div className="container">
           <div className={styles.template_third_section_card_wrapper}>
-            {currentContent?.["4"]?.content?.cards.map((item) => (
+            {currentContent?.["4"]?.content?.cards?.map((item) => (
               <div key={item.id} className={styles.template_third_section_card}>
                 <h2 className={styles.template_third_section_card_heading}>
                   {item.title[language]}
