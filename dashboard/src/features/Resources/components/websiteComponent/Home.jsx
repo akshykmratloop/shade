@@ -40,11 +40,11 @@ function defineDevice(screen) {
     }
 }
 
-const HomePage = ({ language, screen, fullScreen, highlight, content, currentContent, liveContent, width }) => {
+const HomePage = ({ language, screen, fullScreen, highlight, content, currentContent, liveContent, width, purpose }) => {
     // const dispatch = useDispatch()
-    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+    const checkDifference = (!purpose && highlight) ? differentText?.checkDifference?.bind(differentText) : () => ""
     const isComputer = screen > 900;
-    const isTablet = screen < 900 && screen > 730;
+    const isTablet = screen < 900 && screen > 540;
     const isPhone = screen < 450;
     const fontLight = useSelector(state => state.fontStyle.light)
     // const platform = useSelector(state => state.platform.platform)
@@ -128,12 +128,12 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
             <section className={`w-full relative overflow-hidden
                 ${checkDifference(content?.["1"]?.content?.images?.[0]?.url, liveContent?.["1"]?.content?.images?.[0]?.url)}
                 `}
-                style={{ height: (isComputer || isTablet) && dynamicSize(715, width) }}
+                style={{ height: (isComputer) ? dynamicSize(715, width) : isTablet ? "80vh" : "70vh" }}
             >
                 <div
                     className={`w-full ${isPhone && "h-fit"} relative min-h-fit overflow-hidden block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
                         }`}
-                    style={{ height: (isComputer || isTablet) && dynamicSize(715, width) }}
+                    style={{ height: (isComputer) ? dynamicSize(715, width) : isTablet ? "80vh" : "70vh" }}
                 >
                     <div className="absolute inset-0 pointer-events-none z-[1] flex items-center justify-start overflow-hidden">
                         <div
@@ -405,9 +405,9 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             ))}
                         </div>
 
-                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[500px]" : ""} 
+                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[500px] border" : ""} 
                         `}
-                            style={{ width: (isComputer || fullScreen) ? dynamicSize(800, width) : (!isComputer && fullScreen) ? dynamicSize(1030, width) : "" }}
+                            style={{ width: ((isComputer || fullScreen) && !isTablet) ? dynamicSize(800, width) : (!isComputer && fullScreen) ? dynamicSize(1030, width) : "" }}
                         >
                             <Swiper
                                 key={language} //More actions
@@ -477,11 +477,11 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             {/* Custom buttons */}
                             <div
                                 dir={isLeftAlign ? "ltr" : "rtl"}
-                                className={`flex items-center justify-between relative mt-8 font-sans ${!isLeftAlign && "flex-row-reverse"}`}
-                                style={{ width: isComputer ? "" : isPhone ? "220px" : `${(400 / 1180) * screen}px` }}
+                                className={`flex items-center justify-between relative mt-8 font-sans ${!isLeftAlign && "flex-row-reverse"} border w-full`}
+                                style={{ width: isComputer ? "" : isPhone ? "220px" : `` }}
                             // ${projectChunks?.length <= 1 ? 'hidden' : ''}
                             >
-                                <button ref={prevRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : ""} justify-center  bg-white transition-all duration-200`}
+                                <button ref={prevRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : "w-[280px]"} justify-center  bg-white transition-all duration-200`}
                                     style={{ fontSize: isComputer && dynamicSize(18, width), width: isComputer && dynamicSize(280, width) }}>
                                     {/* <img
                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"

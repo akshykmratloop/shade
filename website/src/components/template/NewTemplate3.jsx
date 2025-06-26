@@ -130,7 +130,7 @@ const NewTemplate3 = ({content}) => {
             </div>
             {currentContent?.["3"]?.content?.cards?.map((item, idx) => (
               <div
-                key={item.id || idx}
+                key={item.id + idx}
                 className={styles.template3_second_section_card}
               >
                 <img src={Img_url + item.images[0].url} alt="img" />
@@ -163,9 +163,9 @@ const NewTemplate3 = ({content}) => {
                 {currentContent?.["4"]?.content?.description[language]}
               </p>
               <div className={styles.template3_third_section_card_wrapper}>
-                {currentContent?.["4"]?.content?.cards.map((card) => (
+                {currentContent?.["4"]?.content?.cards.map((card, i) => (
                   <div
-                    key={card.id}
+                    key={card.id + i}
                     className={styles.template3_third_section_card}
                   >
                     <h3>{card.title[language]}</h3>

@@ -42,7 +42,7 @@ const TEMPLATE_COMPONENTS = {
 // }
 
 export default function Template({apiData}) {
-  console.log("Safety Details API Data:", apiData);
+  // console.log("Safety Details API Data:", apiData);
 
   const [isLoading, setIsLoading] = useState(true);
   const [content, setContent] = useState(null);
@@ -58,10 +58,10 @@ export default function Template({apiData}) {
       const Component = TEMPLATE_COMPONENTS[tag] || NewTemplate;
       setTemplateComponent(() => Component);
 
-      console.log(
-        "Content generated successfully:",
-        JSON.stringify(generatedContent.content, null, 2)
-      );
+      // console.log(
+      //   "Content generated successfully:",
+      //   JSON.stringify(generatedContent.content, null, 2)
+      // );
     } else {
       // keep loading forever or retry (optional)
       console.warn("API response is empty. Keeping loader active...");

@@ -273,6 +273,18 @@ function VersionTable() {
   }, []);
 
   useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setPreview(false)
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown)
+
+    return () => document.removeEventListener("keydown", handleKeyDown)
+  }, [])
+
+  useEffect(() => {
     // Fetch Resource's Content from server
     if (currentResourceId) {
       async function fetchResourceContent() {

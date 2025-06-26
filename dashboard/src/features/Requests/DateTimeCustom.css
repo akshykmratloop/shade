@@ -1,7 +1,7 @@
 DateTimeCustom.css
 
 /* General font and modal tweaks */
-.font-poppins, .font-poppins * {
+.font-poppins, .font-poppins  {
   font-family: 'Poppins', 'Inter', Arial, sans-serif;
 }
 

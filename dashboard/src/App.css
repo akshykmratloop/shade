@@ -1,3 +1,4 @@
+
 @font-face {
   font-family: "BankGothic-Regular";
   src: url("../public/font/bankgothic-regular.ttf") format("truetype");
@@ -22,17 +23,17 @@
 
 @font-face {
   font-family: "BankGothic-Medium-bt";
-  src: url("../public/font/BankGothicMediumBT.ttf") format("truetype");
+  src: url("/public/font/BankGothicMediumBT.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "BankGothic-Medium-lt";
-  src: url("../public/font/BankGothicLtBTLight.ttf") format("truetype");
+  src: url("/public/font/BankGothicLtBTLight.ttf") format("truetype");
 }
 
-.bankgothic-regular {
+/* .bankgothic-regular {
   font-family: "BankGothic-Regular";
-}
+} */
 
 .bankgothic-regular-db {
   font-family: "BankGothic-Regular-db";

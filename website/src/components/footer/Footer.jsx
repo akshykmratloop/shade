@@ -52,7 +52,7 @@ const Footer = () => {
           <div className={styles.footerBody}>
             {
               currentContent?.['2']?.content?.map((section, i) => (
-                <div className={styles.companyLink}>
+                <div className={styles.companyLink} key={i}>
                   <h5 className={styles.footertitle}>
                     {section?.title[language]}
                   </h5>
@@ -95,7 +95,7 @@ const Footer = () => {
 
             <ul className={styles.socialMedia}>
               {currentContent?.["3"]?.content?.socialLinks?.map((social, index) => (
-                <li className={styles.socialMediaItem}>
+                <li className={styles.socialMediaItem} key={index}>
                   <a key={index + social.url} href={social.url} target="_blank" rel="noopener noreferrer" className={styles.socialMediaLink}>
                     <img
                       src={Img_url + social.icon}
