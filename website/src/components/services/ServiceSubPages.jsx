@@ -4,6 +4,7 @@ import styles from "@/components/services/serviceSubpage.module.scss";
 import React from "react";
 import localFont from "next/font/local";
 import {Img_url} from "@/common/CreateContent";
+import Link from "next/link";
 
 const BankGothic = localFont({
   src: "../../../public/font/BankGothicLtBTLight.ttf",
@@ -109,14 +110,17 @@ const ServiceSubPages = ({content}) => {
                   <p className={styles.services_card_content_para}>
                     {item.description?.[language]}
                   </p>
-                  <button className={styles.services_card_content_button}>
+                  <Link
+                    href={`/service/${slug}/${item.slug}`}
+                    className={styles.services_card_content_button}
+                  >
                     {
                       currentContent?.["2"]?.content?.button?.[0]?.text?.[
                         language
                       ]
                     }{" "}
                     &#8594;
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}
