@@ -17,6 +17,7 @@ import {
 import { TruncateText } from "../../../../app/capitalizeword";
 import { Img_url } from "../../../../routes/backend";
 import dynamicSize, { defineDevice, differentText, generatefontSize } from "../../../../app/fontSizes";
+import { FaRegBuilding } from "react-icons/fa6";
 
 const MarketPage = ({ language, screen, currentContent, highlight, liveContent, purpose }) => {
     const testimonialPrevRef = useRef(null);
@@ -301,7 +302,7 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent, 
                         }
                         {currentContent?.["4"]?.items?.length > 1 &&
                             <Swiper
-                            key={language}
+                                key={language}
                                 modules={[Navigation, Autoplay, EffectCoverflow]}
                                 grabCursor={true}
                                 centeredSlides={true}
@@ -369,13 +370,14 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent, 
                                                         {testimonial?.liveModeVersionData?.sections?.[0]?.content?.quote?.[language]}
                                                     </p>
                                                     <div className={`flex items-center justify- gap-2`}>
-                                                        <img
+                                                        {/* <img
                                                             src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
                                                             height={18}
                                                             width={18}
                                                             alt={testimonial?.name}
                                                             className="h-[18px] w-[18px]"
-                                                        />
+                                                        /> */}
+                                                        <span><FaRegBuilding /></span>
                                                         <p className={`text-gray-500 text-base font-bold ${isLeftAlign ? "text-left" : "text-right"}`}
                                                             style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                                         >

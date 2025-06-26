@@ -42,11 +42,9 @@ const TopSideButtons = memo(
     const [filterParam, setFilterParam] = useState("");
     const [searchText, setSearchText] = useState("");
     const statusFilters = [
-      "EDITING",
       "DRAFT",
       "VERIFICATION_PENDING",
       "PUBLISH_PENDING",
-      "ARCHIVED",
       "SCHEDULED",
       "PUBLISHED",
     ];
@@ -150,6 +148,7 @@ function VersionTable() {
   const [currentResourceId, setCurrentResourceId] = useState("");
   const [searchValue, setSearchValue] = useState('')
   const [debounceSearchValue, setDebounceValue] = useState("")
+  const [filter, setFilter] = useState("")
   // const [random, setRandowm] = useState(Math.random())
   const { random } = CustomContext().random;
   const { pdf } = CustomContext();
@@ -175,15 +174,13 @@ function VersionTable() {
 
   // REMOVE FILTER
   const removeFilter = () => {
-    setVersions([...originalVersions]);
+    // setVersions([...originalVersions]);
+    setFilter("")
   };
 
   // APPLY FILTER
   const applyFilter = (status) => {
-    const filteredVersions = originalVersions?.filter(
-      (version) => version.versionStatus === status
-    );
-    setVersions(filteredVersions);
+    setFilter(status)
   };
 
 
@@ -251,6 +248,7 @@ function VersionTable() {
         try {
           const payload = { page: currentPage };
           // payload.search = debounceSearchValue
+          if (filter) payload.status = filter
           const response = await versionsList(resourceId, payload);
           if (response.ok) {
             setVersions(response?.content?.versions || []);
@@ -264,7 +262,7 @@ function VersionTable() {
       }
       fetchversionsData();
     }
-  }, [resourceId, random, currentPage]);
+  }, [resourceId, random, currentPage, filter]);
 
   useEffect(() => {
     setCurrentResource(
