@@ -1,0 +1,247 @@
+.banner_section {
+  padding: 140px 100px 80px 100px;
+
+  .banner_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 50px;
+
+    h1 {
+      // width: 505px;
+      font-weight: 700;
+      font-size: 60px;
+      line-height: 67px;
+      letter-spacing: -5%;
+      vertical-align: middle;
+      color: #292e3d;
+      margin: 0;
+    }
+    p {
+      max-width: 500px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 100%;
+      letter-spacing: 0%;
+      color: #0e172fb2;
+      // text-align: left;
+      margin: 0;
+    }
+  }
+
+  .banner_image {
+    width: 100%;
+    height: 340px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.second_section {
+  padding-bottom: 50px;
+  .second_section_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+
+    h2 {
+      font-weight: 700;
+      font-size: 49.88px;
+      line-height: 45.73px;
+      letter-spacing: -5%;
+
+      color: #292e3d;
+      margin: 0;
+    }
+
+    p {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 100%;
+      letter-spacing: 0%;
+
+      color: #0e172f;
+      text-decoration: none;
+      max-width: 500px;
+    }
+  }
+
+  .second_section_items_wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 20px;
+
+    .second_section_item {
+      background: #00b9f212;
+      padding: 30px 55px;
+
+      h3 {
+        font-weight: 400;
+        font-size: 25px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        margin-bottom: 10px;
+      }
+      p {
+        font-weight: 300;
+        font-size: 16.49px;
+        line-height: 22.67px;
+        letter-spacing: 0%;
+      }
+    }
+  }
+}
+
+/* thirdSection.module.scss */
+
+.third_section {
+  padding: 0 0 50px 0;
+
+  .container {
+    overflow: hidden; /* hide overflowing bits */
+  }
+
+  .third_section_items {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    & {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .third_section_item {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      // border-radius: 8px;
+      overflow: hidden;
+      width: 546px;
+      height: 258px;
+
+      img {
+        display: block;
+        width: 100%;
+
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .banner_section {
+    padding: 130px 40px 40px;
+    .banner_content {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 30px;
+      h1 {
+        font-size: 40px;
+        line-height: 1.1;
+      }
+      p {
+        font-size: 13px;
+        max-width: 100%;
+      }
+    }
+    .banner_image {
+      height: 240px;
+    }
+  }
+
+  .second_section {
+    padding: 80px 40px 40px;
+
+    .second_section_header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      h2 {
+        font-size: 36px;
+        line-height: 1.1;
+      }
+      p {
+        font-size: 13px;
+        max-width: 100%;
+      }
+    }
+    .second_section_items_wrapper {
+      grid-template-columns: 1fr 1fr;
+      .second_section_item {
+        padding: 25px 30px;
+        h3 {
+          font-size: 22px;
+        }
+        p {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+
+  .third_section_items .third_section_item {
+    width: calc((100% - 20px) / 2);
+    height: 200px;
+  }
+}
+
+/* Up to 500px */
+@media (max-width: 500px) {
+  .banner_section {
+    padding: 100px 20px 20px;
+    .banner_content {
+      h1 {
+        font-size: 28px;
+      }
+      p {
+        font-size: 12px;
+      }
+    }
+    .banner_image {
+      height: 160px;
+    }
+  }
+
+  .second_section {
+    padding: 60px 20px 20px;
+
+    .second_section_header {
+      h2 {
+        font-size: 28px;
+      }
+      p {
+        font-size: 12px;
+      }
+    }
+    .second_section_items_wrapper {
+      grid-template-columns: 1fr;
+      .second_section_item {
+        padding: 20px;
+        h3 {
+          font-size: 20px;
+        }
+        p {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .third_section_items .third_section_item {
+    width: 100%;
+    height: 160px;
+  }
+}

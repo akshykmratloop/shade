@@ -31,7 +31,7 @@ import {useEffect, useState} from "react";
 //     };
 // }
 
-export default function ServicesSubpages({apiData}) {
+export default function ServicesSubpagesDetails({apiData}) {
   console.log("Safety Details API Data:", apiData);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -70,12 +70,11 @@ export default function ServicesSubpages({apiData}) {
 }
 
 export async function getServerSideProps({params}) {
-  const {slug} = params;
-  console.log("Fetching data for slug:", params);
+  const {child} = params;
   console.log("helloooooooo");
 
   try {
-    const res = await fetch(`${backendAPI}${slug}`);
+    const res = await fetch(`${backendAPI}${child}`);
 
     if (!res.ok) {
       // If response failed (e.g., 404, 500), return empty object
@@ -83,7 +82,8 @@ export async function getServerSideProps({params}) {
     }
     const apiData = await res.json();
 
-    console.log("API Data:", apiData);
+    // console.log("API Data:", apiData);
+    console.log("Fetching data for slug:", params);
 
     return {props: {apiData: apiData || {}}};
   } catch (error) {

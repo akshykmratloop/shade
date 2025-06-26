@@ -1,4 +1,5 @@
 import createContent from "@/common/CreateContent";
+import ServiceSubpageDetails from "@/components/services/ServiceSubpageDetails";
 import ServiceSubPages from "@/components/services/ServiceSubPages";
 import {backendAPI} from "@/contexts/GlobalContext";
 import Head from "next/head";
@@ -70,7 +71,6 @@ export default function ServicesSubpages({apiData}) {
 
 export async function getServerSideProps({params}) {
   const {slug} = params;
-  console.log("Fetching data for slug:", params);
   console.log("helloooooooo");
 
   try {
@@ -82,7 +82,8 @@ export async function getServerSideProps({params}) {
     }
     const apiData = await res.json();
 
-    console.log("API Data:", apiData);
+    // console.log("API Data:", apiData);
+    console.log("Fetching data for slug:", params);
 
     return {props: {apiData: apiData || {}}};
   } catch (error) {
