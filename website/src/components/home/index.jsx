@@ -111,7 +111,6 @@ const HomePage = ({content}) => {
         >
           <img
             style={{objectPosition: "bottom", objectFit: "cover"}}
-            // style={{ objectFit: "cover" }}
             src={
               currentContent?.["1"]?.content?.images?.[0]?.url
                 ? Img_url + currentContent?.["1"]?.content?.images?.[0]?.url
@@ -119,10 +118,6 @@ const HomePage = ({content}) => {
             }
             alt="about-us"
             className={styles.backgroundImage}
-            width={0}
-            // fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            height={0}
           />
         </span>
         {/* <div className="container" style={}> */}
@@ -161,6 +156,7 @@ const HomePage = ({content}) => {
         </div>
         {/* </div> */}
       </section>
+      
       {/* about us section */}
       <section
         className={`${styles.about_us_wrapper} ${
@@ -191,21 +187,11 @@ const HomePage = ({content}) => {
           </div>
 
           <div className={styles.about_us_banner_wrap}>
-            {/* <Image
-              src={Img_url + currentContent?.['2']?.content?.images?.[0]?.url}
-              width={877}
-              height={629}
-              alt="about-us"
-              className={styles.about_img}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              style={{ objectFit: 'cover' }}
-            /> */}
-
             <img
               src={`${Img_url}${content?.["2"]?.content?.images?.[0]?.url}`}
               alt="about-us"
               className="w-full h-[100%] object-cover "
-              style={{width: 877, height: 629}}
+              style={{width: "100%", height: 629}}
             />
           </div>
         </div>
