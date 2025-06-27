@@ -127,7 +127,6 @@ export const createNewRoles = async (name, roleTypeId, permissionsArray) => {
 };
 
 export const updateRoleById = async (id, name, roleTypeId, permissions) => {
-  console.log(id, name, roleTypeId, permissions, 'rolessss');
   const role = await prismaClient.role.update({
     where: { id },
     data: {

@@ -105,6 +105,7 @@ export const handleEntityCreationNotification = async ({
         verifiers.forEach((v) => recipients.push({ user: v.user, context: `verifier_stage_${v.stage}` }));
       }
     }
+
     // Remove duplicates (by user id)
     const uniqueRecipients = new Map();
     recipients.forEach(({ user, context }) => {
@@ -146,10 +147,10 @@ export const handleEntityCreationNotification = async ({
       if (!customMessage) {
         customMessage = `${actorLabel} ${verb} the ${entity} '${subject}'`;
       }
-      io.to(user.id).emit(eventName, {
-        userId: user.id,
-        message: customMessage,
-      });
+      // io.to(user.id).emit(eventName, {
+      //   userId: user.id,
+      //   message: customMessage,
+      // });
       await createNotification({ userId: user.id, message: customMessage });
     }
   } catch (error) {

@@ -14,8 +14,6 @@ import {
 import { handleEntityCreationNotification } from "../../helper/notificationHelper.js";
 
 const GetRoles = async (req, res) => {
-  // const searchTerm = req.query.search || "";
-  // const status = req.query.status || "";
   const {search, status, page, limit} = req.query;
   const pageNum = parseInt(page) || 1;
   const limitNum = parseInt(limit) || 10;
@@ -64,6 +62,7 @@ const UpdateRole = async (req, res) => {
     newValue: result.role,
     actionType: "UPDATE",
   });
+
   const users = await fetchAllUsersByRoleId(id);
   users.forEach((el) => {
     const socketIdOfUpdatedUser = getSocketId(el.id);
@@ -71,7 +70,7 @@ const UpdateRole = async (req, res) => {
       io.to(socketIdOfUpdatedUser).emit("userUpdated", {result: el});
     }
   });
-  io.emit("role_updated", result);
+ 
   res.status(202).json(result);
 };
 
@@ -86,7 +85,6 @@ const ActivateRole = async (req, res) => {
       io.to(socketIdOfUpdatedUser).emit("userUpdated", {result: el});
     }
   });
-  io.emit("role_updated", result);
   res.status(200).json(result);
 };
 
@@ -101,10 +99,6 @@ const DeactivateRole = async (req, res) => {
       io.to(socketIdOfUpdatedUser).emit("userUpdated", {result: el});
     }
   });
-  console.log("role update", result);
-
-  io.emit("role_updated", result);
-
   res.status(200).json(result);
 };
 

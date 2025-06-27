@@ -72,7 +72,7 @@ const updateRole = async (id, roleName, roleTypeId, permissions) => {
 
   assert(role, "ROLE_INVALID", "Role not found");
 
-  logger.info({response: `role ${id} is inactive now`});
+  logger.info({response: `role ${roleName} updated successfully`});
 
   return {message: "Role updated successfully", role, ok: true};
 };

@@ -177,11 +177,60 @@ export const updateUser = async (id, name, password, phone, roles) => {
   // const emailPayload = userAccountUpdatePayload({ name: updatedUser.name, email: updatedUser.email });
   // addEmailJob(emailPayload);
 
-  return {
+  // Create a new object without the password field
+  const userWithoutPassword = {
     ...updatedUser,
     roles: roleAndPermission,
   };
+  delete userWithoutPassword.password;
+
+  return userWithoutPassword;
 };
+
+export const getUserDetails = async (id) => {
+  const user = await prismaClient.user.findUnique({
+    where: { id },
+    include: {
+      roles: {
+        include: {
+          role: {
+            include: {
+              permissions: {
+                include: {
+                  permission: true,
+                },
+              },
+              roleType: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  const roleAndPermission =
+    user.roles?.map((role) => ({
+      id: role.role.id,
+      role: role.role.name,
+      roleType: role.role.roleType.name,
+      status: role.role.status,
+      permissions: role.role.permissions.map((perm) => perm.permission.name),
+    })) || [];
+
+  // Create a new object without the password field
+  const userWithoutPassword = {
+    ...user,
+    roles: roleAndPermission,
+  };
+  delete userWithoutPassword.password;
+  return {result  : userWithoutPassword, msg: "updated through socket"};
+};
+
+
 
 export const updateProfile = async (id, name, phone, image) => {
   const updatedUser = await prismaClient.user.update({
