@@ -427,7 +427,7 @@ const auditLogger = async (req, res, responseBodyOrNext) => {
   }
 
   res.on("finish", async () => {
-    const io = req.app.locals.io; // ✅ Add this
+    // const io = req.app.locals.io; // ✅ Add this
 
     if (actionType === "CREATE" && !entityId) {
       entityId =
@@ -559,18 +559,18 @@ const auditLogger = async (req, res, responseBodyOrNext) => {
         },
       });
 
-      if (
-        (actionType === "CREATE" && newValue) ||
-        (actionType === "UPDATE" && newValue)
-      ) {
-        await handleEntityCreationNotification({
-          io,
-          userId: user?.id,
-          entity,
-          newValue,
-          actionType,
-        });
-      }
+      // if (
+      //   (actionType === "CREATE" && newValue) ||
+      //   (actionType === "UPDATE" && newValue)
+      // ) {
+      //   await handleEntityCreationNotification({
+      //     io,
+      //     userId: user?.id,
+      //     entity,
+      //     newValue,
+      //     actionType,
+      //   });
+      // }
     } catch (err) {
       console.error("Audit logging failed:", err);
     }

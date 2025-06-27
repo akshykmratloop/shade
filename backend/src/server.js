@@ -7,6 +7,7 @@ import {
   setUserSocket,
 } from "./helper/socketConnectionID.js";
 import {scheduleCronJobs} from "./helper/cronJobs.js";
+import { getUserDetails } from "./repository/user.repository.js";
 
 (async () => {
   const app = createApp();
@@ -24,7 +25,8 @@ import {scheduleCronJobs} from "./helper/cronJobs.js";
   // Initialize Socket.io
   const io = new Server(server, {
     cors: {
-      origin: "http://localhost:3001", // your frontend URL
+      // origin: "http://localhost:3001", 
+      origin: JSON.parse(process.env.CORS_ORIGIN),// your frontend URL
       credentials: true, // allow credentials
     },
   });
@@ -32,14 +34,25 @@ import {scheduleCronJobs} from "./helper/cronJobs.js";
   // Function to send notifications in real-time
   app.locals.io = io;
 
-  io.on("connection", (socket) => {
+  io.on("connection",  (socket) => {
     console.log("User connected: ", socket.id);
 
-    socket.on("join", (userId) => {
+    socket.on("join", async (userId) => {
       socket.join(userId);
       console.log(`User ${userId} joined room`);
       socket.userId = userId;
       setUserSocket(userId, socket.id);
+      try{
+        const user = await getUserDetails(userId);
+        if (user) {
+          socket.emit("userUpdated",user);
+        }
+      }
+      catch(e){
+        console.error("Error fetching user details for socket connect:", err);
+      }
+
+
     });
 
     socket.on("disconnect", () => {
