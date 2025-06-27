@@ -32,7 +32,7 @@ const Footer = () => {
     <footer className={styles.footerWrapper} dir={language === 'en' ? "ltr" : 'rtl'}>
       <span className={styles.bubble1}></span>
       <span className={styles.bubble2}></span>
-      <div className="container">
+      <div className="container" style={{position: "relative", zIndex: "1"}}>
         <div className={styles.footerHead}>
           <div className={styles.logo}>
             <img
