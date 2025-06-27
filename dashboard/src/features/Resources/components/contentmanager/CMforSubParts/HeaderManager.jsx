@@ -4,9 +4,12 @@ import ContentSection from "../../breakUI/ContentSections"
 import DynamicContentSection from "../../breakUI/DynamicContentSection"
 import { updateCardAndItemsArray } from "../../../../common/homeContentSlice";
 import Select from "../../../../../components/Input/Select";
+import { useEffect, useState } from "react";
+import { getResources } from "../../../../../app/fetch";
 
 const HeaderManager = ({ language, currentContent, currentPath, indexes, outOfEditing }) => {
     const dispatch = useDispatch();
+    const [list, setLists] = useState([])
 
     const lists = [
         { id: "one", nameEn: "one", nameAr: "ek", url: "/one" },
@@ -16,7 +19,7 @@ const HeaderManager = ({ language, currentContent, currentPath, indexes, outOfEd
 
     const listName = {}
 
-    lists.forEach((e, i) => {
+    list.forEach((e, i) => {
         listName[e.id] = e
     })
 
@@ -29,12 +32,28 @@ const HeaderManager = ({ language, currentContent, currentPath, indexes, outOfEd
                     ar: listName[value].nameAr,
                     en: listName[value].nameEn
                 },
-                url: listName[value].url,
+                url: listName[value].slug,
             }
         }))
     }
 
 
+    useEffect(() => {
+        async function getRouteList() {
+            try { //resourceType=MAIN_PAGE&fetchType=SLUG
+                const response = await getResources({ resourceType: "MAIN_PAGE", fetchType: "SLUG" })
+                if (response.ok) {
+                    const payload = response.resources.resources.map(e => {
+                        return { ...e, id: e.nameEn }
+                    })
+                    setLists(payload)
+                }
+            } catch (err) {
+
+            }
+        }
+        getRouteList()
+    }, [])
     // let contents
     // if (currentContent) {
     //     contents = Object.keys(currentContent)
@@ -100,7 +119,7 @@ const HeaderManager = ({ language, currentContent, currentPath, indexes, outOfEd
                 outOfEditing={outOfEditing}
             /> */}
             <Select
-                options={lists}
+                options={list}
                 label={"create a new navigation"}
                 baseClass={"w-full mt-10"}
                 width={"w-full"}
@@ -108,7 +127,7 @@ const HeaderManager = ({ language, currentContent, currentPath, indexes, outOfEd
                 setterOnChange={addNav}
                 language={language}
                 optionsClass={`dark:bg-white text-black`}
-                selectClass={`bg-transparent border border-stone-300/20`}
+                selectClass={`bg-white dark:bg-[#2a303c] border border-[#80808044] `}
             />
         </div>
     )

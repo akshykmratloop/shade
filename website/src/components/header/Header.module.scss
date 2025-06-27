@@ -563,3 +563,85 @@
     }
   }
 }
+
+/* Hide mobile nav by default */
+.mobileMenu {
+  display: none;
+}
+
+/* Hide hamburger by default */
+.humberger {
+  display: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 1100px) {
+  .menu {
+    display: none;
+  }
+  .humberger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+
+    span {
+      width: 25px;
+      height: 3px;
+      background: #00b9f2;
+      border-radius: 2px;
+    }
+  }
+  .mobileMenu {
+    display: block;
+    background: white;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 1rem;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      width: 100%;
+    }
+
+    a {
+      display: block;
+      padding: 0.75rem;
+      color: #001A58;
+      text-decoration: none;
+      transition: color 0.2s;
+
+      &:hover {
+        color: #145098;
+      }
+    }
+  }
+
+  .mobileContactButton {
+    width: 100%;
+    padding: 0.75rem;
+    background: #00b9f2;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #007bbd;
+    }
+  }
+}
