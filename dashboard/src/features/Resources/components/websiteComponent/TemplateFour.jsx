@@ -33,14 +33,14 @@ const TemplateFour = ({ content, screen, language, width, highlight, liveContent
                         services.contructionTowerImage
                         }")`,
                     backgroundPosition: "bottom",
-                    height: isComputer ? getDynamicSize(740) : "70vh",
-                    padding: (isComputer) && `${getDynamicSize(100)} ${getDynamicSize(150)}`
+                    height: isComputer ? getDynamicSize(740) : "80vh",
+                    padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(150)}`
                 }}
             >
                 <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-start overflow-hidden">
                     <div
-                        style={{ width: getDynamicSize(750), height: getDynamicSize(650) }}
-                        className="rounded-full bg-white opacity-[.9] blur-[120px] mix-blend-screen"></div>
+                        style={{ width: isComputer ? getDynamicSize(750) : "60%", height: getDynamicSize(650) }}
+                        className="rounded-full bg-white opacity-[.9] blur-[100px] mix-blend-screen"></div>
                 </div>
 
                 <div className="container relative flex items-center justify-center">
@@ -51,18 +51,21 @@ const TemplateFour = ({ content, screen, language, width, highlight, liveContent
                             padding: (isTablet) && `${getDynamicSize(100)} ${getDynamicSize(0)}`
                         }}
                     >
-                        <h2 className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4
+                        <h2 className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[50px]" : "text-[45px]"} tracking-[-3px] mb-4
                                                 ${checkDifference(content?.['1']?.content?.title?.[language], liveContent?.['1']?.content?.title?.[language])}
                                                 `}
                             style={{
-                                fontSize: fontSize.mainHeading, lineHeight: fontSize.headingLeading,
+                                fontSize: isComputer && fontSize.mainHeading, lineHeight: fontSize.headingLeading,
                                 margin: `${getDynamicSize(16)} 0px`
                             }}
                         >
                             {content?.['1']?.content?.title?.[language] || "Lorem Ipsum"}
                         </h2>
                         <p
-                            style={{ fontSize: fontSize.mainPara, lineHeight: fontSize.paraLeading }}
+                            style={{
+                                fontSize: isComputer ? fontSize.mainPara : isTablet ? "14px" : "",
+                                lineHeight: isComputer ? fontSize.paraLeading : isTablet ? "px" : ""
+                            }}
                             className={`text-[#0E172FB2] text-[12px] leading-[26px] ${fontLight} word-spacing-5 ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} 
                                                 ${checkDifference(content?.['1']?.content?.description?.[language], liveContent?.['1']?.content?.description?.[language])}
                                         `}>
@@ -77,17 +80,17 @@ const TemplateFour = ({ content, screen, language, width, highlight, liveContent
 
             <section
                 style={{
-                    padding: (isComputer) && `${getDynamicSize(100)} ${getDynamicSize(145)}`
+                    padding: (isComputer) ? `${getDynamicSize(100)} ${getDynamicSize(145)}` : isTablet ? "40px 40px" :"40px 20px"
                 }}
             >
-                <div className="flex "
+                <div className={`flex ${isPhone && "flex-col gap-2"}`}
                     style={{
-                        gap: isComputer && getDynamicSize(20)
+                        gap: (isComputer || isTablet) && getDynamicSize(20)
                     }}
                 >
                     <div className=""
                         style={{
-                            width: isComputer && getDynamicSize(693),
+                            width: (isComputer) ? getDynamicSize(693) : isTablet ? "60%" : "100%",
                         }}
                     >
                         <img src={
@@ -96,25 +99,25 @@ const TemplateFour = ({ content, screen, language, width, highlight, liveContent
                                 projectPageData.asphaltWork
                         } alt=""
 
-                            className={`h-full
+                            className={`h-full ${isPhone && "aspect-[1.3/1]"}
                                 ${checkDifference(content?.[2]?.content?.images?.[0]?.url, liveContent?.[2]?.content?.images?.[0]?.url)}
                                 `}
                         />
                     </div>
-                    <div className="flex flex-col"
+                    <div className={`flex flex-col gap-2`}
                         style={{
                             width: isComputer && getDynamicSize(503),
-                            gap: isComputer && getDynamicSize(20)
+                            gap: (isComputer || isTablet) && getDynamicSize(20)
                         }}
                     >
                         <img src={content?.[2]?.content?.images?.[1]?.url ?
                             Img_url + content?.[2]?.content?.images?.[1]?.url :
-                            projectPageData.asphaltWork} alt="" className={`aspect-[2/1] object-cover object-center
+                            projectPageData.asphaltWork} alt="" className={`${isPhone?"aspect-[1.3/1]":"aspect-[2/1]"} object-cover object-center
                             ${checkDifference(content?.[2]?.content?.images?.[1]?.url, liveContent?.[2]?.content?.images?.[1]?.url)}
                             `} />
                         <img src={content?.[2]?.content?.images?.[2]?.url ?
                             Img_url + content?.[2]?.content?.images?.[2]?.url :
-                            projectPageData.asphaltWork} alt="" className={`aspect-[2/1] object-cover object-center
+                            projectPageData.asphaltWork} alt="" className={`${isPhone?"aspect-[1.3/1]":"aspect-[2/1]"} object-cover object-center
                             ${checkDifference(content?.[2]?.content?.images?.[2]?.url, liveContent?.[2]?.content?.images?.[2]?.url)}
                             `} />
                     </div>
@@ -124,23 +127,31 @@ const TemplateFour = ({ content, screen, language, width, highlight, liveContent
             <section
                 className="px-10 py-10"
                 style={{
-                    padding: (isComputer || isTablet) && `${getDynamicSize(0)} ${getDynamicSize(150)}`
+                    padding: (isComputer) ? `${getDynamicSize(0)} ${getDynamicSize(150)}` : isTablet ? "0px 40px" : "0px 20px"
                 }}>
-                <section className={`flex gap-[10px] ${isPhone ? "flex-col p-1" : ""}`}>
-                    <h2 className={`text-[32px] flex-1 leading-[28px]
+                <section className={`flex gap-[10px] ${isPhone ? "flex-col p-1" : ""} justify-between`}>
+                    <h2 className={`text-[32px]  leading-[28px]
                                     ${checkDifference(content?.[3]?.content?.title?.[language], liveContent?.[3]?.content?.title?.[language])}
                                     `}
-                        style={{ fontSize: fontSize.experienceHeading, lineHeight: isComputer && getDynamicSize(40) }}
+                        style={{
+                            fontSize: fontSize.experienceHeading,
+                            lineHeight: isComputer ? getDynamicSize(40) : "36px",
+                            width: (isComputer) ? getDynamicSize(505) : "276px"
+                        }}
                     >
                         {
                             content?.[3]?.content?.title?.[language] ||
                             "Project Description"
                         }
                     </h2>
-                    <div className={`text-[9.5px] flex-1 ${fontLight}
+                    <div className={`text-[9.5px]  ${fontLight}
                                     ${checkDifference(content?.[3]?.content?.description?.[language], liveContent?.[3]?.content?.description?.[language])}
                                     `}
-                        style={{ fontSize: fontSize.mainPara }}
+                        style={{
+                            fontSize: isComputer ? getDynamicSize(14) : "14px",
+                            lineHeight: "100%",
+                            width: (isComputer) ? getDynamicSize(530) : "360px"
+                        }}
                         dangerouslySetInnerHTML={{
                             __html:
                                 content?.[3]?.content?.description?.[language] ||
@@ -153,8 +164,8 @@ const TemplateFour = ({ content, screen, language, width, highlight, liveContent
             <section
                 className={`bg-[#00B9F20A]`}
                 style={{
-                    padding: (isComputer || isTablet) && `${getDynamicSize(25)} ${getDynamicSize(150)}`,
-                    margin: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(0)}`
+                    padding: (isComputer) ? `${getDynamicSize(25)} ${getDynamicSize(150)}` : isTablet ? "25px 40px" : "20px 20px",
+                    margin: (isComputer) ? `${getDynamicSize(100)} ${getDynamicSize(0)}` : isTablet ? "40px 0px" : "40px 0px"
                 }}
             >
                 <div className="flex-[1] flex flex-col"
@@ -186,12 +197,12 @@ const TemplateFour = ({ content, screen, language, width, highlight, liveContent
 
             <section
                 style={{
-                    padding: (isComputer || isTablet) && `${getDynamicSize(0)} ${getDynamicSize(148)} ${getDynamicSize(100)}`
+                    padding: (isComputer) ? `${getDynamicSize(0)} ${getDynamicSize(148)} ${getDynamicSize(100)}` : isTablet ? "0px 40px 40px" : "20px 20px"
                 }}
                 className=""
             >
 
-                <div className={`grid ${(isComputer) ? "grid-cols-3" : isTablet ? "grid-cols-2" : "grid-cols-1 p-10  gap-10"} p-1
+                <div className={`grid ${(isComputer) ? "grid-cols-3" : isTablet ? "grid-cols-2" : "grid-cols-1  gap-10"} p-1
                 ${checkDifference(content?.[5]?.content?.cards, liveContent?.[5]?.content?.cards)}
                 `}
                     style={{ gap: (isComputer || isTablet) && `${getDynamicSize(36)}` }}
@@ -199,14 +210,14 @@ const TemplateFour = ({ content, screen, language, width, highlight, liveContent
                     {
                         (content?.[5]?.content?.cards || tempArr)?.map((e, i) => {
                             return (
-                                <div className="bg-white flex flex-col border"
+                                <div className="bg-white flex flex-col border rounded-lg"
                                     style={{
                                         padding: isComputer ? `${getDynamicSize(16)}` : getDynamicSize(32),
                                         gap: getDynamicSize(16)
                                     }}
                                     key={i}
                                 >
-                                    <div className="flex gap-4"
+                                    <div className="flex gap-4 items-center"
                                         style={{ gap: (isComputer || isTablet) && getDynamicSize(10) }}
                                     >
                                         <img
@@ -222,15 +233,15 @@ const TemplateFour = ({ content, screen, language, width, highlight, liveContent
                                         />
                                         <h3
                                             className={`
-                                                ${checkDifference(e?.title?.[language] , liveContent?.[5]?.content?.cards?.[i]?.title?.[language])}
+                                                ${checkDifference(e?.title?.[language], liveContent?.[5]?.content?.cards?.[i]?.title?.[language])}
                                                 `}
-                                            style={{ fontSize: fontSize.aboutMainPara }}
+                                            style={{ fontSize: fontSize.aboutMainPara, lineHeight: isComputer && getDynamicSize(26) }}
                                         >
                                             {e?.title?.[language] || "LOREM"}
                                         </h3>
                                     </div>
                                     <p className={`${fontLight} text-[#718096]
-                                                ${checkDifference(e?.description?.[language] , liveContent?.[5]?.content?.cards?.[i]?.description?.[language])}
+                                                ${checkDifference(e?.description?.[language], liveContent?.[5]?.content?.cards?.[i]?.description?.[language])}
                                     `}
                                         style={{ fontSize: fontSize.mainPara }}
                                     >
@@ -244,7 +255,7 @@ const TemplateFour = ({ content, screen, language, width, highlight, liveContent
                     }
                 </div>
             </section>
-        </div>
+        </div >
     )
 }
 

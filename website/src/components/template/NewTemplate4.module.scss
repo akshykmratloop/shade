@@ -9,11 +9,9 @@
     top: 0;
     height: 100%;
     padding: 0 160px;
-    background: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0) 16.35%,
-      rgba(255, 255, 255, 0.9) 82.21%
-    );
+    background: linear-gradient(to right,
+        rgba(255, 255, 255, 0) 16.35%,
+        rgba(255, 255, 255, 0.9) 82.21%);
 
     .content {
       position: relative;
@@ -33,8 +31,8 @@
       .description {
         color: var(--para-light);
         font-size: 16px;
-        font-weight: 600;
-        line-height: 26px;
+        // font-weight: 600;
+        line-height: 100%;
         margin-bottom: 26px;
         width: 50%;
         word-spacing: 5px;
@@ -45,21 +43,17 @@
   // ————— FLIP GRADIENT if wrapper gets .leftAlign —————
   &.leftAlign {
     .content_gradient {
-      background: linear-gradient(
-        to left,
-        rgba(255, 255, 255, 0) 16.35%,
-        rgba(255, 255, 255, 0.9) 82.21%
-      );
+      background: linear-gradient(to left,
+          rgba(255, 255, 255, 0) 16.35%,
+          rgba(255, 255, 255, 0.9) 82.21%);
     }
   }
 
   // ————— FLIP GRADIENT if .content_gradient itself gets .leftAlign —————
   .content_gradient.leftAlign {
-    background: linear-gradient(
-      to left,
-      rgba(255, 255, 255, 0) 16.35%,
-      rgba(255, 255, 255, 0.9) 82.21%
-    );
+    background: linear-gradient(to left,
+        rgba(255, 255, 255, 0) 16.35%,
+        rgba(255, 255, 255, 0.9) 82.21%);
   }
 
   // ————— BACKGROUND CONTAINER —————
@@ -130,6 +124,7 @@
       height: 100%;
       aspect-ratio: 4/3;
     }
+
     .top {
       grid-column: 2 / 3;
       aspect-ratio: 4/3;
@@ -137,6 +132,7 @@
       width: 100%;
       height: 100%;
     }
+
     .bottom {
       aspect-ratio: 4/3;
       grid-column: 2 / 3;
@@ -153,7 +149,7 @@
 
     .template4_first_section_card_heading {
       width: 505px;
-      font-weight: 700;
+      font-weight: 500;
       font-size: 60px;
       line-height: 70px;
       letter-spacing: -5%;
@@ -161,7 +157,8 @@
 
     .template4_first_section_card_desc {
       margin-top: 20px;
-      font-weight: 300;
+      // font-weight: 300;
+      color: #2a303c;
       font-size: 14px;
       width: 530px;
       line-height: 100%;
@@ -175,10 +172,11 @@
 
   .template4_second_section_content {
     .template4_second_section_content_heading {
-      font-weight: 700;
+      font-weight: 500;
       font-size: 24px;
       line-height: 32px;
       margin-bottom: 18px;
+      color: #2a303c;
     }
 
     .template4_second_section_content_para {
@@ -231,6 +229,7 @@
         font-weight: 300;
         word-break: break-word;
         overflow-wrap: break-word;
+        color: #718096;
       }
     }
   }
@@ -240,6 +239,7 @@
 @media (max-width: 800px) {
   .template4_banner_wrap .content_gradient {
     padding: 0px;
+
     .content {
       top: 30%;
       padding: 0 60px;
@@ -257,8 +257,9 @@
   }
 
   .template4_first_section {
-    padding: 60px 0;
+    padding: 40px 40px;
     grid-template-columns: 1fr;
+
     .template4_first_section_image_grid_wrapper {
       // grid-template-columns: 1fr;
       // grid-template-rows: repeat(3, auto);
@@ -271,11 +272,13 @@
         // width: 693px;
         height: 100%;
       }
+
       .top {
         grid-column: 2 / 3;
         grid-row: 1 / 2;
         height: 100%;
       }
+
       .bottom {
         grid-column: 2 / 3;
         grid-row: 2 / 3;
@@ -286,11 +289,17 @@
       //   height: 91%;
       // }
     }
+
     .template4_first_section_content {
       // flex-direction: column;
+      align-items: center;
+
       .template4_first_section_card_heading {
+        color: #2a303c;
         font-size: 40px;
+        line-height: 40px;
       }
+
       .template4_first_section_card_desc {
         width: 100%;
       }
@@ -300,8 +309,10 @@
   .template4_second_section .template4_second_section_content_heading {
     font-size: 20px;
   }
+
   .template4_second_section {
-    padding: 60px 0;
+    padding: 40px 40px;
+
     .template4_second_section_content_para {
       font-size: 14px;
     }
@@ -313,6 +324,7 @@
     .template4_third_section_card_wrapper {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+
       .template4_third_section_card {
         width: 100%;
         height: auto;
@@ -342,13 +354,16 @@
       }
     }
   }
+
   .template4_first_section {
     padding: 40px 0;
+
     .template4_first_section_image_grid_wrapper {
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
+
     .template4_first_section_content {
       flex-direction: column;
       gap: 10px;
@@ -358,18 +373,21 @@
         line-height: normal;
         font-size: 30px;
       }
+
       .template4_first_section_card_desc {
         margin-top: 0;
-        font-size: 12px;
+        font-size: 14px;
       }
     }
   }
 
   .template4_second_section {
     padding: 40px 0;
+
     .template4_second_section_content_heading {
       font-size: 18px;
     }
+
     .template4_second_section_content_para {
       font-size: 14px;
     }
@@ -377,15 +395,22 @@
 
   .template4_third_section {
     padding: 40px 0;
+
     .template4_third_section_card_wrapper {
       display: flex;
 
       gap: 20px;
+
       .template4_third_section_card {
         padding: 12px;
-        .template4_third_section_card_heading {
-          font-size: 20px;
+
+        .template4_third_section_card_header {
+
+          .template4_third_section_card_heading {
+            font-size: 19px;
+          }
         }
+
         .template4_third_section_card_desc {
           font-size: 14px;
         }

@@ -80,7 +80,9 @@ const cmsSlice = createSlice({
         },
         updateBaseData: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            state.present.content[action.payload.title] = action.payload.value
+            let value = action.payload.value
+            if (action.payload.title === "slug") { value = value.replace(/\s+/g, "") }
+            state.present.content[action.payload.title] = value
             state.future = [];
         },
         updateServicesNumber: (state, action) => { // post content

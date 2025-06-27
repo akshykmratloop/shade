@@ -92,7 +92,7 @@ const NewTemplate2 = ({content}) => {
             <h1 className={`${styles.title}`}>
               {currentContent?.["1"]?.content?.title?.[language]}
             </h1>
-            <p className={`${styles.description} ${BankGothic.className}`}>
+            <p className={`${styles.description} bank-light`}>
               {currentContent?.["1"]?.content?.description?.[language]}
             </p>
           </div>
@@ -135,7 +135,7 @@ const NewTemplate2 = ({content}) => {
             })}
           </div>
 
-          <div className={styles.template4_first_section_content}>
+          <div className={styles.template4_first_section_content} >
             <h2 className={styles.template4_first_section_card_heading}>
               {currentContent?.["3"]?.content?.title[language]}
             </h2>
@@ -179,19 +179,19 @@ const NewTemplate2 = ({content}) => {
       <section className={styles.template4_third_section}>
         <div className="container">
           <div className={styles.template4_third_section_card_wrapper}>
-            {currentContent?.["5"]?.content?.cards.map((item, idx) => (
+            {currentContent?.["5"]?.content?.cards?.map?.((item, idx) => (
               <div
                 key={item.id + idx}
                 className={styles.template4_third_section_card}
               >
                 <div className={styles.template4_third_section_card_header}>
-                  <img src={Img_url + item.images[0].url} alt="icon" />
+                  <img src={Img_url + item?.images?.[0]?.url} alt="icon" />
                   <h2 className={styles.template4_third_section_card_heading}>
-                    {item.title[language]}
+                    {item?.title?.[language]}
                   </h2>
                 </div>
-                <p className={styles.template4_third_section_card_desc}>
-                  {item.description[language]}
+                <p className={`${styles.template4_third_section_card_desc} bank-light`}>
+                  {item?.description?.[language]}
                 </p>
               </div>
             ))}

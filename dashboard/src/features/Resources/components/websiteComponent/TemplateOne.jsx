@@ -74,12 +74,13 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent,
                 </div>
             </section>
 
+            {/* grid */}
             <section className="px-10 py-10"
                 style={{
                     padding: (isComputer) ? `${getDynamicSize(100)} ${getDynamicSize(120)}` : `${getDynamicSize(100)} ${getDynamicSize(170)}`
                 }}
             >
-                <div className={`grid ${(isComputer) && "grid-cols-2"} gap-10 p-[2px]
+                <div className={`grid ${(isComputer) && "grid-cols-2"} gap-10 p-[2px] auto-rows-1fr
                                 ${checkDifference(content?.[2]?.content?.cards, liveContent?.[2]?.content?.cards)}
                             `}
                     style={{ gap: (isComputer) ? `${getDynamicSize(80)} ${getDynamicSize(90)}` : `${getDynamicSize(150)}` }}
@@ -102,7 +103,7 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent,
                                                 // projectPageData.asphaltWork
                                                 Img_url + e.images?.[0]?.url
                                             }
-                                            className={`w-full h-full object-cover
+                                            className={`w-full aspect-[1.3/1] object-cover
                                                 ${checkDifference(e.images?.[0]?.url, liveContent?.[2]?.content?.cards?.[i]?.images?.[0]?.url, "image")}
                                                 `}
                                             alt="" />
@@ -129,6 +130,7 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent,
                 </div>
             </section>
 
+            {/* cards */}
             <section
                 style={{
                     padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(120)}`
@@ -136,7 +138,7 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent,
                 className="bg-[#00B9F28C]"
             >
 
-                <div className={`grid ${(isComputer) ? "grid-cols-3" : isTablet ? "grid-cols-2" : "grid-cols-1 p-10  gap-10"}
+                <div className={`grid ${(isComputer) ? "grid-cols-3" : isTablet ? "grid-cols-2" : "grid-cols-1 p-10 auto-rows-1fr gap-10"}
                                 ${checkDifference(String(content?.[3]?.content?.cards.length), String(liveContent?.[3]?.content?.cards.length))}
                 `}
                     style={{ gap: (isComputer || isTablet) && `${getDynamicSize(40)}` }}
@@ -151,7 +153,7 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent,
                                     }}
                                     key={i}
                                 >
-                                    <div className="flex gap-4"
+                                    <div className="flex gap-4 items-center justify-"
                                         style={{ gap: (isComputer || isTablet) && getDynamicSize(10) }}
                                     >
                                         <img
@@ -169,7 +171,7 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent,
                                             className={`
                                                 ${checkDifference(e?.title?.[language], liveContent?.[3]?.content?.cards?.[i]?.title?.[language])}
                                                 `}
-                                            style={{ fontSize: fontSize.aboutMainPara }}
+                                            style={{ fontSize: fontSize.aboutMainPara, lineHeight: isComputer && getDynamicSize(26) }}
                                         >
                                             {e?.title?.[language] || "LOREM"}
                                         </h3>
@@ -190,6 +192,7 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent,
                 </div>
             </section>
 
+            {/* heading - description */}
             <section
                 className="p-10"
                 style={{
@@ -211,7 +214,7 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent,
                                 <section
                                     className={`
                                         flex border 
-                                        ${isPhone ? "flex-col p-1E" : ""} 
+                                        ${isPhone ? "flex-col p-2" : ""} 
                                         ${isTablet ? "px-[20px] py-[30px] gap-[20px]" : "gap-[10px]"}
                                         ${isComputer && "justify-"}`}
                                     key={i}

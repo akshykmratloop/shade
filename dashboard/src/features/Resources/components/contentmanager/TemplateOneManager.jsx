@@ -205,7 +205,7 @@ const TemplateOneManager = ({ content, currentPath, language, indexes, outOfEdit
                                 subHeading={`Description ${(i + 1)}`}
                                 currentPath={currentPath}
                                 inputs={[
-                                    { input: "input", label: "Title", updateType: "title", value: section?.title?.[language] },
+                                    { input: "input", label: "Title", updateType: "title", maxLength: 29, value: section?.title?.[language] },
                                     { input: "textarea", label: "Description", updateType: "description", value: section?.description?.[language] }
                                 ]}
                                 index={i}

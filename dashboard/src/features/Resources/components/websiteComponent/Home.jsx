@@ -405,7 +405,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             ))}
                         </div>
 
-                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[500px] border" : ""} 
+                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[500px]" : ""} 
                         `}
                             style={{ width: ((isComputer || fullScreen) && !isTablet) ? dynamicSize(800, width) : (!isComputer && fullScreen) ? dynamicSize(1030, width) : "" }}
                         >

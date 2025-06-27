@@ -59,7 +59,7 @@ const TemplateFourManager = ({ content, currentPath, language, indexes, outOfEdi
                     inputs={[
                         { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn, dir: "ltr" },
                         { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
-                        ...([{ input: "input", label: "Slug", updateType: "slug", value: context?.slug, disable: context?.id === "N" ? false : true, dir:"ltr" }]),
+                        ...([{ input: "input", label: "Slug", updateType: "slug", value: context?.slug, disable: context?.id === "N" ? false : true, dir: "ltr" }]),
                     ]}
                     section={"page-details"}
                     language={language}
@@ -147,7 +147,7 @@ const TemplateFourManager = ({ content, currentPath, language, indexes, outOfEdi
                                 currentPath={currentPath}
                                 subHeading={`Card ${(i + 1)}`}
                                 inputs={[
-                                    { input: "input", label: "Title", updateType: "title", value: section?.title?.[language] },
+                                    { input: "input", label: "Title", updateType: "title", maxLength: 29, value: section?.title?.[language] },
                                     { input: "textarea", label: "Description", updateType: "description", maxLength: 400, value: section?.description?.[language] },
                                 ]}
                                 inputFiles={[{ label: "Icon", id: `icontemp4${i}`, order: 1, url: section?.images?.[0]?.url }]}

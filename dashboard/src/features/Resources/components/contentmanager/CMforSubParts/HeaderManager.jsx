@@ -10,13 +10,7 @@ import { getResources } from "../../../../../app/fetch";
 const HeaderManager = ({ language, currentContent, currentPath, indexes, outOfEditing }) => {
     const dispatch = useDispatch();
     const [list, setLists] = useState([])
-
-    const lists = [
-        { id: "one", nameEn: "one", nameAr: "ek", url: "/one" },
-        { id: "two", nameEn: "two", nameAr: "do", url: "/two" },
-        { id: "three", nameEn: "three", nameAr: "teen", url: "/three" }
-    ]
-
+    console.log(list)
     const listName = {}
 
     list.forEach((e, i) => {
@@ -44,8 +38,9 @@ const HeaderManager = ({ language, currentContent, currentPath, indexes, outOfEd
                 const response = await getResources({ resourceType: "MAIN_PAGE", fetchType: "SLUG" })
                 if (response.ok) {
                     const payload = response.resources.resources.map(e => {
+                        if (e.resourceTag === "HOME") { return null }
                         return { ...e, id: e.nameEn }
-                    })
+                    }).filter(Boolean)
                     setLists(payload)
                 }
             } catch (err) {
@@ -79,7 +74,7 @@ const HeaderManager = ({ language, currentContent, currentPath, indexes, outOfEd
             />
 
             {currentContent?.['1']?.content?.map((section, i, a) => {
-                const moreThanFive = i > 4
+                const moreThanFive = i > 0
                 const isContactButton = section.type === "contact"
                 return (
                     <div key={i}>

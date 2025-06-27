@@ -138,7 +138,7 @@ console.log(currentContent)
 
               {/* Contact Button */}
               <button
-                className={`${styles.contactButton} ${BankGothic.className} ${language === "en" && styles.noPadding}`}
+                className={`${styles.contactButton} bank-light ${BankGothic.className} ${language === "en" && styles.noPadding}`}
                 onClick={handleContactUS}
               >
                 {currentContent?.contact?.[language]}
@@ -173,7 +173,7 @@ console.log(currentContent)
                 ))}
                 <li>
                   <button
-                    className={styles.mobileContactButton}
+                    className={`${styles.mobileContactButton} bank-light`}
                     onClick={() => {
                       handleContactUS();
                       setIsOpenNavbar(false);

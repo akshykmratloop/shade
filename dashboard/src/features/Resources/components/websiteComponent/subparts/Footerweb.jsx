@@ -14,7 +14,9 @@ import dynamicSize, { differentText } from "../../../../../app/fontSizes";
 
 
 const Footer = ({ language, screen, currentContent, highlight, liveContent }) => {
-    const isPhone = screen < 600
+    const isComputer = screen > 900 || highlight;
+    const isTablet = screen < 900 && screen > 450 && !highlight;
+    const isPhone = screen < 450 && !highlight;
     const isLeftAlign = language === "en"
     const dispatch = useDispatch()
 

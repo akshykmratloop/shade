@@ -210,7 +210,8 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent, 
                                         {/* {TruncateText(e.description?.[language], 350)} */}
                                     </div>
                                     <button
-                                        className={`relative py-[6px] px-[12px] text-xs font-medium bg-[#00B9F2] text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
+                                        className={`relative py-[6px] px-[12px] text-xs font-medium bg-[#00B9F2] text-white rounded flex items-center justify-start gap-2 
+                                            ${isLeftAlign ? "flex-row-reverse" : ""}`}
                                         style={{
                                             fontSize: getDynamicSize(16),
                                             padding: getDynamicSize(15)
