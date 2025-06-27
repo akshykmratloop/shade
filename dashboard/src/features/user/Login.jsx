@@ -49,7 +49,7 @@ function Login() {
     setLoading(true);
 
     const validEmail = checkRegex(formObj.email, setErrorEmailMessage); // checks if email is under valid format
-
+    localStorage.setItem("email", formObj.email)
     let payload;
     let response;
     if (loginWithOtp) {
@@ -106,6 +106,7 @@ function Login() {
 
       setTimeout(() => {
         navigate("/app/welcome");
+        localStorage.removeItem("email")
       }, 1000);
     } else if (response.otp) {
       runToast("SUCCESS", "OTP has been sent")
@@ -118,6 +119,7 @@ function Login() {
     } else {
       runToast("ERROR", `Request unsuccessful! ${response.message}`)
       setLoading(false);
+      localStorage.removeItem("email")
     }
   };
 
@@ -138,6 +140,9 @@ function Login() {
     const theme = localStorage.getItem("theme")
     const token = localStorage.getItem("token");
     const user = localStorage.getItem("user");
+    const userMail = localStorage.getItem("email")
+
+    if (userMail) setFormObj({ ...formObj, email: userMail })
     if (token && user) {
       navigate("/app/welcome");
     }

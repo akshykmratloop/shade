@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import PasswordValidation, { validatePasswordMessage } from "./PasswordValidation";
 import { toast } from "react-toastify";
 import validator from "../../../app/valid";
+import { runToast } from "../../Component/ToastPlacer";
 
 const UpdatePassword = ({ userObj }) => {
     const navigate = useNavigate()
@@ -56,13 +57,15 @@ const UpdatePassword = ({ userObj }) => {
         console.log(payload)
         const response = await PassUpdate(payload); // request for new password
         if (response.ok) { // if everything goes correctly
-            toast.success(response.message); // the success message
+            // toast.success(response.message); // the success message
+            runToast("SUCCESS", response.message)
             setTimeout(() => {
                 navigate("/login") // navigating to the login page after 1 sec
             }, 1000)
         } else {
             setLoading(false) // if something went wrong
-            toast.error(response.message);
+            // toast.error(response.message);
+            runToast("ERROR", response.message)
         }
     };
 
@@ -71,7 +74,7 @@ const UpdatePassword = ({ userObj }) => {
         setFormObj(prev => JSON.parse(localStorage.getItem("forgot_Pass")))
         localStorage.clear() // clearing the otp state
         localStorage.setItem("theme", Theme)
-        
+
     }, []);
 
     useEffect(() => {
@@ -79,9 +82,9 @@ const UpdatePassword = ({ userObj }) => {
             // toast.warn("Password reset was interrupted. Please try again!", { autoClose: 3000 });
             alert("Password reset was interrupted. Please try again!")
         };
-    
+
         window.addEventListener("popstate", handleBackButton);
-    
+
         return () => {
             window.removeEventListener("popstate", handleBackButton);
         };
@@ -102,7 +105,7 @@ const UpdatePassword = ({ userObj }) => {
                     containerStyle="mt-4"
                     labelTitle="New Password"
                     updateFormValue={updateFormValue}
-                    errorMessage={errorPassMessage} 
+                    errorMessage={errorPassMessage}
                 />
                 <InputText
                     name={"password"}

@@ -47,7 +47,8 @@ const OTPpage = ({ formObj, request, stateUpdater, otpSent }) => {
 
     const handleResendOTP = async () => {
         // Reset the timer and request a new OTP
-        const loadingToastId = toast.loading("Processing your request... Please wait!", { autoClose: 2000, style: { backgroundColor: "#3B82F6", color: "#fff" } }); // starting the loading in toaster
+        // const loadingToastId = toast.loading("Processing your request... Please wait!", { autoClose: 2000, style: { backgroundColor: "#3B82F6", color: "#fff" } }); // starting the loading in toaster
+        runToast("LOAD", "Processing your request... Please wait!")
         const response = await resendOTP(payload ||
         {
             email: formObj.email,
@@ -56,8 +57,10 @@ const OTPpage = ({ formObj, request, stateUpdater, otpSent }) => {
 
         })
 
-        updateToasify(loadingToastId, response.message, "info", 2000) // updating the toaster
-        console.log(response)
+        // updateToasify(loadingToastId, response.message, "info", 2000) // updating the toaster
+        runToast("SUCCESS", response.message)
+
+        // console.log(response)
         setTimer(response.minutes ? (response.minutes * 60) + response.seconds : OTP_TIMEOUT_SECONDS);
         localStorage.setItem(`otpTimestamp/${formObj.otpOrigin}`, Date.now());
     };
@@ -93,25 +96,31 @@ const OTPpage = ({ formObj, request, stateUpdater, otpSent }) => {
                 localStorage.setItem("token", response.token);
                 localStorage.removeItem(formObj.otpOrigin)
                 document.cookie = `authToken=${response.token}; path=/; Secure`
-                toast.success("Login Successful!");
+                // toast.success("Login Successful!");
                 runToast("SUCCESS", "Login Successful!");
                 setTimeout(() => {
                     navigate("/app/welcome");
+                    localStorage.removeItem("email")
                 }, 1000);
                 return
             } else {
                 runToast("ERROR", `${response.message}`);
             }
         } else if (formObj.otpOrigin === "forgot_Pass" || payload.otpOrigin === "forgot_Pass") {
-            toast.success("Verification complete!");
-            setTimeout(() => {
-                stateUpdater.setOtpVerified(true);
-                stateUpdater.setLinkSent(false);
-            }, 1000);
-            localStorage.removeItem(`otpTimestamp/${formObj.otpOrigin}`);
-            // localStorage.removeItem(formObj.otpOrigin);
+            if (response.ok) {
+                // toast.success("Verification complete!");
+                runToast("SUCCESS", "Verification complete!")
+                setTimeout(() => {
+
+                    stateUpdater.setOtpVerified(true);
+                    stateUpdater.setLinkSent(false);
+                }, 1000);
+                localStorage.removeItem(`otpTimestamp/${formObj.otpOrigin}`);
+            } else {
+                runToast("ERROR", response.message)
+            }
         } else if (response.status === 'error') {
-            toast.error(response.message);
+            runToast("ERROR", response.message)
         }
     };
 

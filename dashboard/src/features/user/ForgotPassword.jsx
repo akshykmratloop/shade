@@ -13,6 +13,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import UpdatePassword from './components/UpdatePassword';
 import getFingerPrint from '../../app/deviceId';
 import { Link, useNavigate } from 'react-router-dom';
+import ToastPlacer, { runToast } from '../Component/ToastPlacer';
 
 function ForgotPassword() {
     const navigate = useNavigate()
@@ -33,8 +34,9 @@ function ForgotPassword() {
         const validEmail = checkRegex(formObj.email, setErrorMessage) // checks if email is under valid format
         if (!validation || validEmail) return;
         else {
+            localStorage.setItem("email", formObj.email)
             setLoading(true)
-            const loadingToastId = toast.loading("Processing your request... Please wait!", { autoClose: 2000, style: { backgroundColor: "#3B82F6", color: "#fff" } }); // starting the loading in toaster
+            runToast("LOAD", "Processing your request... Please wait!")
 
             // Call API to send password reset link
             const response = await forgotPassReq(formObj);
@@ -42,11 +44,11 @@ function ForgotPassword() {
                 setLoading(false)
                 setOtpSent(true)
                 localStorage.setItem(formObj.otpOrigin, JSON.stringify(formObj))
-                updateToasify(loadingToastId, "Request successful! OTP has been sent.", "success", 2000) // updating the toaster
+                runToast("SUCCESS", "Request successful! OTP has been sent.")
                 return;
             }
             setLoading(false)
-            updateToasify(loadingToastId, response.message, "error", 2000) // updating the toaster
+            runToast("ERROR", response.message)
         }
     }
 
@@ -58,7 +60,7 @@ function ForgotPassword() {
     useEffect(() => {
         const token = localStorage.getItem("token")
         const user = localStorage.getItem("user")
-        if(token && user){
+        if (token && user) {
             navigate('/app/welcome')
         }
     }, [])
@@ -66,6 +68,9 @@ function ForgotPassword() {
     useEffect(() => {
         localStorage.removeItem("MFA_Login")
         localStorage.removeItem("otpTimestamp/MFA_Login")
+        const userMail = localStorage.getItem("email")
+
+        if (userMail) setFormObj({ ...formObj, email: userMail })
         const stateOfOTP = localStorage.getItem(formObj.otpOrigin)
         setOtpSent(stateOfOTP)
     }, [])
@@ -129,7 +134,8 @@ function ForgotPassword() {
 
 
             </div>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
+            <ToastPlacer />
         </div>
     )
 }
