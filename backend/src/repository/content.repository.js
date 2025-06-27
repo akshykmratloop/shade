@@ -6318,8 +6318,17 @@ export const fetchAllFilters = async (resourceId = null) => {
 };
 
 
-export const fetchAllResourceSlugs = async (resourceType = null, resourceTag = null) => {
-  const resources = await prismaClient.resource.findMany({
+export const fetchAllResourceSlugs = async (resourceType = null, resourceTag = null, page = null, limit = null) => {
+  // Get total count
+  const totalCount = await prismaClient.resource.count({
+    where: {
+      ...(resourceType ? { resourceType } : {}),
+      ...(resourceTag ? { resourceTag } : {}),
+    },
+  });
+
+  // Prepare query options
+  const queryOptions = {
     where: {
       ...(resourceType ? { resourceType } : {}),
       ...(resourceTag ? { resourceTag } : {}),
@@ -6332,15 +6341,29 @@ export const fetchAllResourceSlugs = async (resourceType = null, resourceTag = n
       resourceTag: true,
     },
     orderBy: { createdAt: 'desc' },
-  });
+  };
 
-  return resources.map(resource => ({
-    nameEn: resource.titleEn,
-    nameAr: resource.titleAr,
-    slug: `/${resource.slug}`,
-    resourceType: resource.resourceType,
-    resourceTag: resource.resourceTag,
-   
-  }));
+  // Add pagination only if both page and limit are provided
+  if (page && limit) {
+    const skip = (page - 1) * limit;
+    queryOptions.skip = skip;
+    queryOptions.take = limit;
+  }
+
+  // Get resources
+  const resources = await prismaClient.resource.findMany(queryOptions);
+
+  return {
+    totalCount,
+    page: page || 1,
+    limit: limit || totalCount,
+    resources: resources.map(resource => ({
+      nameEn: resource.titleEn,
+      nameAr: resource.titleAr,
+      slug: `/${resource.slug}`,
+      resourceType: resource.resourceType,
+      resourceTag: resource.resourceTag,
+    }))
+  };
 };
 
