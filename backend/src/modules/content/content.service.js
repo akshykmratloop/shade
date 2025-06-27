@@ -33,7 +33,8 @@ import {
   createResources,
   fetchVersionContent,
   checkSlugExists,
-  fetchAllFilters
+  fetchAllFilters,
+  fetchAllResourceSlugs
 } from "../../repository/content.repository.js";
 
 // Create New Resource ================================
@@ -54,24 +55,6 @@ const addNewResource = async (
   comments,
   sections
 ) => {
-
-  // // Validate resource type
-  // if (resourceType !== "SUB_PAGE" && resourceType !== "SUB_PAGE_ITEM") {
-  //   throw new Error("Invalid resource type. Only SUB_PAGE and SUB_PAGE_ITEM are allowed");
-  // }
-
-  // // Validate resource tag
-  // const validResourceTags = [
-  //   "SERVICE",
-  //   "MARKET",
-  //   "PROJECT",
-  //   "TESTIMONIAL",
-  //   "NEWS",
-  //   "SAFETY_RESPONSIBILITY",
-  // ];
-  // if (!validResourceTags.includes(resourceTag)) {
-  //   throw new Error(`Invalid resource tag. Valid tags are: ${validResourceTags.join(", ")}`);
-  // }
 
   // Check if slug exists
   const existingResource = await checkSlugExists(slug);
@@ -142,6 +125,13 @@ const getResources = async (
       // resources: resources,
     });
     return {message: "Success", resources};
+  } else if(fetchType === 'SLUG'){
+    const resources =  await fetchAllResourceSlugs( resourceType,
+      resourceTag,)
+      logger.info({
+        response: "Resource's slug fetch successfully",
+      });
+      return {message: "Success", resources};
   }
   const resources = await fetchResources(
     resourceType,

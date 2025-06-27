@@ -755,6 +755,7 @@ export const fetchResources = async (
   };
 };
 
+
 export const fetchAllResourcesWithContent = async (
   resourceType = "",
   resourceTag = "",
@@ -6315,3 +6316,31 @@ export const fetchAllFilters = async (resourceId = null) => {
     });
   }
 };
+
+
+export const fetchAllResourceSlugs = async (resourceType = null, resourceTag = null) => {
+  const resources = await prismaClient.resource.findMany({
+    where: {
+      ...(resourceType ? { resourceType } : {}),
+      ...(resourceTag ? { resourceTag } : {}),
+    },
+    select: {
+      titleEn: true,
+      titleAr: true,
+      slug: true,
+      resourceType: true,
+      resourceTag: true,
+    },
+    orderBy: { createdAt: 'desc' },
+  });
+
+  return resources.map(resource => ({
+    nameEn: resource.titleEn,
+    nameAr: resource.titleAr,
+    slug: `/${resource.slug}`,
+    resourceType: resource.resourceType,
+    resourceTag: resource.resourceTag,
+   
+  }));
+};
+
