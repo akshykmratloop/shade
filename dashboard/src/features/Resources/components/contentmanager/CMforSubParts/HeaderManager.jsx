@@ -17,20 +17,19 @@ const HeaderManager = ({ language, currentContent, currentPath, indexes, outOfEd
     const listName = {}
 
     lists.forEach((e, i) => {
-        listName[e.nameEn] = e
+        listName[e.id] = e
     })
 
     const addNav = (name, value) => {
-        console.log(listName[name])
         dispatch(updateCardAndItemsArray({
             sectionIndex: 0,
             operation: 'add',
             insert: {
                 nav: {
-                    ar: listName[name].nameAr,
-                    en: listName[name].nameEn
+                    ar: listName[value].nameAr,
+                    en: listName[value].nameEn
                 },
-                url: listName[name].id,
+                url: listName[value].url,
             }
         }))
     }
@@ -102,11 +101,14 @@ const HeaderManager = ({ language, currentContent, currentPath, indexes, outOfEd
             /> */}
             <Select
                 options={lists}
-                label={"create a new label"}
-                baseClass={"w-full"}
+                label={"create a new navigation"}
+                baseClass={"w-full mt-10"}
                 width={"w-full"}
+                value={""}
                 setterOnChange={addNav}
                 language={language}
+                optionsClass={`dark:bg-white text-black`}
+                selectClass={`bg-transparent border border-stone-300/20`}
             />
         </div>
     )

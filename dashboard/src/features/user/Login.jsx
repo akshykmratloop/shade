@@ -135,10 +135,14 @@ function Login() {
   };
 
   useEffect(() => {
+    const theme = localStorage.getItem("theme")
     const token = localStorage.getItem("token");
     const user = localStorage.getItem("user");
     if (token && user) {
       navigate("/app/welcome");
+    }
+    if (!theme) {
+      localStorage.setItem("theme", "light")
     }
   }, []);
 

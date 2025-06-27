@@ -15,7 +15,7 @@ const ToasterUI = ({ type = "SUCCESS", message }) => {
 
     if (error) return null
     return (
-        <div className={`min-w-[20vw] max-w-[20vw] flex gap bg-white rounded-lg flex gap-4 p-4 animation-move-left`}>
+        <div className={`min-w-[20vw] max-w-[20vw] flex gap bg-white rounded-lg flex gap-4 p-4 animation-move-left shadow-xl shadow-stone-700`}>
             <span className={`${ToasterState[type].color} text-[24px] ${loader && "animate-rotate"}`}>
                 {ToasterState[type].icon}
             </span>
