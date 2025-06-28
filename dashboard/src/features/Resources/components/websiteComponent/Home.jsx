@@ -236,10 +236,10 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                 <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-md transition-transform duration-300 hover:scale-105 cursor-pointer ${key % 2 !== 0 ? "bg-blue-900 text-[white]" : " bg-stone-200"} `}>
                                     <div className="flex flex-col items-center gap-4">
                                         <img src={Img_url + card?.icon} width={40} height={40} alt="Icon" className="h-10 w-10" />
-                                        <h5 className={`relative text-lg font-light text-center `}
+                                        <h5 className={`relative text-lg font-light text-center leading-[100%]`}
                                             style={{ fontSize: isComputer && dynamicSize(20, width) }}>
+                                            <span className={`block absolute left-1/2  -translate-x-1/2 ${isLeftAlign?"top-[-12px]":"top-[-14px]"} h-[2px] w-16 bg-gray-300 mt-2 mx-auto`}></span>
                                             {card?.[titleLan]}
-                                            <span className="block h-[2px] w-16 bg-gray-300 mt-2 mx-auto"></span>
                                         </h5>
                                     </div>
                                 </div>)
@@ -550,11 +550,11 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             {content?.["6"]?.content?.description?.[language]}
                         </p>
                     </div>
-                    <div ref={scrollRef} className={`w-full overflow-x-auto rm-scroll px-16 pb-4`}
+                    <div ref={scrollRef} className={`w-full  px-16 pb-4`}
                         style={{ padding: isComputer ? `${dynamicSize(40, width)} ${dynamicSize(68, width)}` : "" }}
                     >
-                        <div className={`flex min-w-100% items-center ${isPhone ? "flex-col gap-4 justify-center" : "w-[fit-content]  justify-between"}`}
-                            style={{ gap: !isPhone ? (isTablet ? dynamicSize(264, width) : dynamicSize(194, width)) : dynamicSize(354, width) }}
+                        <div className={`flex flex-wrap w-[100%] items-center ${isPhone ? "flex-col gap-4 justify-center" : " justify-center"}`}
+                            style={{ gap: !isPhone ? isTablet ? dynamicSize(120, width) : dynamicSize(80, width) : dynamicSize(354, width) }}
                         >
                             {content?.["6"]?.content?.clientsImages?.map((client, key) => (
                                 <div className={`
@@ -566,8 +566,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                         className={`w-[120px] h-[120px] bg-white rounded-full flex items-center justify-center p-5 py-6
                                         `}
                                         style={{
-                                            width: isComputer && dynamicSize(200, width),
-                                            height: isComputer && dynamicSize(200, width)
+                                            width: isComputer && dynamicSize(120, width),
+                                            height: isComputer && dynamicSize(120, width)
                                         }}
                                     >
                                         <img

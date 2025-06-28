@@ -141,7 +141,7 @@ console.log(currentContent)
                 className={`${styles.contactButton} bank-light ${BankGothic.className} ${language === "en" && styles.noPadding}`}
                 onClick={handleContactUS}
               >
-                {currentContent?.contact?.[language]}
+                {currentContent?.['2']?.content?.contact?.[language]}
               </button>
 
               {/* Hamburger */}
