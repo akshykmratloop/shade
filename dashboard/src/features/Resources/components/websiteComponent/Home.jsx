@@ -195,7 +195,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         />
                     </div>
                     {/* About content */}
-                    <div className={`flex flex-col items-start ${isPhone ? " " : "absolute "} ${isLeftAlign ? "right-0 text-left" : "left-0 text-right"} bg-[#145098] ${isTablet ? "p-10 py-14" : "p-14 py-20"} rounded-sm w-[23rem]`}
+                    <div className={`flex flex-col items-start ${isPhone ? " " : "absolute "} ${isLeftAlign ? "right-0 text-left" : "left-0 text-right"} bg-[#145098] ${isTablet ? "p-10 py-14" : "p-14 py-[40px]"} rounded-sm w-[23rem]`}
                         style={{ gap: isComputer ? dynamicSize(26, width) : "16px", width: isComputer && dynamicSize(488, width), padding: isComputer && `${dynamicSize(98, width)} ${dynamicSize(65, width)}` }}
                     >
                         <h2 className={`text-white text-[28px] leading-[1.8rem]  font-normal ${checkDifference(content?.["2"]?.content?.title?.[language], liveContent?.["2"]?.content?.title?.[language])}`}

@@ -127,11 +127,6 @@ const HomePage = ({ content }) => {
       {/* banner */}
       <section
         className={`${styles.home_banner_wrap} `}
-      // style={{
-      //   backgroundImage: `url(${Img_url + currentContent?.["1"]?.content?.images?.[0]?.url})`,
-      //   backgroundRepeat: "no-repeat",
-      //   backgroundSize: "cover",
-      // }}
       >
         <span
           className={`${language === "en" && styles.leftAlign} ${styles.backgroundContainer
@@ -157,7 +152,15 @@ const HomePage = ({ content }) => {
             ></div>
           </div> */}
           {/* <AnimatedText text="بناء مستقبل أقوى" Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
-
+          <div className={styles.gradientOverlay}>
+            <div
+              className={styles.gradientBlob}
+              style={{
+                width: 950,
+                height: 650
+              }}
+            ></div>
+          </div>
           <h1 className={`${styles.title}`}>
             {currentContent?.["1"]?.content?.title?.[language]}
           </h1>
@@ -168,29 +171,37 @@ const HomePage = ({ content }) => {
             className={`${styles.view_btn}  ${language === "en" && styles.noPadding
               }`}
             onClick={() => router.push("/project")}
+            style={{
+            }}
           >
+            <span>
+              {currentContent?.[1]?.content?.button?.[0]?.text?.[language]}
+            </span>
             <Image
               src={Arrow}
               width="18"
               height="17"
               alt=""
+              style={{
+                transform: isLeftAlign && "scaleX(-1)",
+              }}
               className={`${styles.arrow_btn}`}
             />
-            <span>
-              {currentContent?.[1]?.content?.button?.[0]?.text?.[language]}
-            </span>
           </Button>
+
+
         </div>
         {/* </div> */}
       </section>
 
       {/* about us section */}
       <section
+        dir={isLeftAlign ? "ltr" : "rtl"}
         className={`${styles.about_us_wrapper} ${language === "en" && styles.englishVersion
           }`}
       >
-        <div className={`container ${styles.main_container}`}>
-          <div className={styles.about_content}>
+        <div className={`container ${styles.main_container}`} dir={isLeftAlign ? "ltr" : "rtl"}>
+          <div className={`${styles.about_content} ${isLeftAlign ? styles.englishPosition : styles.arabicPosition}`}>
             <h2 className={`${styles.title}`}>
               {currentContent?.["2"]?.content?.title?.[language]}
             </h2>
@@ -520,8 +531,8 @@ const HomePage = ({ content }) => {
                   <div className={styles.card_body}>
                     <Image
                       src={Img_url + client?.url}
-                      width={key === 3 ? 100 : 66}
-                      height={key === 3 ? 30 : 66}
+                      width={66}
+                      height={66}
                       alt="about-us"
                       className={styles.client}
                     // style={{objectFit:"cover"}}

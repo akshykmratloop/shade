@@ -391,26 +391,14 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent, 
                                 ref={testimonialNextRef}
                                 className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
                             >
-                                {/* <img
-                                    src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
-                                    width="22"
-                                    height="17"
-                                    alt=""
-                                    className={``}
-                                /> */}
+                               
                                 <span className={``} style={{ fontSize: fontSize.aboutMainPara }}><FaArrowLeftLong /></span>
                             </button>
                             <button
                                 ref={testimonialPrevRef}
                                 className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
                             >
-                                {/* <img
-                                    src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
-                                    width="22"
-                                    height="17"
-                                    alt=""
-                                    className={``}
-                                /> */}
+                              
                                 <span dir="" className={`scale-x-[-1]`} style={{ fontSize: fontSize.aboutMainPara }}><FaArrowLeftLong /></span>
                             </button>
 

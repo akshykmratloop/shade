@@ -13,6 +13,10 @@ import "swiper/css/pagination";
 import localFont from "next/font/local";
 import Image from "next/image";
 import Button from "@/common/Button";
+import rightQuote from "../../assets/icons/right-quote.png"
+import bracket_l from "../../assets/icons/bracket-l.svg"
+// import bracket_l from "@/assets/icons/bracket-l.svg"
+import bracket_r from "../../assets/icons/bracket-r.svg"
 import patch from "../../contexts/svg/path.jsx";
 // Font files can be colocated inside of `app`
 const BankGothic = localFont({
@@ -52,6 +56,8 @@ const MarketPage = ({ content }) => {
   const handleContactUSClose = () => {
     setIsModal(false);
   };
+
+  console.log(bracket_l.src)
 
   useEffect(() => {
     setFilterMarketItems(
@@ -138,10 +144,10 @@ const MarketPage = ({ content }) => {
             return (
               <section
                 style={{
-                  height: '359px',
-                  flexDirection: odd ? "row-reverse" : ""
+                  // height: '359px',
+                  // flexDirection: odd ? "row-reverse" : ""
                 }}
-                className={`${styles.card}`} key={e.id}>
+                className={`${styles.card} ${odd ? styles.row_reverse : ""}`} key={e.id}>
                 <div className={` ${styles.Imagediv}`}
                 // style={{ width: '463px', height: '100%' }}
                 >
@@ -149,7 +155,7 @@ const MarketPage = ({ content }) => {
                     src={Img_url + e.image}
                     alt=""
                     style={{
-                      width: '463px',
+                      // width: '463px',
                       height: '100%'
                     }}
                   />
@@ -208,11 +214,21 @@ const MarketPage = ({ content }) => {
         <div className="container">
           <div className={styles.content}>
             <div className={styles.card}>
+              <div className={styles.braketBefore}
+                style={{ backgroundImage: `url(${bracket_l.src})` }}
+              >
+              </div>
+              <div
+                style={{ backgroundImage: `url(${bracket_r.src})` }}
+                className={styles.braketAfter}>
+              </div>
+
               <Image
-                src="https://frequencyimage.s3.ap-south-1.amazonaws.com/314d64b5-770d-4d55-9faf-b273f55d1a5c-%E2%80%9C.svg"
-                width="18"
-                height="17"
+                src={rightQuote}
+                width="50"
+                height="50"
                 alt=""
+                style={{ opacity: ".3" }}
                 className={styles.arrow_btn}
               />
               <p className={`${styles.description} ${BankGothic.className}`}>

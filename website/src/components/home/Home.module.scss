@@ -16,9 +16,15 @@
   }
 
   .content {
+    height: 100%;
     position: absolute;
-    top: 30%;
+    z-index: 3;
+    top: 0;
     padding: 0px 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
 
     .title {
       color: var(--black);
@@ -28,6 +34,8 @@
       letter-spacing: -3.5px;
       margin-bottom: 16px;
       width: 635px;
+      position: relative;
+      z-index: 2;
     }
 
     .description {
@@ -39,33 +47,40 @@
       width: 50%;
       word-spacing: 5px;
       display: block;
+      position: relative;
+      z-index: 2;
     }
 
     .view_btn {
-      padding: 16px 28px 5px 60px;
+      // padding: 16px 28px 5px 60px;
       font-size: 18px;
       font-weight: 500;
       position: relative;
+      display: flex;
+      // flex-direction: row-reverse;
+      align-items: center;
+      gap: 10px;
 
       &.noPadding {
-        padding: 10px 28px 10px 60px;
+        padding: 10px 28px 10px 30px;
       }
 
-      .arrow_btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 32px;
-      }
+      // .arrow_btn {
+      //   position: absolute;
+      //   top: 50%;
+      //   transform: translateY(-50%);
+      //   left: 32px;
+      // }
     }
   }
 
   // 💻 Medium Screens (<=1200px)
   @media (max-width: 1200px) {
-    height: 600px;
+    height: 100vh;
+    // border: 1px solid red;
 
     .backgroundContainer {
-      height: 600px;
+      height: 100%;
     }
 
     .content {
@@ -86,11 +101,11 @@
 
   // 📱 Tablets (<=992px)
   @media (max-width: 992px) {
-    height: 500px;
+    // height: 500px;
 
-    .backgroundContainer {
-      height: 500px;
-    }
+    // .backgroundContainer {
+    //   height: 500px;
+    // }
 
     .content {
       padding: 0 40px;
@@ -167,7 +182,7 @@
 
     .content {
       width: 100%;
-      top: 15%;
+      top: 30%;
       padding: 0 15px;
 
       .title {
@@ -195,38 +210,39 @@
   }
 }
 
+.gradientOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  display: flex;
+  align-items: center; // vertically center
+  justify-content: start; // horizontally center
+  overflow: visible; // allow the blur to extend beyond the box
+
+  .gradientBlob {
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: white;
+    opacity: 0.9;
+    /* increase to make it brighter */
+    filter: blur(150px);
+    mix-blend-mode: screen;
+    /* or try lighten/overlay */
+  }
+}
+
+
 ///////////////-ABOUT US-/////////////////////////////////////
 .about_us_wrapper {
-  padding: 120px 0;
-
-  @media (max-width: 1024px) and (min-width: 769px) {
-    padding: 300px 0px 150px;
-  }
-
-  &.englishVersion {
-    transform: scaleX(-1);
-    /* This flips the content horizontally */
-    direction: rtl;
-
-    .title,
-    .description {
-      transform: scaleX(-1);
-      text-align: left !important;
-      /* This flips the content horizontally */
-    }
-
-    .view_btn {
-      transform: scaleX(-1);
-      padding: 8px !important;
-      text-align: left !important;
-      /* This flips the content horizontally */
-    }
-  }
+  padding: 150px;
 
   .main_container {
     position: relative;
 
     .about_content {
+      color: white;
       display: flex;
       padding: 98px 60px 98px 40px;
       flex-direction: column;
@@ -235,28 +251,22 @@
       border-radius: 2px;
       gap: 26px;
       background: var(--secondary);
-      box-shadow: 0px 20px 24px -4px rgba(17, 24, 39, 0.1),
-        0px 8px 8px -4px rgba(17, 24, 39, 0.04);
-
+      box-shadow: 0 20px 24px -4px rgba(17, 24, 39, .1), 0 8px 8px -4px rgba(17, 24, 39, .04);
       position: absolute;
       top: 50%;
-      left: 2%;
+      // right: 0;
+      // inset-inline-start: 0;
       transform: translateY(-50%);
-      width: 48vw;
+      width: 32vw;
 
       .title {
-        color: var(--white);
-        text-align: right;
-        font-size: 36px;
-        font-style: normal;
+        font-size: clamp(16px, 2.3vw, 36px);
         font-weight: 400;
         line-height: normal;
-        display: block;
       }
 
       .description {
         color: var(--white);
-        text-align: right;
         font-size: 16px;
         font-style: normal;
         font-weight: 300;
@@ -264,89 +274,154 @@
         margin-bottom: 16px;
         display: block;
       }
+    }
 
-      .view_btn {
-        padding: 16px 28px 5px 34px;
-        font-size: 18px;
+    .englishPosition {
+      right: 0;
+      left: auto;
+    }
 
-        &:hover {
-          background-color: var(--primary);
-        }
-      }
+    .arabicPosition {
+      left: 0;
+      right: auto;
     }
 
     .about_us_banner_wrap {
-      border-radius: 2px;
-      overflow: hidden;
-      width: 87vw;
-      margin-left: auto;
-      height: 629px;
-      box-shadow: 0px 20px 24px -4px rgba(17, 24, 39, 0.1),
-        0px 8px 8px -4px rgba(17, 24, 39, 0.04);
+      width: 57vw;
 
       img {
+        aspect-ratio: 1.4/1;
         object-fit: cover;
-        object-position: bottom;
-        // aspect-ratio: .7/1;
-        height: 629px;
       }
     }
   }
 
-  @media (max-width: 769px) {
+  @media (max-width: 1200px) and (min-width:1024px) {
+    padding: 120px;
 
     .main_container {
-      padding: 0px 50px;
-
-      .about_us_banner_wrap {
-        width: 80%;
-        aspect-ratio: 1/2;
-      }
+      position: relative;
 
       .about_content {
-        padding: 40px 40px 40px 40px;
-        width: 60%;
-        left: 5%;
+        padding: 40px 60px 40px 40px;
+        width: 32vw;
 
-        .title {
-          font-size: 34px;
+        .description {
+          line-height: 100%;
         }
+      }
 
+      .about_us_banner_wrap {
+        width: 57vw;
+
+        img {
+          aspect-ratio: 1/1;
+        }
       }
     }
   }
 
-  @media (max-width: 500px) {
-    padding: 60px 15px;
+  @media (max-width: 1023px) and (min-width:731px) {
+    padding: 60px;
 
     .main_container {
-      padding: 0px 15px;
+      position: relative;
+
+      .about_content {
+        padding: 40px 60px 40px 40px;
+        width: 50vw;
+
+        .title {
+          font-size: 26px;
+        }
+
+        .description {
+          line-height: 100%;
+        }
+      }
+
+      .about_us_banner_wrap {
+        width: 60vw;
+
+        img {
+          aspect-ratio: 1/1.2;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 730px) {
+    padding: 60px;
+
+    .main_container {
+      position: relative;
       display: flex;
       flex-direction: column-reverse;
 
-      .about_us_banner_wrap {
+      .about_content {
+        position: static;
+        padding: 40px 60px 40px 40px;
+        transform: translateY(0);
         width: 100%;
-        // aspect-ratio: 1/1;
-        aspect-ratio: .7/1;
-        height: auto;
 
-        img {
-          object-fit: cover;
-          aspect-ratio: .7/1;
+        .title {
+          font-size: 26px;
+        }
+
+        .description {
+          line-height: 100%;
         }
       }
 
+      .about_us_banner_wrap {
+        width: 100%;
+        padding: 0px;
+
+        height: 60vh;
+
+        img {
+          aspect-ratio: auto;
+          margin: 0;
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 490px) {
+    padding: 40px 20px;
+
+    .main_container {
+      position: relative;
+      display: flex;
+      flex-direction: column-reverse;
+
       .about_content {
         position: static;
-        padding: 40px 40px 40px 40px;
-        width: 100%;
-        left: 5%;
+        padding: 40px 60px 40px 40px;
         transform: translateY(0);
+        width: 100%;
 
         .title {
-          font-size: 34px;
+          font-size: 26px;
         }
 
+        .description {
+          line-height: 100%;
+        }
+      }
+
+      .about_us_banner_wrap {
+        width: 100%;
+        padding: 0px;
+
+        height: 60vh;
+
+        img {
+          aspect-ratio: auto;
+          margin: 0;
+          height: 100%;
+        }
       }
     }
   }
@@ -517,7 +592,8 @@
       }
     }
   }
-   @media (max-width: 700px) {
+
+  @media (max-width: 700px) {
     width: 100%;
     padding: 40px 36px;
 
@@ -1188,11 +1264,14 @@
 
 
       .card_body {
-
+        // border: 1px solid black;
+        width: 95%;
+        height: 95%;
         // overflow: auto;
         img {
           object-fit: contain;
-          border: 1px solid black;
+          width: 100%;
+          height: 100%;  
         }
       }
     }
