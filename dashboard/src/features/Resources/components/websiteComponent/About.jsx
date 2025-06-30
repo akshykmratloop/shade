@@ -6,6 +6,7 @@ import dynamicSize, { defineDevice, differentText, generatefontSize } from "../.
 
 
 const AboutUs = ({ language, screen, currentContent, width, highlight, liveContent }) => {
+    const isComputer = screen > 1100
     const isTablet = screen > 700 && screen < 1100
     const isPhone = screen < 700
     const isEnglish = language === "en"
@@ -25,14 +26,14 @@ const AboutUs = ({ language, screen, currentContent, width, highlight, liveConte
         >
             {/** about us top section */}
             <section className="py-12">
-                <div className="container mx-auto px-4"
+                <div className={`container mx-auto ${isPhone ? "px-2" : "px-4"}`}
                 // style={{ height: getDynamicSize(715) }}
                 >
                     <div className={`flex flex-col gap-6 items-center`}>
-                        <h2 className={`${isPhone ? "text-2xl" : "text-3xl"} font-normal leading-none
+                        <h2 className={`${isPhone ? "text-[28px] text-center" : "text-3xl"} font-normal leading-none
                         ${checkDifference(currentContent?.["1"]?.content?.title?.[language], liveContent?.["1"]?.content?.title?.[language])}
                         `}
-                            style={{ fontSize: fontSize.mainHeading }}
+                            style={{ fontSize: isComputer && fontSize.mainHeading }}
                         >
                             {currentContent?.["1"]?.content?.title?.[language]}
                         </h2>
@@ -46,10 +47,11 @@ const AboutUs = ({ language, screen, currentContent, width, highlight, liveConte
                     </div>
                     <div
                         style={{ gap: isTablet ? getDynamicSize(50) : getDynamicSize(60) }}
-                        className={`${!isEnglish ? 
-                        `${isPhone ? "flex-col" : "flex-row-reverse"}` : 
-                        `${isPhone ? "flex flex-col" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"}`} 
-                        text-center gap-8 mt-8`}>
+                        className={`${!isEnglish ?
+                            `${isPhone ? "flex-col px-6" : "flex-row-reverse"}` :
+                            `${isPhone ? "flex flex-col px-6" : isTablet ? "grid grid-cols-2" :
+                                "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"}`} 
+                                        text-center gap-8 mt-8`}>
                         {currentContent?.["1"]?.content?.cards?.map((card, index) => (
                             <div
                                 className={`bg-[#ebf8fd] rounded-sm flex-1 flex flex-col items-center gap-4`}
@@ -96,7 +98,7 @@ const AboutUs = ({ language, screen, currentContent, width, highlight, liveConte
                 style={{ marginBottom: getDynamicSize(100) }}
             >
                 <div className="container mx-auto px-4 mt-20">
-                    <div className={`flex items-center ${!isEnglish ? `${isPhone ? "flex-col" : "flex-row-reverse"}` : `${isPhone && "flex-col"}`} gap-8`}>
+                    <div className={`flex items-center ${!isEnglish ? `${(isPhone || isTablet) ? "flex-col" : "flex-row-reverse"}` : `${(isPhone || isTablet) && "flex-col"}`} gap-8`}>
                         <div className={`w-full flex flex-[2] items-center
                         ${checkDifference(currentContent?.['2']?.content?.video, liveContent?.['2']?.content?.video)}
                         `}
@@ -118,9 +120,9 @@ const AboutUs = ({ language, screen, currentContent, width, highlight, liveConte
 
                         <div className=" flex-[1]">
                             <h2 className={`text-2xl font-[400] text-black mb-5
-                            ${checkDifference(currentContent?.['2']?.content?.title?.[language], liveContent?.['2']?.content?.title?.[language])}
+                                        ${checkDifference(currentContent?.['2']?.content?.title?.[language], liveContent?.['2']?.content?.title?.[language])}
                             `}
-                                style={{ fontSize: fontSize.clientSection }}
+                                style={{ fontSize: isComputer ? fontSize.clientSection : "" }}
                             >
                                 {currentContent?.['2']?.content?.title?.[language]}
                             </h2>
@@ -128,12 +130,12 @@ const AboutUs = ({ language, screen, currentContent, width, highlight, liveConte
                                 <div className={`${fontLight}
                                              ${checkDifference(currentContent?.['2']?.content?.description?.[language], liveContent?.['2']?.content?.description?.[language])}
                                         `}
-                                    style={{ fontSize: fontSize.experiencePara }}
+                                    style={{ fontSize: isComputer ? fontSize.experiencePara : "14px" }}
                                     dangerouslySetInnerHTML={{ __html: currentContent?.['2']?.content?.descriptions?.[language] }}
                                 />
                             </div>
                             <button
-                                className={`mt-6 px-4 py-2 bg-[white] text-[#00B9F2] border border-[#00B9F2] text-xs font-semibold rounded-[4px] shadow-md hover:none
+                                className={`mt-6 ${isPhone ? "w-full py-3 text-sm" : "py-2 text-xs"} px-4  bg-[white] text-[#00B9F2] border border-[#00B9F2] font-semibold rounded-[4px] shadow-md hover:none
                                     ${checkDifference(currentContent?.['2']?.content?.button?.[0]?.text?.[language], liveContent?.['2']?.content?.button?.[0]?.text?.[language])}
                                     `}
                             >
