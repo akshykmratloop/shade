@@ -125,14 +125,14 @@ const Services = ({ currentContent, screen, language, width, highlight, liveCont
                 </div>
             </section>
 
-            {!(currentContent?.serviceCards?.length > 6) &&
+            {/* {!(currentContent?.serviceCards?.length > 6) &&
                 < div className="flex justify-center py-10" >
                     <button className="bg-[#00B9F2] text-[#fff] p-[11px] rounded-[6px]">
                         <p className={`${checkDifference(currentContent?.['2']?.content?.button?.[0]?.text?.[language], liveContent?.['2']?.content?.button?.[0]?.text?.[language])}`}>
                             {currentContent?.['2']?.content?.button?.[0]?.text?.[language]}
                         </p>
                     </button>
-                </div>}
+                </div>} */}
 
         </div >
     );

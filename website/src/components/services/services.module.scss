@@ -1,246 +1,100 @@
 .services_banner_wrap {
-  // height: 715px;
-  width: 100%;
+  padding: 150px;
   position: relative;
+  display: flex;
+  align-items: center;
 
-  &.leftAlign {
-    transform: scaleX(-1);
-
-    .content {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      right: 20px;
-
-      .title,
-      .description {
-        transform: scaleX(-1);
-        text-align: left;
-      }
-
-      .view_btn {
-        padding: 10px 50px 10px 10px;
-        transform: scaleX(-1);
-      }
-
-      .arrow_btn {
-        position: absolute;
-        top: 30% !important;
-        left: 190px !important;
-        transform: scaleX(-1) !important;
-      }
-    }
+  .gradientOverlay {
+    position: absolute;
   }
 
   .content {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: start;
 
     .title {
-      // color: var(--black);
-      // font-size: 70px;
-      // font-style: normal;
-      // font-weight: 500;
-      // line-height: 77px;
-      // /* 110% */
-      // letter-spacing: -3.5px;
-      // margin-bottom: 16px;
-      // // text-align: right;
+      font-size: clamp(30px, 10vw, 70px);
       color: var(--black);
-      font-size: 70px;
       font-style: normal;
       font-weight: 500;
       line-height: 77px;
       letter-spacing: -3.5px;
-      margin-bottom: 16px;
     }
 
     .description {
+      width: 50%;
       color: var(--para-light);
-      // font-size: 14px;
-      // font-style: normal;
-      // font-weight: 700;
-      // line-height: 28px;
-      // margin-bottom: 24px;
-      // width: 54%;
-      // // text-align: right;
-      margin-left: auto;
       font-size: 16px;
       font-style: normal;
       font-weight: 600;
       line-height: 26px;
       margin-bottom: 26px;
-      width: 50%;
       word-spacing: 5px;
       display: block;
     }
 
     .view_btn {
-      padding: 16px 28px 10px 60px;
-      font-size: 18px;
-      font-weight: 500;
-      margin-left: auto;
-      position: relative;
-
-      .arrow_btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 32px;
-      }
-    }
-  }
-}
-
-.services_card_wrap {
-  padding: 112px 0;
-
-  //   &.leftAlign {
-  //       transform: scaleX(-1);
-
-  //     }
-  .service_card_group {
-    display: flex;
-    flex-direction: column;
-    gap: 96px;
-
-    .service_card {
-      flex: 1 1 calc(50% - 15px); // Adjust the width as needed
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 57px;
+      gap: 10px;
+    }
+  }
 
-      &:nth-child(even) {
-        flex-direction: row-reverse;
-      }
+  @media (max-width:950px) {
+    padding: 70px;
+  }
 
-      .card_image {
-        width: 463px;
-        height: 272px;
-        border-radius: 4px;
-      }
+  @media (max-width:600px) {
+    padding: 30px;
 
-      .card_body {
-        .title {
-          color: var(--balck);
-          //   text-align: right;
-          font-size: 32px;
-          font-style: normal;
-          font-weight: 400;
-          line-height: normal;
-          margin-bottom: 18px;
-        }
+    .content {
 
-        .subTitle {
-          color: var(--black);
-          font-family: "__BankGothic_8a1321", "__BankGothic_Fallback_8a1321";
-          //   text-align: right;
-          font-size: 16px;
-          font-style: normal;
-          font-weight: 300;
-          line-height: 22px;
-          margin-bottom: 26px;
-        }
-
-        .des_title {
-          color: var(--black);
-          font-family: "__BankGothic_8a1321", "__BankGothic_Fallback_8a1321";
-          //   text-align: right;
-          font-size: 14px;
-          font-style: normal;
-          font-weight: 600;
-          line-height: 22px;
-          margin-bottom: 16px;
-        }
-
-        .list_wrap {
-          .list_item {
-            color: var(--black);
-            font-family: "__BankGothic_8a1321", "__BankGothic_Fallback_8a1321";
-            // text-align: right;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 300;
-            line-height: 22px;
-          }
-        }
+      .description {
+        width: 100%;
+        font-size: (13px, .91vw, 16px);
       }
     }
   }
 }
 
-.new_project_wrapper {
-  padding: 132px 0 112px 0;
+.gradientOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  top: 0;
+  left: 0;
+  align-items: center; // vertical center
+  justify-content: start; // center horizontally
 
-  .title {
-    color: var(--black);
-    text-align: center;
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    margin-bottom: 20px;
+  .gradientBlobLTR {
+    justify-content: start;
   }
 
-  .description {
-    color: var(--black);
-    text-align: center;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 300;
-    line-height: 26px;
-    margin-bottom: 10px;
-    display: block;
-    position: relative;
+  .gradientBlob {
+    // display: none;
+    width: 60vw;
+    height: 400px;
+    border-radius: 50%;
+    background: white;
+    opacity: 0.9;
+    filter: blur(150px);
+    mix-blend-mode: screen;
 
-    >i {
-      position: absolute;
-      top: 0;
-      right: 200;
-      z-index: -1;
-      opacity: 0.7;
-
-      &.arabicVersion {
-        position: absolute;
-        top: 0;
-        right: 200px;
-        z-index: -1;
-        opacity: 0.7;
-      }
+    @media (max-width: 600px) {
+      display: block;
+      width: 80vw;
+      filter: blur(120px);
     }
 
-    .highlited {
-      position: relative;
-      color: var(--white);
-
-      &::before {
-        background: url("../../assets/icons/shade.svg") no-repeat center;
-        background-size: contain;
-        width: 129px;
-        height: 30px;
-        position: absolute;
-        content: "";
-        top: -8px;
-        left: 0;
-        z-index: -1;
-      }
-    }
-  }
-
-  .view_btn {
-    padding: 16px 28px 5px 34px;
-    font-size: 18px;
-    margin: 0 auto;
-    margin-top: 44px;
-
-    &.leftAlign {
-      padding: 10px !important;
-    }
+    // You can experiment with blend modes:
+    // mix-blend-mode: overlay;
+    mix-blend-mode: lighten;
   }
 }
+
 
 .service_section {
   display: grid;
@@ -261,6 +115,25 @@
   &.desktop:not(.phone):not(.tablet) {
     grid-template-columns: repeat(2, 1fr);
     padding: 60px 150px;
+
+    @media (max-width: 1024px) {
+      padding: 60px 60px;
+    }
+
+    @media (max-width: 700px) {
+      grid-template-columns: repeat(1, 1fr);
+      padding: 60px clamp(50px, 15vw, 100px);
+    }
+
+    @media (max-width: 550px) {
+      grid-template-columns: repeat(1, 1fr);
+      padding: 60px 50px;
+    }
+
+    @media (max-width: 400px) {
+      grid-template-columns: repeat(1, 1fr);
+      padding: 60px 30px;
+    }
   }
 
   &.align_left {
@@ -269,6 +142,10 @@
 
   &.align_right {
     direction: rtl;
+  }
+
+  @media (max-width: 1024px) {
+    gap: clamp(20px, 5vw, 50px);
   }
 }
 
@@ -301,12 +178,20 @@
   color: #292E3D;
   font-size: 34px;
   font-weight: 400;
+
+  @media (max-width: 1024px) {
+    font-size: clamp(20px, 4vw, 30px);
+  }
 }
 
 .service_description {
   color: #292E3D;
   font-size: 16px;
   margin-bottom: 8px;
+
+  @media (max-width: 924px) {
+    font-size: 14px;
+  }
 }
 
 .service_button {

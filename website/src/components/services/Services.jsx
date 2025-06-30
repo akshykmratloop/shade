@@ -48,33 +48,36 @@ const Services = ({ content }) => {
           backgroundSize: "cover",
           height: "100vh",
         }}
+        dir={isLeftAlign ? "ltr" : "rtl"}
       >
-        <div
-          className="container"
-          style={{ height: "100%", position: "relative" }}
-        >
-          <div className={styles.content}>
-            {/* <AnimatedText text={currentContent?.banner?.title[language]} Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
-            <h1 className={`${styles.title} `}>
-              {currentContent?.[1]?.content?.title[language]}
-            </h1>
-            <p className={`${styles.description} ${BankGothic.className}`}>
-              {currentContent?.[1]?.content?.description[language]}
+        <div className={`${styles.gradientOverlay} ${isLeftAlign && styles.gradientBlobLTR}`} dir={isLeftAlign ? "ltr" : "rtl"}>
+          <div className={`${styles.gradientBlob} `}></div>
+        </div>
+
+        <div className={styles.content}>
+          {/* <AnimatedText text={currentContent?.banner?.title[language]} Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
+          <h1 className={`${styles.title} `}>
+            {currentContent?.[1]?.content?.title[language]}
+          </h1>
+          <p className={`${styles.description} ${BankGothic.className}`}>
+            {currentContent?.[1]?.content?.description[language]}
+          </p>
+          <Button
+            className={styles.view_btn}
+            onClick={() => router.push("/project")}
+          >
+            <p>
+              {currentContent?.[1]?.content?.button?.[0]?.text[language]}
             </p>
-            <Button
-              className={styles.view_btn}
-              onClick={() => router.push("/project")}
-            >
-              <Image
-                src={Arrow}
-                width="18"
-                height="17"
-                alt=""
-                className={styles.arrow_btn}
-              />
-              &nbsp;{currentContent?.[1]?.content?.button?.[0]?.text[language]}
-            </Button>
-          </div>
+            <Image
+              src={Arrow}
+              width="18"
+              height="17"
+              alt=""
+              className={styles.arrow_btn}
+              style={{ transform: isLeftAlign && 'scaleX(-1)' }}
+            />
+          </Button>
         </div>
       </section>
 
