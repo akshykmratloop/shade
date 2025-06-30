@@ -5,6 +5,7 @@
 
   &.leftAlign {
     transform: scaleX(-1);
+
     .content {
       position: absolute;
       top: 50%;
@@ -16,10 +17,12 @@
         transform: scaleX(-1);
         text-align: left;
       }
+
       .view_btn {
         padding: 10px 50px 10px 10px;
         transform: scaleX(-1);
       }
+
       .arrow_btn {
         position: absolute;
         top: 30% !important;
@@ -34,6 +37,7 @@
     top: 50%;
     transform: translateY(-50%);
     right: 20px;
+
     .title {
       // color: var(--black);
       // font-size: 70px;
@@ -45,12 +49,12 @@
       // margin-bottom: 16px;
       // // text-align: right;
       color: var(--black);
-    font-size: 70px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 77px;
-    letter-spacing: -3.5px;
-    margin-bottom: 16px;
+      font-size: 70px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 77px;
+      letter-spacing: -3.5px;
+      margin-bottom: 16px;
     }
 
     .description {
@@ -101,6 +105,7 @@
     display: flex;
     flex-direction: column;
     gap: 96px;
+
     .service_card {
       flex: 1 1 calc(50% - 15px); // Adjust the width as needed
       display: flex;
@@ -190,12 +195,14 @@
     margin-bottom: 10px;
     display: block;
     position: relative;
-    > i {
+
+    >i {
       position: absolute;
       top: 0;
       right: 200;
       z-index: -1;
       opacity: 0.7;
+
       &.arabicVersion {
         position: absolute;
         top: 0;
@@ -228,6 +235,7 @@
     font-size: 18px;
     margin: 0 auto;
     margin-top: 44px;
+
     &.leftAlign {
       padding: 10px !important;
     }
@@ -270,7 +278,7 @@
   height: 100%;
   background-color: white;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .service_image {
