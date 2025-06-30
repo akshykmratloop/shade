@@ -46,7 +46,10 @@ const AboutUs = ({ language, screen, currentContent, width, highlight, liveConte
                     </div>
                     <div
                         style={{ gap: isTablet ? getDynamicSize(50) : getDynamicSize(60) }}
-                        className={`${!isEnglish ? `flex  ${isPhone ? "flex-col" : "flex-row-reverse"}` : `${isPhone ? "flex flex-col" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"}`} text-center gap-8 mt-8`}>
+                        className={`${!isEnglish ? 
+                        `${isPhone ? "flex-col" : "flex-row-reverse"}` : 
+                        `${isPhone ? "flex flex-col" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"}`} 
+                        text-center gap-8 mt-8`}>
                         {currentContent?.["1"]?.content?.cards?.map((card, index) => (
                             <div
                                 className={`bg-[#ebf8fd] rounded-sm flex-1 flex flex-col items-center gap-4`}
