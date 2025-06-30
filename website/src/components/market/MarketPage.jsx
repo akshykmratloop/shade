@@ -244,14 +244,15 @@ const MarketPage = ({ content }) => {
 
       {/* testomonials section  */}
       <section
-        className={` ${language !== "en" && styles.rightAlignment}   ${styles.testimonial_wrapper
+        className={` ${styles.testimonial_wrapper} ${language !== "en" && styles.rightAlignment
           }`}
       >
         <div className={`container ${styles.main_container}`}>
           <div className={styles.testimonials_content}>
-            {/* <AnimatedText text={currentContent?.testimonialSection?.title[language]} Wrapper="h2" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
+            {/* <AnimatedText text="ماذا يقول عملاؤنا عنا؟" Wrapper="h2" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
+
             <h2 className={`${styles.title}`}>
-              {currentContent?.[4]?.content?.title[language]}
+              {currentContent?.["7"]?.content?.title[language]}
             </h2>
           </div>
 
@@ -260,7 +261,7 @@ const MarketPage = ({ content }) => {
               modules={[Navigation, Autoplay, EffectCoverflow]}
               grabCursor={true}
               centeredSlides={true}
-              slidesPerView={2}
+              slidesPerView={1} // Show 1 main slide and part of the other two
               loop={true}
               spaceBetween={10}
               effect="coverflow"
@@ -270,6 +271,7 @@ const MarketPage = ({ content }) => {
                 nextEl: testimonialNextRef.current,
               }}
               onSwiper={(swiper) => {
+                // Override the navigation buttons
                 swiper.params.navigation.prevEl = testimonialPrevRef.current;
                 swiper.params.navigation.nextEl = testimonialNextRef.current;
                 swiper.navigation.init();
@@ -278,68 +280,75 @@ const MarketPage = ({ content }) => {
               coverflowEffect={{
                 rotate: 0,
                 stretch: 0,
-                depth: 250,
-                modifier: 2,
-                slideShadows: false,
+                depth: 250, // Adjust this for the depth effect
+                modifier: 2, // Adjust the scale modifier
+                slideShadows: false, // Optional: Enable/disable shadows
               }}
               autoplay={{ delay: 2500 }}
               breakpoints={{
-                724: { slidesPerView: 2.2 },
-                500: { slidesPerView: 1 },
+                1024: { slidesPerView: 2 },
+                800: { slidesPerView: 1.8 }, // Adjust for bigger screens
+                600: { slidesPerView: 1.7 }, // For smaller screens
               }}
-              rtl={true}
+              rtl={true} // Enable RTL for Arabic layout
             >
-              {currentContent?.[4]?.items?.map(
-                (testimonial, index) => (
-                  <SwiperSlide
-                    key={index}
-                    className={`${styles.swiperSlide} ${styles.testimonial_slide}`}
-                  >
-                    <div className={styles.testimonial_card}>
-                      <Image
-                        src={Img_url + testimonial?.liveModeVersionData?.sections?.[0]?.content.images?.[0]?.url}
-                        height={70}
-                        width={70}
-                        alt={testimonial?.name?.[language]}
-                        className={styles.testimonial_image}
-                      />
-                      <div className={styles.testimonial_content}>
-                        <h3 className={styles.name}>
-                          {testimonial?.[titleLan]}
-                        </h3>
-                        <p className={styles.position}>
-                          {testimonial?.liveModeVersionData?.sections?.[0]?.content?.position?.[language]}
+              {currentContent?.["4"]?.items?.map((testimonial, index) => (
+                <SwiperSlide
+                  key={index}
+                  className={`${styles.swiperSlide} ${styles.testimonial_slide}`}
+                >
+                  <div className={styles.testimonial_card}>
+                    <Image
+                      src={testimonials?.[testimonial?.image]}
+                      height={70}
+                      width={70}
+                      alt={testimonial?.name}
+                      className={styles.testimonial_image}
+                    />
+                    <div className={styles.testimonial_content}>
+                      <h3 className={styles.name}>{testimonial?.[titleLan]}</h3>
+                      <p className={styles.position}>
+                        {
+                          testimonial?.liveModeVersionData?.sections?.[0]
+                            ?.content?.position?.[language]
+                        }
+                      </p>
+                      <p className={styles.quote}>
+                        {
+                          testimonial?.liveModeVersionData?.sections?.[0]
+                            ?.content?.quote?.[language]
+                        }
+                      </p>
+                      <div
+                        className={styles.company_wrap}
+                        style={{
+                          flexDirection: isLeftAlign ? "row" : "row-reverse",
+                          justifyContent: isLeftAlign ? "flex-start" : "end",
+                        }}
+                      >
+                        <Image
+                          src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
+                          height={18}
+                          width={18}
+                          alt={testimonial.name}
+                          className={styles.company_icon}
+                        />
+                        <p className={styles.company}>
+                          {
+                            testimonial?.liveModeVersionData?.sections?.[0]
+                              ?.content?.company?.[language]
+                          }
                         </p>
-                        <p className={styles.quote}>
-                          {testimonial?.liveModeVersionData?.sections?.[0]?.content?.quote?.[language]}
-                        </p>
-                        <div className={styles.company_wrap}
-                          // dir={isLeftAlign ? "ltr" : "rtl"}
-                          style={{ flexDirection: isLeftAlign ? "row" : "row-reverse", justifyContent: isLeftAlign ? "flex-start" : "end" }}
-                        >
-                          <Image
-                            src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
-                            height={18}
-                            width={18}
-                            alt={testimonial?.name?.[language]}
-                            className={styles.company_icon}
-                          />
-                          <p className={styles.company}>
-                            {testimonial?.liveModeVersionData?.sections?.[0]?.content.company?.[language]}
-                          </p>
-
-
-                        </div>
                       </div>
-
                     </div>
-                  </SwiperSlide>
-                )
-              )}
+                  </div>
+                </SwiperSlide>
+              ))}
             </Swiper>
 
+            {/* Custom buttons */}
             <div className={styles.testimonial_wrapper_btn}>
-              <button ref={testimonialPrevRef} className={styles.custom_prev}>
+              <button ref={testimonialPrevRef} className={styles.custom_next}>
                 <Image
                   src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
                   width="22"
@@ -347,9 +356,9 @@ const MarketPage = ({ content }) => {
                   alt=""
                   className={`${styles.arrow_btn} ${language === "en" && styles.leftAlign
                     }`}
-                />
+                />{" "}
               </button>
-              <button ref={testimonialNextRef} className={styles.custom_next}>
+              <button ref={testimonialNextRef} className={styles.custom_prev}>
                 <Image
                   src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
                   width="22"

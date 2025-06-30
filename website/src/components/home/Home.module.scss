@@ -1482,11 +1482,11 @@
       filter: drop-shadow(0px 2.382px 6.351px rgba(0, 0, 0, 0.12));
       width: 546px;
 
-      @media (max-width: 900) {
+      @media (max-width: 900px) {
         width: 60vw;
       }
 
-      @media (max-width: 550px) {
+      @media (max-width: 600px) {
         width: 93vw;
       }
 
