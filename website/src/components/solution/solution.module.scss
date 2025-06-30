@@ -115,7 +115,7 @@
 }
 
 .solution_content_wrap {
-  padding: 88px 0 120px 0;
+  padding: 88px 0 20px;
 
   &.leftAlign {
     .content_wrap {
@@ -215,186 +215,31 @@
   }
 
   @media (max-width: 630px) {
-    padding: 60px 40px;
+    padding: 20px 40px;
   }
 
   @media (max-width: 430px) {
-    padding: 60px 15px;
+    padding: 20px 15px;
   }
 }
 
-.new_project_wrapper {
-  padding: 132px 0 112px 0;
+.testimonial_wrapper {
+  padding: 100px 120px;
 
-  &.leftAlign {
-    .main_container {
-      .Client_content {
-        .view_btn {
-          padding: 10px !important;
-        }
-      }
-    }
+  @media (max-width:1200px) {
+    padding: 60px;
   }
 
-  .title {
-    color: var(--black);
-    text-align: center;
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    margin-bottom: 20px;
+  @media (max-width:768px) {
+    padding: 60px 30px;
   }
 
-  .description {
-    color: var(--black);
-    text-align: center;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 300;
-    line-height: 26px;
-    margin-bottom: 10px;
-    display: block;
-    position: relative;
-
-    >i {
-      position: absolute;
-      top: 0;
-      right: 200;
-      z-index: -1;
-      opacity: 0.7;
-
-      &.arabicVersion {
-        position: absolute;
-        top: 0;
-        right: 200px;
-        z-index: -1;
-        opacity: 0.7;
-      }
-    }
-
-    .highlited {
-      position: relative;
-      color: var(--white);
-
-      &::before {
-        background: url("../../assets/icons/shade.svg") no-repeat center;
-        background-size: contain;
-        width: 129px;
-        height: 30px;
-        position: absolute;
-        content: "";
-        top: -8px;
-        left: 0;
-        z-index: -1;
-      }
-    }
-  }
-
-  .view_btn {
-    padding: 16px 28px 5px 34px;
-    font-size: 18px;
-    margin: 0 auto;
-    margin-top: 44px;
+  @media (max-width:450px) {
+    padding: 60px 5px;
   }
 }
 
-.gallery_wrap {
-  padding-bottom: 10px;
-
-  .gallery {
-    display: flex;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    // gap: 32px;
-    justify-content: space-between;
-
-
-  }
-}
-
-.showcase_gallery_wrap {
-  padding-bottom: 10px;
-  position: relative;
-
-  .showcase_gallery {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    // gap: 32px;
-    justify-content: space-between;
-    position: relative;
-
-    .showcase_gallery_img_wrap {
-      &:first-child {
-        position: relative;
-
-        &::after {
-          content: "";
-          position: absolute;
-          top: -24px;
-          right: -24px;
-          border-top: 1px solid #97b3d8;
-          height: 80px;
-          width: 80px;
-          z-index: 1;
-          border-right: 1px solid #97b3d8;
-        }
-
-        &::before {
-          content: "";
-          position: absolute;
-          right: -24px;
-          bottom: -24px;
-          border-right: 1px solid #97b3d8;
-          height: 80px;
-          width: 80px;
-          z-index: 1;
-          border-bottom: 1px solid #97b3d8;
-        }
-      }
-
-      &:last-child {
-        position: relative;
-
-        &::after {
-          content: "";
-          position: absolute;
-          top: -24px;
-          left: -24px;
-          border-top: 1px solid #97b3d8;
-          height: 80px;
-          width: 80px;
-          z-index: 1;
-          border-left: 1px solid #97b3d8;
-        }
-
-        &::before {
-          content: "";
-          position: absolute;
-          left: -24px;
-          bottom: -24px;
-          border-left: 1px solid #97b3d8;
-          height: 80px;
-          width: 80px;
-          z-index: 1;
-          border-bottom: 1px solid #97b3d8;
-        }
-      }
-
-      &:nth-child(2) {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        // box-shadow: 0px 0px 9px 2px rgba(0, 0, 0, 0.12);
-        z-index: 2;
-
-        .gallery_img {
-          box-shadow: 0px 0px 9px 2px rgba(0, 0, 0, 0.12);
-        }
-      }
-    }
-  }
+.mySwiper_testimonial {
+  width: 100%;
+  height: auto;
 }

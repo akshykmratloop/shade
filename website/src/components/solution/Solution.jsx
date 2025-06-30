@@ -156,13 +156,6 @@ const SolutionPage = ({ content }) => {
                 prevEl: testimonialPrevRef.current,
                 nextEl: testimonialNextRef.current,
               }}
-              // onSwiper={(swiper) => {
-              //   // Override the navigation buttons
-              //   swiper.params.navigation.prevEl = testimonialPrevRef.current;
-              //   swiper.params.navigation.nextEl = testimonialNextRef.current;
-              //   swiper.navigation.init();
-              //   swiper.navigation.update();
-              // }}
               coverflowEffect={{
                 rotate: 0,
                 stretch: 0,
@@ -172,9 +165,28 @@ const SolutionPage = ({ content }) => {
               }}
               autoplay={{ delay: 2500 }}
               breakpoints={{
-                724: { slidesPerView: 2.2 }, // Adjust for bigger screens
-                500: { slidesPerView: 1 }, // For smaller screens
+                0: {           // very small screens
+                  slidesPerView: 1,
+                  spaceBetween: 8,
+                },
+                500: {
+                  slidesPerView: 1.2,
+                  spaceBetween: 10,
+                },
+                768: {
+                  slidesPerView: 1.5,
+                  spaceBetween: 12,
+                },
+                1024: {
+                  slidesPerView: 2,
+                  spaceBetween: 14,
+                },
+                1280: {
+                  slidesPerView: 2.2,
+                  spaceBetween: 16,
+                },
               }}
+
 
               rtl={true} // Enable RTL for Arabic layout
             >
@@ -182,17 +194,18 @@ const SolutionPage = ({ content }) => {
                 (image, index) => (
                   <SwiperSlide
                     key={index}
-                  // className={`${styles1.swiperSlide} ${styles1.testimonial_slide}`}
                   >
-                    {/* <div className={styles1.testimonial_card}> */}
                     <img
                       src={Img_url + image.url}
-                      height={70}
-                      width={70}
                       alt={image?.name}
-                      style={{ width: '100%', height: '60vh' }}
-                    // className={styles1.testimonial_image}
+                      style={{
+                        width: '100%',
+                        height: '60vh',
+                        objectFit: 'cover',
+                        borderRadius: '8px',
+                      }}
                     />
+
                     {/* </div> */}
                   </SwiperSlide>
                 )
