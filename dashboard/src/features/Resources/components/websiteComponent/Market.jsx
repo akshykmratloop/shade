@@ -76,6 +76,15 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent, 
     }, []);
     const [swiperInstance, setSwiperInstance] = useState(null);
 
+    // const handleSwiperInit = (swiper) => {
+    //     setSwiperInstance(swiper);
+    // };
+
+    useEffect(() => {
+        if (swiperInstance) {
+            swiperInstance?.update();
+        }
+    }, [language]);
     return (
         <div ref={divRef} className={``} dir={isLeftAlign ? "ltr" : "rtl"}>
             {/* hero banner  */}
@@ -391,14 +400,14 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent, 
                                 ref={testimonialNextRef}
                                 className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
                             >
-                               
+
                                 <span className={``} style={{ fontSize: fontSize.aboutMainPara }}><FaArrowLeftLong /></span>
                             </button>
                             <button
                                 ref={testimonialPrevRef}
                                 className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
                             >
-                              
+
                                 <span dir="" className={`scale-x-[-1]`} style={{ fontSize: fontSize.aboutMainPara }}><FaArrowLeftLong /></span>
                             </button>
 

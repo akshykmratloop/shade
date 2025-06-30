@@ -14,7 +14,7 @@ const BankGothic = localFont({
   display: "swap",
 });
 import dynamic from 'next/dynamic';
-import patch from "../../contexts/svg/path.jsx";
+// import patch from "../../contexts/svg/path.jsx";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   Pagination,
@@ -25,15 +25,15 @@ import {
 import "swiper/css";
 import "swiper/css/pagination";
 import { Img_url } from "@/common/CreateContent";
-import {
-  services,
-  experience,
-  recentProjects,
-  markets,
-  safety,
-  clients,
-  testimonials,
-} from "../../assets/index";
+// import {
+//   services,
+//   experience,
+//   recentProjects,
+//   markets,
+//   safety,
+//   clients,
+//   testimonials,
+// } from "../../assets/index";
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
 const ContactUsModal = dynamic(() => import('../header/ContactUsModal'), { ssr: false });
 
@@ -42,12 +42,8 @@ const SolutionPage = ({ content }) => {
   const { language } = useGlobalContext();
   const currentContent = content;
 
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
   const testimonialPrevRef = useRef(null);
   const testimonialNextRef = useRef(null);
-
-  console.log(JSON.stringify(currentContent))
 
   const [isModal, setIsModal] = useState(false);
   const handleContactUSClose = () => {
@@ -58,29 +54,43 @@ const SolutionPage = ({ content }) => {
       <section
         className={` ${language === "en" && styles.leftAlign}   ${styles.solution_banner_wrap
           }`}
+
+        style={{
+          backgroundImage: `url(${Img_url + currentContent?.['1']?.content?.images?.[0]?.url})`
+        }}
       >
-        <div className="container" style={{ position: "relative", height: "100%" }}>
-          <div className={styles.content}>
-            {/* <AnimatedText text={currentContent?.banner?.title[language]} Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
-            <h1 className={`${styles.title}`}>
-              {currentContent?.['1']?.content?.title?.[language]}
-            </h1>
-            <p className={`${styles.description} ${BankGothic.className}`}>
-              {currentContent?.['1']?.content?.description?.[language]}
-            </p>
-            <Button className={styles.view_btn}
-              onClick={() => router.push('/project')}
-            >
-              <Image
-                src={Arrow}
-                width="18"
-                height="17"
-                alt=""
-                className={styles.arrow_btn}
-              />
-              &nbsp;{currentContent?.[1]?.content?.button?.[0]?.text[language]}
-            </Button>
-          </div>
+
+        <div className={styles.content}>
+          {/* <AnimatedText text={currentContent?.banner?.title[language]} Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
+          <h1 className={`${styles.title}`}>
+            {currentContent?.['1']?.content?.title?.[language]}
+          </h1>
+          <p className={`${styles.description} ${BankGothic.className}`}>
+            {currentContent?.['1']?.content?.description?.[language]}
+          </p>
+          <Button className={styles.view_btn}
+            onClick={() => router.push('/project')}
+          >
+
+            &nbsp;{currentContent?.[1]?.content?.button?.[0]?.text[language]}
+            <Image
+              src={Arrow}
+              width="18"
+              height="17"
+              alt=""
+              className={styles.arrow_btn}
+              style={{ transform: language === "en" && "scaleX(-1)" }}
+            />
+          </Button>
+        </div>
+        <div className={styles.gradientOverlay}>
+          <div
+            className={styles.gradientBlob}
+            style={{
+              // width: 950,
+              // height: 650
+            }}
+          ></div>
         </div>
       </section>
 
@@ -100,11 +110,11 @@ const SolutionPage = ({ content }) => {
                       {e.title?.[language]}
                     </h1>
                   </div>
-                  <div 
-                  className={styles.right_panel}
+                  <div
+                    className={styles.right_panel}
                   >
-                    <div 
-                    className={`${styles.description} ${BankGothic.className}`}
+                    <div
+                      className={`${styles.description} ${BankGothic.className}`}
                       dangerouslySetInnerHTML={{ __html: e.description?.[language] }}
                     />
                   </div>

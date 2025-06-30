@@ -35,6 +35,7 @@ const ContactUsModal = dynamic(() => import("../header/ContactUsModal"), {
 import { projectPageData } from "../../assets/index";
 import { Img_url } from "@/common/CreateContent";
 import Link from "next/link";
+import { FaArrowLeftLong, FaArrowRightLong, FaRegBuilding } from "react-icons/fa6";
 
 const MarketPage = ({ content }) => {
   console.log(content)
@@ -235,7 +236,7 @@ const MarketPage = ({ content }) => {
                 {currentContent?.[2]?.content?.text[language]}
               </p>
               <h5 className={`${styles.title} ${BankGothic.className}`}>
-                -{currentContent?.[2]?.content?.author[language]}
+                {currentContent?.[2]?.content?.author[language]}
               </h5>
             </div>
           </div>
@@ -258,10 +259,11 @@ const MarketPage = ({ content }) => {
 
           <div className={styles.testimonials_client}>
             <Swiper
+              key={language} // This will force remount on language change
               modules={[Navigation, Autoplay, EffectCoverflow]}
               grabCursor={true}
               centeredSlides={true}
-              slidesPerView={1} // Show 1 main slide and part of the other two
+              slidesPerView={1}
               loop={true}
               spaceBetween={10}
               effect="coverflow"
@@ -271,7 +273,6 @@ const MarketPage = ({ content }) => {
                 nextEl: testimonialNextRef.current,
               }}
               onSwiper={(swiper) => {
-                // Override the navigation buttons
                 swiper.params.navigation.prevEl = testimonialPrevRef.current;
                 swiper.params.navigation.nextEl = testimonialNextRef.current;
                 swiper.navigation.init();
@@ -280,18 +281,33 @@ const MarketPage = ({ content }) => {
               coverflowEffect={{
                 rotate: 0,
                 stretch: 0,
-                depth: 250, // Adjust this for the depth effect
-                modifier: 2, // Adjust the scale modifier
-                slideShadows: false, // Optional: Enable/disable shadows
+                depth: 250,
+                modifier: 2,
+                slideShadows: false,
               }}
               autoplay={{ delay: 2500 }}
+              // breakpoints={{
+              //   724: { slidesPerView: 2 },
+              //   600: { slidesPerView: 2 },
+              // }}
               breakpoints={{
-                1024: { slidesPerView: 2 },
-                800: { slidesPerView: 1.8 }, // Adjust for bigger screens
-                600: { slidesPerView: 1.7 }, // For smaller screens
+                600: {
+                  slidesPerView: 1.5,
+                  centeredSlides: true, // make sure it's there
+                },
+                768: {
+                  slidesPerView: 1.5,
+                  centeredSlides: true, // make sure it's there
+                },
+                950: {
+                  slidesPerView: 2,
+                  centeredSlides: true,
+                },
               }}
-              rtl={true} // Enable RTL for Arabic layout
+
+              rtl={language === "ar"}
             >
+
               {currentContent?.["4"]?.items?.map((testimonial, index) => (
                 <SwiperSlide
                   key={index}
@@ -326,13 +342,15 @@ const MarketPage = ({ content }) => {
                           justifyContent: isLeftAlign ? "flex-start" : "end",
                         }}
                       >
-                        <Image
+                        {/* <Image
                           src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
                           height={18}
                           width={18}
                           alt={testimonial.name}
                           className={styles.company_icon}
-                        />
+                        /> */}
+                        <span><FaRegBuilding /></span>
+
                         <p className={styles.company}>
                           {
                             testimonial?.liveModeVersionData?.sections?.[0]
@@ -348,27 +366,64 @@ const MarketPage = ({ content }) => {
 
             {/* Custom buttons */}
             <div className={styles.testimonial_wrapper_btn}>
-              <button ref={testimonialPrevRef} className={styles.custom_next}>
-                <Image
-                  src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
-                  width="22"
-                  height="17"
-                  alt=""
-                  className={`${styles.arrow_btn} ${language === "en" && styles.leftAlign
-                    }`}
-                />{" "}
+              <button
+                ref={testimonialPrevRef}
+                className={styles.custom_next}
+                style={{
+                  color: "#00B9F2",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "8px",
+                  border: "1px solid #00B9F2",
+                  background: "transparent",
+                  cursor: "pointer",
+                  borderRadius: "50%",
+                  width: "40px",
+                  height: "40px",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 20,
+                    lineHeight: 0,
+                    display: "block",
+                  }}
+                >
+                  {language === "ar" ? <FaArrowRightLong /> : <FaArrowLeftLong />}
+                </span>
               </button>
-              <button ref={testimonialNextRef} className={styles.custom_prev}>
-                <Image
-                  src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
-                  width="22"
-                  height="17"
-                  alt=""
-                  className={`${styles.arrow_btn} ${language === "en" && styles.leftAlign
-                    }`}
-                />
+
+              <button
+                ref={testimonialNextRef}
+                className={styles.custom_prev}
+                style={{
+                  color: "#00B9F2",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "8px",
+                  border: "1px solid #00B9F2",
+                  background: "transparent",
+                  cursor: "pointer",
+                  borderRadius: "50%",
+                  width: "40px",
+                  height: "40px",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 20,
+                    lineHeight: 0,
+                    display: "block",
+                  }}
+                >
+                  {language === "ar" ? <FaArrowLeftLong /> : <FaArrowRightLong />}
+                </span>
               </button>
             </div>
+
+
           </div>
         </div>
       </section>

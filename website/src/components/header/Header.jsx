@@ -20,7 +20,6 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
   const [openNav, setOpenNav] = useState(false)
   const { language, toggleLanguage, headerData } = useGlobalContext();
   const currentContent = createContent(headerData.content).content;
-console.log(currentContent)
   const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isModal, setIsModal] = useState(false);
@@ -91,14 +90,14 @@ console.log(currentContent)
                 </p>
               )}
               {isMoreModalOpen && (
-                <div ref={moreModalRef} className={styles.moremenu}>
+                <div ref={moreModalRef} className={`${styles.moremenu} ${language === "en" ? styles.moremenuLTR : styles.moremenuRTL}`}>
                   <ul>
                     {extraNavItems.map((item, ind) => (
                       <li key={item.url + ind}>
                         <Link
+                          onClick={() => setIsMoreModalOpen(false)}
                           href={item.url}
                           className={`${pathname === item?.url ? styles.active : ""}`}
-                          onClick={() => setIsMoreModalOpen(false)}
                         >
                           {item?.nav?.[language]}
                         </Link>
@@ -155,36 +154,36 @@ console.log(currentContent)
 
           {/* Mobile/Tablet Menu */}
           {
-          // isOpenNavbar 
-          openNav
-          && (
-            <nav className={styles.mobileMenu}>
-              <ul>
-                {navItems.map((item, i) => (
-                  <li key={i}>
-                    <Link
-                      href={item.url}
-                      className={`${pathname === item?.url ? styles.active : ""}`}
-                      onClick={() => setIsOpenNavbar(false)}
+            // isOpenNavbar 
+            openNav
+            && (
+              <nav className={styles.mobileMenu}>
+                <ul>
+                  {navItems.map((item, i) => (
+                    <li key={i}>
+                      <Link
+                        href={item.url}
+                        className={`${pathname === item?.url ? styles.active : ""}`}
+                        onClick={() => setOpenNav(false)}
+                      >
+                        {item?.nav?.[language]}
+                      </Link>
+                    </li>
+                  ))}
+                  <li>
+                    <button
+                      className={`${styles.mobileContactButton} bank-light`}
+                      onClick={() => {
+                        handleContactUS();
+                        setOpenNav(false);
+                      }}
                     >
-                      {item?.nav?.[language]}
-                    </Link>
+                      {currentContent?.['2']?.content?.contact?.[language]}
+                    </button>
                   </li>
-                ))}
-                <li>
-                  <button
-                    className={`${styles.mobileContactButton} bank-light`}
-                    onClick={() => {
-                      handleContactUS();
-                      setIsOpenNavbar(false);
-                    }}
-                  >
-                    {currentContent?.['2']?.content?.contact?.[language]}
-                  </button>
-                </li>
-              </ul>
-            </nav>
-          )}
+                </ul>
+              </nav>
+            )}
         </header>
       </div>
 

@@ -115,7 +115,7 @@ const HeaderManager = ({ language, currentContent, currentPath, indexes, outOfEd
             /> */}
             <Select
                 options={list}
-                label={"create a new navigation"}
+                label={"Add a new navigation"}
                 baseClass={"w-full mt-10"}
                 width={"w-full"}
                 value={""}

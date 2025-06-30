@@ -102,7 +102,7 @@ const SolutionPage = ({ currentContent, language, screen, width, highlight, live
                                         <span className="relative w-[10px] h-[20px]">
                                             <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[-15deg]"></span>
                                         </span>
-                                        <h1 className={`text-[20px] text-[#1F2937] font-bold leading-[20px] pr-[20px]
+                                        <h1 className={`text-[20px] text-[#1F2937] font-bold leading-[20px]
                                                 ${checkDifference(e?.title?.[language], liveContent?.["2"]?.content?.[i]?.title?.[language])}
                                         `}
                                             style={{ fontSize: isComputer && `${getDynamicSize(20)}` }}
@@ -113,7 +113,7 @@ const SolutionPage = ({ currentContent, language, screen, width, highlight, live
                                     <div className="text-[#2A303C]">
                                         <div
                                             style={{ fontSize: isComputer && `${getDynamicSize(24)}`, lineHeight: isComputer && getDynamicSize(50) }}
-                                            className={`  ${isPhone ? `leading-[20px] text-sm` : "leading-[40px]"} ${fontLight} tracking-[-1.2px] mb-[32px]
+                                            className={`  ${isPhone ? `leading-[20px] text-lg` : "leading-[40px]"} ${fontLight} tracking-[-1.2px] mb-[32px]
                                                 ${checkDifference(e?.description?.[language], liveContent?.["2"]?.content?.[i]?.description?.[language])}
                                             `}
                                             // className={` font-light text-[#1F2937] ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}

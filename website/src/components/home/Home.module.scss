@@ -20,7 +20,7 @@
     position: absolute;
     z-index: 3;
     top: 0;
-    padding: 0px 150px;
+    padding: 0px 160px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -52,7 +52,6 @@
     }
 
     .view_btn {
-      // padding: 16px 28px 5px 60px;
       font-size: 18px;
       font-weight: 500;
       position: relative;
@@ -64,13 +63,6 @@
       &.noPadding {
         padding: 10px 28px 10px 30px;
       }
-
-      // .arrow_btn {
-      //   position: absolute;
-      //   top: 50%;
-      //   transform: translateY(-50%);
-      //   left: 32px;
-      // }
     }
   }
 
@@ -177,12 +169,12 @@
   // 📱 Phones (<=576px)
   @media (max-width: 576px) {
     .backgroundContainer {
-      height: 70vh;
+      height: 90vh;
     }
 
     .content {
       width: 100%;
-      top: 30%;
+      top: 0%;
       padding: 0 15px;
 
       .title {
@@ -1267,11 +1259,12 @@
         // border: 1px solid black;
         width: 95%;
         height: 95%;
+
         // overflow: auto;
         img {
           object-fit: contain;
           width: 100%;
-          height: 100%;  
+          height: 100%;
         }
       }
     }

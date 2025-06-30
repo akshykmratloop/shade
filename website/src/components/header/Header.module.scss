@@ -538,9 +538,8 @@
 
 .moremenu {
   position: absolute;
-  top: 70%;
+  top: 100%;
   margin-top: 8px;
-  left: 85%;
   width: 150px;
   background-color: white;
   border-radius: 8px;
@@ -556,12 +555,21 @@
     color: var(--secondary-light); // Not active color
 
     li {
+
       &:hover,
       &.active {
         color: var(--secondary);
       }
     }
   }
+}
+
+.moremenuLTR {
+  left: 85%;
+}
+
+.moremenuRTL {
+  right: 85%;
 }
 
 /* Hide mobile nav by default */
@@ -579,6 +587,7 @@
   .menu {
     display: none;
   }
+
   .humberger {
     display: flex;
     flex-direction: column;
@@ -592,6 +601,7 @@
       border-radius: 2px;
     }
   }
+
   .mobileMenu {
     display: block;
     background: white;
@@ -600,7 +610,7 @@
     left: 0;
     right: 0;
     z-index: 999;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding: 1rem;
 
     ul {

@@ -2,7 +2,7 @@
   height: 100vh;
   width: 100%;
   position: relative;
-  border: 1px solid black;
+  padding: 7vw;
 
   &.leftAlign {
     transform: scaleX(-1);
@@ -38,9 +38,11 @@
     top: 50%;
     transform: translateY(-50%);
 
+
+
     .title {
       color: var(--black);
-      font-size: 70px;
+      font-size: clamp(30px, 12vw, 70px);
       font-style: normal;
       font-weight: 500;
       line-height: 77px;
@@ -77,6 +79,22 @@
         left: 32px;
       }
     }
+
+    @media (max-width: 500px) {
+      padding: 30px 0px;
+
+      .description {
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 500px) {
+    padding: 30px 10px;
+
+    // .description {
+    //   width: 100%;
+    // }
   }
 }
 
@@ -96,6 +114,36 @@
     color: var(--para-light);
     font-size: 16px;
     width: 50%;
+  }
+
+  @media (max-width:900px) {
+    padding: 33px 60px;
+
+    .title {
+      color: var(--black);
+      font-size: clamp(30px, 6vw, 60px);
+      font-weight: 300;
+      width: 50%;
+    }
+
+  }
+
+  @media (max-width:600px) {
+    padding: 33px 30px;
+    flex-direction: column;
+
+    .title {
+      color: var(--black);
+      font-size: clamp(30px, 6vw, 60px);
+      font-weight: 300;
+      width: 100%;
+    }
+
+    .description {
+      color: var(--para-light);
+      font-size: 16px;
+      width: 100%;
+    }
   }
 }
 
@@ -129,7 +177,6 @@
       img {
         width: 100%;
         // aspect-ratio: 1/.7;
-        border: 1px solid black;
         object-fit: cover;
       }
     }
@@ -213,6 +260,7 @@
 
 .market_cot_wrap {
   padding: 106px 0;
+  overflow: hidden;
   // height: 400px;
 
   .content {
@@ -267,12 +315,12 @@
 
         .braketBefore {
           left: -40%;
-          top:8%;
+          top: 8%;
         }
 
         .braketAfter {
           right: -40%;
-          top:8%;
+          top: 8%;
         }
       }
 
@@ -281,6 +329,11 @@
       .arrow_btn {
         margin-bottom: 30px;
         transform: scale(-1);
+
+        @media (max-width: 400px) {
+          // display: none;
+          visibility: hidden;
+        }
       }
 
       .description {
@@ -320,7 +373,6 @@
     .mySwiper_testimonial {
       .testimonial_card {
         // flex-direction: row-reverse;
-
         .testimonial_content {
 
           .name,
@@ -523,6 +575,7 @@
       .arrow_btn {
         &.leftAlign {
           transform: scale(-1);
+
         }
       }
     }

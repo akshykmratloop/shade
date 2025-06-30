@@ -561,10 +561,11 @@ const HomePage = ({ content }) => {
 
           <div className={styles.testimonials_client}>
             <Swiper
+              key={language} // This will force remount on language change
               modules={[Navigation, Autoplay, EffectCoverflow]}
               grabCursor={true}
               centeredSlides={true}
-              slidesPerView={1} // Show 1 main slide and part of the other two
+              slidesPerView={1}
               loop={true}
               spaceBetween={10}
               effect="coverflow"
@@ -574,7 +575,6 @@ const HomePage = ({ content }) => {
                 nextEl: testimonialNextRef.current,
               }}
               onSwiper={(swiper) => {
-                // Override the navigation buttons
                 swiper.params.navigation.prevEl = testimonialPrevRef.current;
                 swiper.params.navigation.nextEl = testimonialNextRef.current;
                 swiper.navigation.init();
@@ -583,17 +583,32 @@ const HomePage = ({ content }) => {
               coverflowEffect={{
                 rotate: 0,
                 stretch: 0,
-                depth: 250, // Adjust this for the depth effect
-                modifier: 2, // Adjust the scale modifier
-                slideShadows: false, // Optional: Enable/disable shadows
+                depth: 250,
+                modifier: 2,
+                slideShadows: false,
               }}
               autoplay={{ delay: 2500 }}
+              // breakpoints={{
+              //   724: { slidesPerView: 2 },
+              //   600: { slidesPerView: 2 },
+              // }}
               breakpoints={{
-                724: { slidesPerView: 2 }, // Adjust for bigger screens
-                600: { slidesPerView: 2 }, // For smaller screens
+                600: {
+                  slidesPerView: 1.5,
+                  centeredSlides: true, // make sure it's there
+                },
+                768: {
+                  slidesPerView: 1.5,
+                  centeredSlides: true, // make sure it's there
+                },
+                950: {
+                  slidesPerView: 2,
+                  centeredSlides: true,
+                },
               }}
-              rtl={true} // Enable RTL for Arabic layout
+              rtl={language === "ar"}
             >
+
               {currentContent?.["7"]?.items?.map((testimonial, index) => (
                 <SwiperSlide
                   key={index}
