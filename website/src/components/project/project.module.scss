@@ -1,40 +1,20 @@
 .project_banner_wrap {
-  height: 715px;
-  background: url("https://frequencyimage.s3.ap-south-1.amazonaws.com/a4a2a992-c11e-448b-bdfe-54b14574958d-Hero%20%281%29%20%281%29.png")
-    no-repeat center / cover;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   width: 100%;
   position: relative;
-
-  &.leftAlign {
-    transform: scaleX(-1);
-    .content {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      right: 20px;
-      .title,
-      .description {
-        transform: scaleX(-1);
-        text-align: left;
-      }
-      .view_btn {
-        padding: 10px 40px 10px 10px;
-        transform: scaleX(-1);
-      }
-      .arrow_btn {
-        position: absolute;
-        top: 30% !important;
-        left: 165px !important;
-        transform: scaleX(-1) !important;
-      }
-    }
-  }
+  padding: 150px;
+  display: flex;
+  align-items: center;
 
   .content {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
     right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    position: relative;
 
     .title {
       color: var(--black);
@@ -42,10 +22,8 @@
       font-style: normal;
       font-weight: 500;
       line-height: 77px;
-      /* 110% */
       letter-spacing: -3.5px;
       margin-bottom: 16px;
-      text-align: right;
     }
 
     .description {
@@ -56,25 +34,102 @@
       line-height: 28px;
       margin-bottom: 26px;
       width: 55%;
-      text-align: right;
-      margin-left: auto;
       word-spacing: 5px;
     }
 
     .view_btn {
-      padding: 16px 28px 5px 60px;
+      padding: 20px;
       font-size: 18px;
       font-weight: 500;
-      margin-left: auto;
       position: relative;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  }
 
-      .arrow_btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 32px;
+  @media (max-width: 900px) {
+    padding: 10px 60px;
+
+    .content {
+
+      .title {
+        font-size: clamp(40px, 8vw, 70px);
       }
     }
+  }
+
+  @media (max-width: 600px) {
+    padding: 10px 60px;
+
+    .content {
+
+      .description {
+        width: 100%;
+      }
+
+      .view_btn {
+        padding: 10px;
+        font-size: 18px;
+        font-weight: 500;
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+  }
+
+  @media (max-width: 380px) {
+    // padding: 10px 30px;
+
+    .content {
+
+      .title {
+        line-height: 100%;
+      }
+
+      .description {
+        line-height: 100%;
+      }
+    }
+
+  }
+}
+
+.gradientOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  top: 0;
+  left: 0;
+  align-items: center; // vertical center
+  justify-content: start; // center horizontally
+
+  .gradientBlobLTR {
+    justify-content: start;
+  }
+
+  .gradientBlob {
+    // display: none;
+    width: 60vw;
+    height: 400px;
+    border-radius: 50%;
+    background: white;
+    opacity: 0.9;
+    filter: blur(150px);
+    mix-blend-mode: screen;
+
+    @media (max-width: 600px) {
+      display: block;
+      width: 80vw;
+      filter: blur(120px);
+    }
+
+    // You can experiment with blend modes:
+    // mix-blend-mode: overlay;
+    mix-blend-mode: lighten;
   }
 }
 
@@ -82,11 +137,14 @@
   padding: 88px 0 112px 0;
 
   .tabContainer {
+
     .tabs {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 32px;
+      position: sticky;
+      top: 1;
 
       .tabButton {
         color: var(--black);
@@ -101,6 +159,10 @@
         cursor: pointer;
         text-transform: uppercase;
         position: relative;
+
+        @media (max-width:380px) {
+          font-size: 14px;
+        }
 
         &::after {
           content: "";
@@ -135,6 +197,28 @@
       margin-top: 46px;
       flex-wrap: wrap;
 
+      @media (max-width: 1100px) {
+        // grid-template-columns: repeat(2, 1fr);
+        column-gap: 1vw;
+      }
+
+      @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 40px;
+      }
+
+      @media (max-width: 655px) {
+        grid-template-columns: repeat(1, 1fr);
+        column-gap: 40px;
+        padding: 40px clamp(15px, 15vw, 120px);
+      }
+
+      @media (max-width: 455px) {
+        grid-template-columns: repeat(1, 1fr);
+        column-gap: 40px;
+        padding: 40px 15px
+      }
+
       .card {
         border-radius: 4px;
         padding: 12px;
@@ -144,6 +228,7 @@
         align-items: flex-start;
         gap: 8px;
         overflow: hidden;
+
         .card_image {
           // background: url;
           overflow: hidden;
@@ -159,6 +244,19 @@
           line-height: normal;
           margin-top: 16px;
           height: 40px;
+
+          @media (max-width: 1100px) and (min-width:768px) {
+            font-size: clamp(14px, 2vw, 20px);
+          }
+
+          @media (max-width: 768px) and (min-width:500px) {
+            font-size: clamp(14px, 3.1vw, 20px);
+          }
+
+          @media (max-width: 500px) {
+            // font-size: 20px;
+            font-size: clamp(14px, 4vw, 20px);
+          }
         }
 
         .description {
@@ -185,6 +283,7 @@
           gap: 10px;
           margin-top: 14px;
           cursor: pointer;
+
           .icon {
             &.leftAlign {
               transform: scaleX(-1);

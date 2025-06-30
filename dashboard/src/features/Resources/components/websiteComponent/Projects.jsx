@@ -119,7 +119,7 @@ const ProjectPage = ({ language, screen, currentContent, highlight, liveContent,
                         {/* Tabs */}
                         <div
                             style={{ fontFamily: "arial" }}
-                            className={`flex justify-center gap-8 mb-10 ${isPhone && "sticky top-0 pt-2 bg-white/90 left-1/2"}`}>
+                            className={`flex justify-center gap-8 mb-10 ${isPhone && " pt-2 bg-white/90 left-1/2"}`}>
                             {currentContent?.["2"]?.sections?.map((tab, index) => (
                                 <button
                                     key={index}

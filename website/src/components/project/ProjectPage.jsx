@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { TruncateText } from "@/common/useTruncate";
 import { Img_url } from "@/common/CreateContent";
+import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 const ContactUsModal = dynamic(() => import("../header/ContactUsModal"), {
   ssr: false,
 });
@@ -42,60 +43,50 @@ const ProjectPage = ({ content }) => {
       currentContent?.["2"]?.sections?.[tabIndex]?.items
     );
     setVisibleProjectsCount(6);
-    // if (activeTab === "all") {
-    //   setFilteredProject(currentContent?.projectsSection?.projects);
-    // } else {
-    //   setFilteredProject(
-    //     currentContent?.projectsSection?.projects
-    //       ? currentContent?.projectsSection?.projects?.filter(
-    //         (project) => project?.status === activeTab
-    //       )
-    //       : []
-    //   );
-    //   setVisibleProjectsCount(6);
-    // }
+
   }, [activeTab, currentContent]); // Added currentContent as a dependency
 
-  // const TruncateText = (text, length) => {
-  //   if (text.length > (length || 50)) {
-  //     return `${text.slice(0, length || 50)}...`;
-  //   }
-  //   return text;
-  // };
 
   return (
     <>
       <section
         className={` ${language === "en" && styles.leftAlign}   ${styles.project_banner_wrap
           }`}
-      >
-        <div
-          className="container"
-          style={{ height: "100%", position: "relative" }}
-        >
-          <div className={styles.content}>
-            {/* <AnimatedText text="مشروعنا" Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
+        style={{
+          backgroundImage: `url(${Img_url + currentContent?.['1']?.content?.images?.[0]?.url})`,
 
-            <h1 className={`${styles.title}`}>
-              {currentContent?.[1]?.content?.title[language]}
-            </h1>
-            <p className={`${styles.description} ${BankGothic.className}`}>
-              {currentContent?.[1]?.content?.description[language]}
-            </p>
-            <Button
-              className={styles.view_btn}
-              onClick={() => setIsModal(true)}
-            >
-              <Image
-                src={Arrow}
-                width="18"
-                height="17"
-                alt=""
-                className={styles.arrow_btn}
-              />{" "}
+        }}
+        dir={isLeftAlign ? "ltr" : "rtl"}
+      >
+        <div className={`${styles.gradientOverlay} ${isLeftAlign && styles.gradientBlobLTR}`} dir={isLeftAlign ? "ltr" : "rtl"}>
+          <div className={`${styles.gradientBlob} `}></div>
+        </div>
+
+        <div className={styles.content}>
+          {/* <AnimatedText text="مشروعنا" Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
+
+          <h1 className={`${styles.title}`}>
+            {currentContent?.[1]?.content?.title[language]}
+          </h1>
+          <p className={`${styles.description} ${BankGothic.className}`}>
+            {currentContent?.[1]?.content?.description[language]}
+          </p>
+          <Button
+            className={styles.view_btn}
+            onClick={() => setIsModal(true)}
+          >
+            <p>
               {currentContent?.[1]?.content?.button?.[0]?.text[language]}
-            </Button>
-          </div>
+            </p>
+            <Image
+              src={Arrow}
+              width="18"
+              height="17"
+              alt=""
+              className={styles.arrow_btn}
+              style={{ transform: isLeftAlign && 'scaleX(-1)' }}
+            />{" "}
+          </Button>
         </div>
       </section>
 
@@ -124,41 +115,45 @@ const ProjectPage = ({ content }) => {
             <div className={styles.card_group}>
               {filteredProject
                 ?.slice(0, visibleProjectsCount)
-                ?.map((item, index) => (
-                  <div className={styles.card} key={index}>
-                    <img
-                      src={item?.image ? Img_url + item?.url : projectPageData?.swccWaterSupply?.src}
-                      width="339"
-                      height="190"
-                      alt={item.title?.[language]}
-                      className={styles.card_image}
-                    />
-                    <h5 title={item?.[titleLan]} className={`${styles.title} ${BankGothic.className}`}>
-                      {TruncateText(item?.[titleLan], 45)}
-                    </h5>
-                    <p
-                      title={item?.location?.[language]}
-                      className={`${styles.description} ${BankGothic.className}`}
-                    >
-                      {TruncateText(item?.location?.[language], 25)}
-
-                    </p>
-                    <button
-                      className={`${styles.button} ${BankGothic.className}`}
-                      onClick={() => router.push(`/project/${item?.id}`)}
-                    >
-                      {currentContent?.['2']?.content?.buttons?.[0]?.text?.[language]}
-                      <Image
-                        className={` ${language === "en" && styles.leftAlign
-                          }   ${styles.icon}`}
-                        src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
-                        width={22}
-                        height={22}
-                        alt="icon"
+                ?.map((item, index) => {
+                  // console.log(item.image)
+                  return (
+                    <div className={styles.card} key={index}>
+                      <img
+                        src={item?.image ? Img_url + item?.image : projectPageData?.swccWaterSupply?.src}
+                        width="339"
+                        height="190"
+                        alt={item.title?.[language]}
+                        className={styles.card_image}
                       />
-                    </button>
-                  </div>
-                ))}
+                      <h5 title={item?.[titleLan]} className={`${styles.title} ${BankGothic.className}`}>
+                        {TruncateText(item?.[titleLan], 45)}
+                      </h5>
+                      <p
+                        title={item?.location?.[language]}
+                        className={`${styles.description} ${BankGothic.className}`}
+                      >
+                        {TruncateText(item?.location?.[language], 25)}
+
+                      </p>
+                      <button
+                        className={`${styles.button} ${BankGothic.className}`}
+                        onClick={() => router.push(`/project/${item?.id}`)}
+                      >
+                        {currentContent?.['2']?.content?.buttons?.[0]?.text?.[language]}
+                        <span
+                          style={{
+                            fontSize: 20,
+                            lineHeight: 0,
+                            display: "block",
+                          }}
+                        >
+                          {language === "ar" ? <FaArrowLeftLong /> : <FaArrowRightLong />}
+                        </span>
+                      </button>
+                    </div>
+                  )
+                })}
             </div>
 
             {visibleProjectsCount < filteredProject?.length && ( // Show button only if there are more projects
