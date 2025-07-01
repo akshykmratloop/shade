@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ProjectDetail.module.scss";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,30 +12,23 @@ const BankGothic = localFont({
   src: "../../../public/font/BankGothicLtBTLight.ttf",
   display: "swap",
 });
-import { useGlobalContext } from "../../contexts/GlobalContext";
+import { backendAPI, useGlobalContext } from "../../contexts/GlobalContext";
+import createContent from "@/common/CreateContent";
 
 const ProjectDetailPage = () => {
   const router = useRouter();
   const { projectId } = router.query;
-  const { language, content } = useGlobalContext();
+  const { language } = useGlobalContext();
+  const [content, setContent] = useState()
 
-  const currentContent = content?.projectDetail?.filter(
-    (item) => item?.id == projectId
-  )[0];
+  const currentContent = content
 
-  if (!currentContent) { // of project not found 
-    return (
-      <div style={{height : "700px", width : "100%",
-        display : "flex",
-        justifyContent : "center",
-        alignItems : "center",
-      }}>
-        <h1>{language === "en" ? "This page is under development and will be updated soon..." : "هذه الصفحة قيد التطوير وسوف يتم تحديثها قريبا..."}</h1>
-      </div>);
-  }
-  
-  const { introSection, descriptionSection, gallerySection, moreProjects } =
-    currentContent;
+  const introSection = currentContent?.[1]?.content
+  const urlSection = currentContent?.[2]?.content
+  const projectInforCard = currentContent?.[2]?.content || []
+  const descriptionSection = currentContent?.[3]?.content || []
+  const gallerySection = currentContent?.[4]?.content
+  const moreProjects = currentContent?.[5]
 
   // const TruncateText = (text, length) => useTruncate(text, length || 200);
 
@@ -46,6 +39,28 @@ const ProjectDetailPage = () => {
     }
     return text;
   };
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const res = await fetch(`${backendAPI}${projectId}`); // note => the market is slug, since the backend require slug to get content in this scenario
+
+        if (!res.ok) {
+          // If response failed (e.g., 404, 500), return empty object
+          return {};
+        }
+
+        const apiData = await res.json();
+        const cookedData = createContent(apiData.content)
+
+        return setContent(cookedData.content);
+      } catch (error) {
+        // If fetch throws an error (e.g., network failure), return empty object
+        return { props: { apiData: {} } };
+      }
+    }
+    fetchContent()
+  }, [projectId])
   return (
     <>
       {/* Intro Section */}
@@ -64,25 +79,23 @@ const ProjectDetailPage = () => {
                     alt="Back Icon"
                     width={20}
                     height={20}
-                    className={`${language === "en" && styles.leftAlign} ${
-                      styles.icon
-                    }`}
+                    className={`${language === "en" && styles.leftAlign} ${styles.icon
+                      }`}
                   />
-                  {introSection?.backButton[language]}
+                  {introSection?.button?.[0]?.text?.[language]}
                 </Link>
                 <h1
-                  className={`${styles.title} ${BankGothic.className} ${
-                    language === "ar" && styles.rightAlign
-                  }`}
+                  className={`${styles.title} ${BankGothic.className} ${language === "ar" && styles.rightAlign
+                    }`}
                 >
-                  {introSection?.title[language]}
+                  {introSection?.title?.[language]}
                 </h1>
                 <p className={`${styles.subtitle} ${BankGothic.className}`}>
-                  {introSection?.subtitle[language]}
+                  {introSection?.subtitle?.[language]}
                 </p>
-                <Link href={introSection?.url || ""} className={styles.url}>
+                <Link href={introSection?.link?.url || ""} className={styles.url}>
                   <span className={BankGothic.className}>
-                    {introSection?.url}
+                    {introSection?.link?.text}
                   </span>
                 </Link>
               </div>
@@ -100,7 +113,7 @@ const ProjectDetailPage = () => {
           {/* Project Info List */}
 
           <div className={styles.project_info_list}>
-            {introSection?.projectInforCard?.map((card, index) => {
+            {projectInforCard?.map((card, index) => {
               return (
                 <div key={index} className={styles.card}>
                   <Image
@@ -111,9 +124,8 @@ const ProjectDetailPage = () => {
                     height={28}
                   />
                   <h5
-                    className={`${styles.title} ${BankGothic.className} ${
-                      language === "ar" && styles.rightAlign
-                    }`}
+                    className={`${styles.title} ${BankGothic.className} ${language === "ar" && styles.rightAlign
+                      }`}
                   >
                     {card?.key[language]}
                   </h5>
@@ -140,20 +152,18 @@ const ProjectDetailPage = () => {
               <div key={index} className={styles.content_wrap}>
                 <div className={styles.left_panel}>
                   <h1
-                    className={`${styles.title} ${BankGothic.className} ${
-                      language === "ar" && styles.rightAlign
-                    }`}
+                    className={`${styles.title} ${BankGothic.className} ${language === "ar" && styles.rightAlign
+                      }`}
                   >
                     {item?.title[language]}
                   </h1>
                 </div>
                 <div className={styles.right_panel}>
-                  <p
+                  <div
                     className={`${styles.description} ${BankGothic.className}`}
+                    dangerouslySetInnerHTML={{__html: item?.description[language]}}
                   >
-                    {/* {TruncateText(item?.description[language],25)} */}
-                    {item?.description[language]}
-                  </p>
+                  </div>
                 </div>
               </div>
             );
@@ -162,23 +172,7 @@ const ProjectDetailPage = () => {
       </section>
 
       {/* Gallery Section */}
-      <section className={styles.showcase_gallery_wrap}>
-        <div className="container">
-          <div className={styles.showcase_gallery}>
-            {gallerySection?.images?.map((image, index) => (
-              <div key={index} className={styles.showcase_gallery_img_wrap}>
-                <Image
-                  src={image.url}
-                  width={index === 1 ? 432 : 488}
-                  height={index === 1 ? 232 : 396}
-                  alt={image.alt[language]}
-                  className={styles.gallery_img}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* More Projects */}
       <section className={styles.latest_new_card_wrap}>
@@ -197,9 +191,8 @@ const ProjectDetailPage = () => {
                   className={styles.card_image}
                 />
                 <h5
-                  className={`${styles.title} ${BankGothic.className} ${
-                    language === "ar" && styles.rightAlign
-                  }`}
+                  className={`${styles.title} ${BankGothic.className} ${language === "ar" && styles.rightAlign
+                    }`}
                 >
                   {TruncateText(project?.title[language], 45)}
                 </h5>
@@ -216,9 +209,8 @@ const ProjectDetailPage = () => {
                     width={22}
                     height={22}
                     alt="icon"
-                    className={`${language === "en" && styles.leftAlign} ${
-                      styles.icon
-                    }`}
+                    className={`${language === "en" && styles.leftAlign} ${styles.icon
+                      }`}
                   />
                 </button>
               </div>

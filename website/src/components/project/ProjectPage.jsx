@@ -137,7 +137,7 @@ const ProjectPage = ({ content }) => {
                       </p>
                       <button
                         className={`${styles.button} ${BankGothic.className}`}
-                        onClick={() => router.push(`/project/${item?.id}`)}
+                        onClick={() => router.push(`/project/${item?.slug}`)}
                       >
                         {currentContent?.['2']?.content?.buttons?.[0]?.text?.[language]}
                         <span
