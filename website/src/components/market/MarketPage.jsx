@@ -79,7 +79,7 @@ const MarketPage = ({ content }) => {
   };
 
   return (
-    <>
+    <div style={{border:"1px solid black"}}>
       <section
         className={` ${language === "en" && styles.leftAlign}   ${styles.market_banner_wrap
           }`}
@@ -88,32 +88,34 @@ const MarketPage = ({ content }) => {
           background: `url(${Img_url + currentContent?.[1]?.content?.images?.[0]?.url}) no-repeat center / cover`
         }}
       >
-        <div
-          className="container"
-          style={{ height: "100%", position: "relative" }}
+        <div className={`${styles.gradientOverlay} ${isLeftAlign && styles.gradientBlobLTR}`}
+          dir={isLeftAlign ? "ltr" : "rtl"}
         >
-          <div className={styles.content}>
-            {/* <AnimatedText text={currentContent?.banner?.title[language]} Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
-            <h1 className={`${styles.title} `}>
-              {currentContent?.[1]?.content?.title?.[language]}
-            </h1>
-            <p className={`${styles.description} ${BankGothic.className}`}>
-              {currentContent?.[1]?.content?.description?.[language]}
-            </p>
-            <Button
-              className={styles.view_btn}
-              onClick={() => router.push("/services")}
-            >
-              <Image
-                src={Arrow}
-                width="18"
-                height="17"
-                alt=""
-                className={styles.arrow_btn}
-              />
-              &nbsp;{currentContent?.[1]?.content?.button?.[0]?.text?.[language]}
-            </Button>
-          </div>
+          <div className={`${styles.gradientBlob} `}></div>
+        </div>
+
+        <div className={styles.content}>
+          {/* <AnimatedText text={currentContent?.banner?.title[language]} Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
+          <h1 className={`${styles.title} `}>
+            {currentContent?.[1]?.content?.title?.[language]}
+          </h1>
+          <p className={`${styles.description} ${BankGothic.className}`}>
+            {currentContent?.[1]?.content?.description?.[language]}
+          </p>
+          <Button
+            className={styles.view_btn}
+            onClick={() => router.push("/services")}
+          >
+            {currentContent?.[1]?.content?.button?.[0]?.text?.[language]}
+            <Image
+              src={Arrow}
+              width="18"
+              height="17"
+              alt=""
+              className={styles.arrow_btn}
+              style={{ transform: isLeftAlign && "scaleX(-1)" }}
+            />
+          </Button>
         </div>
       </section >
 
@@ -429,7 +431,7 @@ const MarketPage = ({ content }) => {
       </section>
 
       <ContactUsModal isModal={isModal} onClose={handleContactUSClose} />
-    </>
+    </div>
   );
 };
 

@@ -22,7 +22,7 @@ const AffiliatesPage = ({ language, screen, content, width, highlight, liveConte
     return (
         <div>
             <section
-                className={`relative w-full py-[100px] ${isPhone ? "px-8" : "px-10"} bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}
+                className={`relative w-full h-[70vh] py-[100px] ${isPhone ? "px-8" : "px-10"} bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}
                 ${checkDifference(content?.['1']?.content?.images?.[0]?.url, liveContent?.['1']?.content?.images?.[0]?.url)}
                 `}
                 style={{
@@ -33,11 +33,13 @@ const AffiliatesPage = ({ language, screen, content, width, highlight, liveConte
                     height: isComputer && getDynamicSize(600),
                     padding: isComputer && `${getDynamicSize(100)} ${getDynamicSize(150)}`
                 }}
+                dir={isLeftAlign?"ltr":"rtl"}
             >
-                <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-end overflow-hidden">
+
+                <div className={`absolute inset-0 pointer-events-none z-0 flex items-center border ${isLeftAlign ? 'scale-x-[-1]' : ''} justify-start overflow-hidden`}>
                     <div
-                        style={{ width: getDynamicSize(750), height: getDynamicSize(650) }}
-                        className="rounded-full bg-white opacity-[.9] blur-[120px] mix-blend-screen"></div>
+                        style={{ width: isComputer ? getDynamicSize(750) : isTablet ? getDynamicSize(1200) : getDynamicSize(1200), height: isComputer && getDynamicSize(650) }}
+                        className="rounded-full bg-white opacity-[.9] blur-[160px] mix-blend-screen h-[60vh]"></div>
                 </div>
 
                 <div className="container relative h-full flex items-center justify-end "

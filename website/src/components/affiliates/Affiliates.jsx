@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "@/components/affiliates/affiliates.module.scss";
-import {useGlobalContext} from "@/contexts/GlobalContext";
+import { useGlobalContext } from "@/contexts/GlobalContext";
 import localFont from "next/font/local";
-import {Img_url} from "@/common/CreateContent";
+import { Img_url } from "@/common/CreateContent";
 
 // Font files can be colocated inside of `app`
 const BankGothic = localFont({
@@ -10,7 +10,7 @@ const BankGothic = localFont({
   display: "swap",
 });
 
-const AffiliatesPage = ({content}) => {
+const AffiliatesPage = ({ content }) => {
   const {
     language,
     // content
@@ -20,18 +20,20 @@ const AffiliatesPage = ({content}) => {
 
   const currentContent = content;
 
-  console.log(currentContent, "currentContent");
+  // console.log(currentContent, "currentContent");
 
   return (
     <>
       <section className={`${styles.affiliates_banner_wrap} `}>
+        <div className={`${styles.gradientOverlay} ${isLeftAlign && styles.gradientBlobLTR}`} dir={isLeftAlign ? "ltr" : "rtl"}>
+          <div className={`${styles.gradientBlob} `}></div>
+        </div>
         <span
-          className={`${language === "en" && styles.leftAlign} ${
-            styles.backgroundContainer
-          }`}
+          className={`${language === "en" && styles.leftAlign} ${styles.backgroundContainer
+            }`}
         >
           <img
-            style={{objectPosition: "bottom", objectFit: "cover"}}
+            style={{ objectPosition: "bottom", objectFit: "cover" }}
             src={
               currentContent?.["1"]?.content?.images?.[0]?.url
                 ? Img_url + currentContent?.["1"]?.content?.images?.[0]?.url
