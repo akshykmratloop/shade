@@ -410,7 +410,6 @@ const HomePage = ({ content }) => {
                   <SwiperSlide key={slideIndex}>
                     <div className={styles.recent_project_cards}>
                       {chunk?.map((project, cardIndex) => {
-                        console.log(project)
                         return (
                           <div className={styles.card} key={cardIndex}>
                             <div className={styles.card_img_wrap}>

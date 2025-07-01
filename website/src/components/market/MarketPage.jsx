@@ -38,7 +38,6 @@ import Link from "next/link";
 import { FaArrowLeftLong, FaArrowRightLong, FaRegBuilding } from "react-icons/fa6";
 
 const MarketPage = ({ content }) => {
-  console.log(content)
   const router = useRouter();
   const currentPath = router.asPath;
 
@@ -57,8 +56,6 @@ const MarketPage = ({ content }) => {
   const handleContactUSClose = () => {
     setIsModal(false);
   };
-
-  console.log(bracket_l.src)
 
   useEffect(() => {
     setFilterMarketItems(

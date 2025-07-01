@@ -1,7 +1,7 @@
 .org_banner_wrap {
   height: 715px;
   //   background: url("../../assets/images/Hero.png") no-repeat center / cover;
-  width: 100%;
+  width: 100vw;
   position: relative;
   // padding: 0px 150px;
 
@@ -38,32 +38,26 @@
   .content {
     position: absolute;
     top: 30%;
+    z-index: 2;
     padding: 0px 150px;
 
+    @media (max-width: 1200px) and (min-width: 801px) {
+    padding: 0px 80px;
+    }
     .title {
       color: var(--black);
       font-size: 70px;
       font-style: normal;
       font-weight: 500;
       line-height: 77px;
-      /* 110% */
       letter-spacing: -3.5px;
       margin-bottom: 16px;
       text-wrap: auto;
-      width: 635px;
-      //   text-align: right;
+      // width: 635px;
     }
 
     .description {
       color: var(--para-light);
-      // font-size: 14px;
-      // font-style: normal;
-      // font-weight: 700;
-      // line-height: 14.5px;
-      // margin-bottom: 24px;
-      // width: 44%;
-      //   text-align: right;
-      //   margin-left: auto;
       font-size: 16px;
       font-style: normal;
       font-weight: 600;
@@ -79,7 +73,6 @@
 
       font-size: 18px;
       font-weight: 500;
-      //   margin-left: auto;
       position: relative;
 
       &.noPadding {
@@ -96,11 +89,46 @@
   }
 }
 
+.gradientOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  top: 0;
+  left: 0;
+  align-items: center; // vertical center
+  justify-content: start; // center horizontally
+
+  .gradientBlobLTR {
+    transform: scaleX(-1);
+  }
+
+  .gradientBlob {
+    width: 60vw;
+    height: 400px;
+    border-radius: 50%;
+    background: white;
+    opacity: 0.9;
+    filter: blur(150px);
+    mix-blend-mode: screen;
+
+    @media (max-width: 600px) {
+      display: block;
+      width: 80vw;
+      filter: blur(120px);
+    }
+
+    // You can experiment with blend modes:
+    mix-blend-mode: overlay;
+    // mix-blend-mode: lighten;
+  }
+}
+
 .chart_section_wrap {
   padding: 112px 0;
 
   .chartImage {
-    width: auto;
+    width: 100%;
     height: auto;
   }
 }
@@ -112,6 +140,7 @@
 
     .backgroundContainer {
       height: 500px;
+
       .backgroundImage {
         height: 500px !important;
       }
@@ -152,10 +181,11 @@
   }
 
   .chart_section_wrap {
-    padding: 4rem 1rem;
+    padding: 4rem 0px;
 
     .chartImage {
-      width: 712px;
+      // width: 712px;
+      width: 100%;
       // height: auto;
     }
   }
@@ -192,7 +222,9 @@
     padding: 2rem 0.5rem;
 
     .chartImage {
-      width: 374px;
+      // width: 374px;
+      width: 100;
+      height: auto;
     }
   }
 }

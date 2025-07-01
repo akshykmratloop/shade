@@ -116,7 +116,6 @@ const ProjectPage = ({ content }) => {
               {filteredProject
                 ?.slice(0, visibleProjectsCount)
                 ?.map((item, index) => {
-                  // console.log(item.image)
                   return (
                     <div className={styles.card} key={index}>
                       <img

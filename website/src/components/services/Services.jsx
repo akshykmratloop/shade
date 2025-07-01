@@ -34,7 +34,6 @@ const Services = ({ content }) => {
     setIsModal(false);
   };
 
-  console.log(currentContent, "content");
   return (
     <>
       <section

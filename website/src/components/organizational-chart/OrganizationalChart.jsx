@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "@/components/organizational-chart/OrganizationChart.module.scss";
-import {useGlobalContext} from "@/contexts/GlobalContext";
+import { useGlobalContext } from "@/contexts/GlobalContext";
 import localFont from "next/font/local";
 import org_chart from "../../assets/images/org_chart.svg";
 import org_banner from "../../assets/images/orgBanner.jpg";
@@ -13,7 +13,7 @@ const BankGothic = localFont({
   display: "swap",
 });
 
-const OrganizationalChartPage = ({content}) => {
+const OrganizationalChartPage = ({ content }) => {
   const {
     language,
     // content
@@ -23,7 +23,6 @@ const OrganizationalChartPage = ({content}) => {
 
   const currentContent = content;
 
-  console.log(currentContent)
   const fileUrl = currentContent?.["2"]?.content?.images?.[0]?.url;
   const fullUrl = fileUrl ? Img_url + fileUrl : null;
 
@@ -32,13 +31,17 @@ const OrganizationalChartPage = ({content}) => {
   return (
     <>
       <section className={`${styles.org_banner_wrap} `}>
+        <div className={`${styles.gradientOverlay} ${isLeftAlign && styles.gradientBlobLTR}`}
+          dir={isLeftAlign ? "ltr" : "rtl"}
+        >
+          <div className={`${styles.gradientBlob} `}></div>
+        </div>
         <span
-          className={`${language === "en" && styles.leftAlign} ${
-            styles.backgroundContainer
-          }`}
+          className={`${language === "en" && styles.leftAlign} ${styles.backgroundContainer
+            }`}
         >
           <Image
-            style={{objectPosition: "bottom", objectFit: "cover"}}
+            style={{ objectPosition: "bottom", objectFit: "cover" }}
             src={
               currentContent?.["1"]?.content?.images?.[0]?.url
                 ? Img_url + currentContent?.["1"]?.content?.images?.[0]?.url
@@ -70,7 +73,7 @@ const OrganizationalChartPage = ({content}) => {
               src={fullUrl}
               width="100%"
               height="600px"
-              style={{border: "none"}}
+              style={{ border: "none" }}
               title="Organizational Chart PDF"
             />
           ) : (
