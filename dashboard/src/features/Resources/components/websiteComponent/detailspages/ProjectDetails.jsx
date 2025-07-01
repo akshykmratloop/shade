@@ -174,7 +174,7 @@ const ProjectDetailPage = ({ content, language, projectId, screen, highlight, li
             </section >
 
             {/* gallery */}
-            < div className={`relative ${isPhone || isTablet ? "w-full " : ""} mx-auto`}
+            <div className={`relative ${isPhone || isTablet ? "w-full " : ""} mx-auto`}
                 style={{ padding: (isComputer || isTablet) && `${getDynamicSize(88)} ${getDynamicSize(150)}` }}
             >
                 {/* Blur effect container */}
@@ -237,7 +237,6 @@ const ProjectDetailPage = ({ content, language, projectId, screen, highlight, li
                     ))}
                 </Swiper>
             </div >
-
 
             {/* More Projects */}
             <section className="pt-[70px] pb-[88px] px-[26px]"
