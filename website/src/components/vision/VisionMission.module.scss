@@ -112,6 +112,7 @@
       line-height: normal;
       color: #292e3d;
     }
+
     .vision_mission_section_head_description {
       width: 700px;
       font-weight: 700;
@@ -126,6 +127,7 @@
     // flex-wrap: wrap;
     gap: 30px;
     justify-content: space-evenly;
+
     .vision_mission_core_card {
       width: 100%;
       // max-width: 400px;
@@ -162,7 +164,7 @@
       }
 
       .card_description {
-        font-weight: 700;
+        font-weight: 300;
         font-size: 16px;
         line-height: normal;
         color: #0e172fb2;
@@ -186,14 +188,20 @@
         color: #f8f8f8;
         // font-family: BankGothic Md BT;
         font-weight: 400;
-        font-size: 32px;
+        font-size: clamp(20px, 2vw,32px);
         line-height: normal;
+
+        @media (max-width: 400px) {
+        font-size: 26px;
+        }
       }
+
       .visions_section_card_para {
         padding: 20px 15px;
         font-weight: 300;
         font-size: 16px;
         line-height: 22px;
+        color: #2A303C;
         // letter-spacing: 0%;
         // vertical-align: middle;
         background: #f8f8f8;
@@ -212,7 +220,7 @@
     .content {
       // position: static;
       padding: 40px 20px;
-      text-align: center;
+      text-align: left;
 
       .title {
         font-size: 48px;
@@ -257,6 +265,14 @@
         font-size: 50px;
         line-height: normal;
         color: #292e3d;
+
+        @media (max-width: 768px) {
+          font-size: 40px
+        }
+
+        @media (max-width: 425px) {
+          font-size: 30px
+        }
       }
 
       .vision_mission_section_head_description {
@@ -308,7 +324,7 @@
   }
 
   .vision_mission_wrap {
-    padding: 2rem 0.5rem;
+    padding: 2rem 0.1rem;
 
     .vision_mission_section_head {
       display: flex;
@@ -316,7 +332,7 @@
       align-items: flex-start;
 
       .vision_mission_section_head_title {
-        font-size: 36px;
+        font-size: 30px;
       }
 
       .vision_mission_section_head_description {
@@ -327,6 +343,7 @@
 
     .vision_mission_core_card_wrap {
       grid-template-columns: 1fr;
+
       .vision_mission_core_card {
         padding: 15px;
       }
@@ -334,9 +351,12 @@
 
     .visions_section_wrap {
       grid-template-columns: 1fr;
+
       .visions_section_card {
         flex: 1 1 100%;
       }
     }
   }
+
+
 }

@@ -1,16 +1,16 @@
 import React from "react";
 import styles from "@/components/vision/VisionMission.module.scss";
-import {useRouter} from "next/router";
-import {useGlobalContext} from "@/contexts/GlobalContext";
+import { useRouter } from "next/router";
+import { useGlobalContext } from "@/contexts/GlobalContext";
 import localFont from "next/font/local";
-import {Img_url} from "@/common/CreateContent";
+import { Img_url } from "@/common/CreateContent";
 
 const BankGothic = localFont({
   src: "../../../public/font/BankGothicLtBTLight.ttf",
   display: "swap",
 });
 
-const VisionMissionPage = ({content}) => {
+const VisionMissionPage = ({ content }) => {
   const router = useRouter();
   const {
     language,
@@ -21,18 +21,19 @@ const VisionMissionPage = ({content}) => {
 
   const currentContent = content;
 
+  console.log(currentContent)
+
   const bgColors = ["#84E2FE", "#06D5FF", "#00B9F2"];
 
   return (
     <>
       <section className={`${styles.vision_mission_banner_wrap} `}>
         <span
-          className={`${language === "en" && styles.leftAlign} ${
-            styles.backgroundContainer
-          }`}
+          className={`${language === "en" && styles.leftAlign} ${styles.backgroundContainer
+            }`}
         >
           <img
-            style={{objectPosition: "bottom", objectFit: "cover"}}
+            style={{ objectPosition: "bottom", objectFit: "cover" }}
             src={
               currentContent?.["1"]?.content?.images?.[0]?.url
                 ? Img_url + currentContent?.["1"]?.content?.images?.[0]?.url
@@ -69,46 +70,49 @@ const VisionMissionPage = ({content}) => {
             />
           </div>
           <div className={styles.vision_mission_core_card_wrap}>
-            {currentContent?.["2"]?.content?.cards.map((card, index) => (
-              <div
-                key={index}
-                className={`${styles.vision_mission_core_card} ${styles[language]}`}
-              >
-                <div className={styles.side_border}></div>
-                <img
-                  src={
-                    card.image?.url
-                      ? Img_url + card.image.url
-                      : "/images/placeholder.png"
-                  }
-                  alt={card.title[language]}
-                  className={styles.card_image}
-                />
-                <h2 className={styles.card_title}>{card.title[language]}</h2>
+            {currentContent?.["2"]?.content?.cards.map((card, index) => {
+              console.log(card)
+              return (
                 <div
-                  className={styles.card_description}
-                  dangerouslySetInnerHTML={{
-                    __html: card.description[language],
-                  }}
-                />
-              </div>
-            ))}
+                  key={index}
+                  className={`${styles.vision_mission_core_card} ${styles[language]}`}
+                >
+                  <div className={styles.side_border}></div>
+                  <img
+                    src={
+                      card?.images?.[0]?.url
+                        ? Img_url + card?.images?.[0]?.url
+                        : "/images/placeholder.png"
+                    }
+                    alt={card.title[language]}
+                    className={styles.card_image}
+                  />
+                  <h2 className={styles.card_title}>{card.title[language]}</h2>
+                  <div
+                    className={`bank-light ${styles.card_description}`}
+
+                    dangerouslySetInnerHTML={{
+                      __html: card.description[language],
+                    }}
+                  />
+                </div>
+              )
+            })}
           </div>
 
           <div className={styles.visions_section_wrap}>
             {currentContent?.["3"]?.content?.cards.map((card, index) => (
               <div key={index} className={styles.visions_section_card}>
                 <h1
-                  className={`${styles.visions_section_card_title} ${
-                    styles[`card_${index}`]
-                  }`}
-                  style={{backgroundColor: bgColors[index % 3]}}
+                  className={`${styles.visions_section_card_title} ${styles[`card_${index}`]
+                    }`}
+                  style={{ backgroundColor: bgColors[index % 3] }}
                 >
                   {card.title[language]}
                 </h1>
-                <h1 className={styles.visions_section_card_para}>
+                <p className={`${styles.visions_section_card_para} bank-light`}>
                   {card.description[language]}
-                </h1>
+                </p>
               </div>
             ))}
           </div>

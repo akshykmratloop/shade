@@ -109,8 +109,13 @@ const VisionNMission = ({ currentContent, screen, language, width, liveContent, 
                     return (
                         <div className={`border-b border-[#0E172FB2] relative ${isLeftAlign ? "pr-10" : "pl-10"} pb-5`}>
                             <div className={`bg-[#0E172FB2] absolute top-0 ${isLeftAlign ? "right-0" : "left-0"} h-[90%] w-[.5px]`}></div>
-                            <div>
-                                <img src={Img_url + card?.images?.[0]?.url} alt={card?.images?.[0]?.alt?.[language]} />
+                            <div
+
+                            >
+                                <img src={Img_url + card?.images?.[0]?.url} alt={card?.images?.[0]?.alt?.[language]}
+                                    style={{ width: isComputer && getDynamicSize(32) }}
+                                    className="w-[32px] aspect-[1/1]"
+                                />
                             </div>
                             <h3
                                 className={`${checkDifference(card?.title?.[language], liveContent?.[2]?.content?.cards?.[index]?.title?.[language])}`}

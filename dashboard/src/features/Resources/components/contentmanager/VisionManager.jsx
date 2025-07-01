@@ -62,7 +62,32 @@ const VisionManager = ({ content, currentPath, language, indexes, outOfEditing }
                 outOfEditing={outOfEditing}
             />
 
-            <ContentSection
+            {
+                content?.[2]?.content?.cards?.map((e, i) => {
+
+                    return (
+                        <ContentSection
+                            key={i}
+                            Heading={"Card " + (i + 1)}
+                            currentPath={currentPath}
+                            inputs={[
+                                { input: "input", label: `Card ${i + 1} - Title`, updateType: "title", value: e?.title?.[language], index: i },
+                                { input: "textarea", label: `Card ${i + 1} - Description`, updateType: "description", value: e?.description?.[language], index: i },
+                            ]}
+                            inputFiles={[{ label: "Icon", id: "iconforcard" + (i), order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
+                            subSection={"content/procedures"}
+                            section={"cards"}
+                            index={i}
+                            contentIndex={i}
+                            language={language}
+                            currentContent={content}
+                            sectionIndex={indexes?.['2']}
+                            outOfEditing={outOfEditing}
+                        />
+                    )
+                })
+            }
+            {/* <ContentSection
                 Heading={"Section 1"}
                 currentPath={currentPath}
                 inputs={[
@@ -78,7 +103,7 @@ const VisionManager = ({ content, currentPath, language, indexes, outOfEditing }
                 currentContent={content}
                 sectionIndex={indexes?.['2']}
                 outOfEditing={outOfEditing}
-            />
+            /> */}
 
 
             <div className="mt-4 border-b">
