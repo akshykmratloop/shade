@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import styles from "@/components/Safety/Safety.module.scss";
+import styles from "./Safety.module.scss";
 import localFont from "next/font/local";
 import {useRouter} from "next/router";
 import {Img_url} from "@/common/CreateContent";
