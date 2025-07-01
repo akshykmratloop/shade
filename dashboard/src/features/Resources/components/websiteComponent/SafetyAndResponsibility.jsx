@@ -92,7 +92,7 @@ const SnR = ({ currentContent, screen, language, width, highlight, liveContent }
                                         // gap: getDynamicSize(30),
                                         // margin: `${getDynamicSize(70)} 0px`
                                     }}
-                                    className={`flex relative ${isPhone ? "flex-col" : odd && "flex-row-reverse"}`}
+                                    className={`flex relative ${(isPhone || isTablet) ? "flex-col" : odd && "flex-row-reverse"}`}
                                     key={e.id}
                                 >
                                     <div className={`${!isPhone && 'absolute'} flex-[2_0_auto] `}

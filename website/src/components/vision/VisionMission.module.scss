@@ -37,8 +37,9 @@
 
   .content {
     position: absolute;
+    z-index: 2;
     top: 30%;
-    padding: 0px 150px;
+    padding: 0px 160px;
 
     .title {
       color: var(--black);
@@ -93,6 +94,42 @@
         left: 32px;
       }
     }
+  }
+}
+
+.gradientOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  top: 0;
+  left: 0;
+  align-items: center; // vertical center
+  justify-content: start; // center horizontally
+
+  .gradientBlobLTR {
+    justify-content: start;
+  }
+
+  .gradientBlob {
+    // display: none;
+    width: 60vw;
+    height: 400px;
+    border-radius: 50%;
+    background: white;
+    opacity: 0.9;
+    filter: blur(150px);
+    mix-blend-mode: screen;
+
+    @media (max-width: 600px) {
+      display: block;
+      width: 80vw;
+      filter: blur(120px);
+    }
+
+    // You can experiment with blend modes:
+    // mix-blend-mode: overlay;
+    mix-blend-mode: lighten;
   }
 }
 
@@ -188,11 +225,11 @@
         color: #f8f8f8;
         // font-family: BankGothic Md BT;
         font-weight: 400;
-        font-size: clamp(20px, 2vw,32px);
+        font-size: clamp(20px, 2vw, 32px);
         line-height: normal;
 
         @media (max-width: 400px) {
-        font-size: 26px;
+          font-size: 26px;
         }
       }
 
@@ -220,7 +257,7 @@
     .content {
       // position: static;
       padding: 40px 20px;
-      text-align: left;
+      // text-align: left;
 
       .title {
         font-size: 48px;
@@ -232,8 +269,8 @@
       .description {
         font-size: 14px;
         line-height: 22px;
-        width: 100%;
-        margin: 20px auto;
+        width: 60%;
+        margin: 20px 0;
       }
 
       .view_btn {
@@ -312,6 +349,7 @@
     .description {
       font-size: 12px;
       line-height: 18px;
+      width: 100%;
     }
 
     .view_btn {

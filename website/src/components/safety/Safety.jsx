@@ -1,12 +1,12 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Safety.module.scss";
 import localFont from "next/font/local";
-import {useRouter} from "next/router";
-import {Img_url} from "@/common/CreateContent";
+import { useRouter } from "next/router";
+import { Img_url } from "@/common/CreateContent";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import {useGlobalContext} from "../../contexts/GlobalContext";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 import ContactUsModal from "../header/ContactUsModal";
 import Image from "next/image";
 import checkSvg from "../../assets/icons/check.svg";
@@ -21,7 +21,7 @@ const BankGothic = localFont({
 
 //
 
-const SafetyPage = ({content}) => {
+const SafetyPage = ({ content }) => {
   const router = useRouter();
 
   const {
@@ -68,17 +68,18 @@ const SafetyPage = ({content}) => {
     <>
       {/* banner */}
       <section
-        className={`${styles.safety_banner_wrap} ${
-          language === "en" && styles.leftAlign
-        }`}
-      >
-        <span
-          className={`${language === "en" && styles.leftAlign} ${
-            styles.backgroundContainer
+        className={`${styles.safety_banner_wrap} ${language === "en" && styles.leftAlign
           }`}
+      >
+        <div className={`${styles.gradientOverlay} ${isLeftAlign && styles.gradientBlobLTR}`} dir={isLeftAlign ? "ltr" : "rtl"}>
+          <div className={`${styles.gradientBlob} `}></div>
+        </div>
+        <span
+          className={`${language === "en" && styles.leftAlign} ${styles.backgroundContainer
+            }`}
         >
           <img
-            style={{objectPosition: "bottom"}}
+            style={{ objectPosition: "bottom" }}
             // src={historyBanner.src}
             src={
               currentContent?.["1"]?.content?.images?.[0]?.url
@@ -89,7 +90,7 @@ const SafetyPage = ({content}) => {
             className={styles.backgroundImage}
             width={0}
             // fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             height={0}
           />
         </span>
@@ -119,22 +120,18 @@ const SafetyPage = ({content}) => {
               return (
                 <div
                   key={item.id ?? idx}
-                  className={`${styles.safety_card}  ${
-                    isReversed ? styles.reverse : ""
-                  }`}
+                  className={`${styles.safety_card}  ${isReversed ? styles.reverse : ""
+                    }`}
                 >
-                  {/* Image (if any) */}
-                  {
-                    <div className={styles.safety_card_image_wrap}>
-                      <img
-                        src={Img_url + item.image}
-                        alt={"safety image"}
-                        // width={400}
-                        // height={300}
-                        className={styles.safety_card_image}
-                      />
-                    </div>
-                  }
+                  <div className={styles.safety_card_image_wrap}>
+                    <img
+                      src={Img_url + item.image}
+                      alt={"safety image"}
+                      // width={400}
+                      // height={300}
+                      className={styles.safety_card_image}
+                    />
+                  </div>
 
                   {/* Details */}
                   <div className={styles.safety_card_details}>
@@ -152,7 +149,7 @@ const SafetyPage = ({content}) => {
                             // height={100}
                             className={styles.description_image}
                           />
-                          <p>{descObj[language]}</p>
+                          <p className="bank-light">{TruncateText(descObj[language], 120)}</p>
                         </div>
                       ))}
                       {/* <Button /> */}

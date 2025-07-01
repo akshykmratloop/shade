@@ -21,13 +21,14 @@ const VisionMissionPage = ({ content }) => {
 
   const currentContent = content;
 
-  console.log(currentContent)
-
   const bgColors = ["#84E2FE", "#06D5FF", "#00B9F2"];
 
   return (
     <>
       <section className={`${styles.vision_mission_banner_wrap} `}>
+        <div className={`${styles.gradientOverlay} ${isLeftAlign && styles.gradientBlobLTR}`} dir={isLeftAlign ? "ltr" : "rtl"}>
+          <div className={`${styles.gradientBlob} `}></div>
+        </div>
         <span
           className={`${language === "en" && styles.leftAlign} ${styles.backgroundContainer
             }`}
