@@ -21,7 +21,7 @@ import Squares2X2Icon from '@heroicons/react/24/outline/Squares2X2Icon'
 // import { GrUserSettings } from "react-icons/gr";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 // import { FaRegUser } from "react-icons/fa";
-import { Logs, UserRound, UserRoundCog } from 'lucide-react'
+import { Logs, UserRound, UserRoundCog, Mail } from 'lucide-react'
 import { MdOutlineUpcoming } from "react-icons/md";
 
 const iconClasses = `h-6 w-6`
@@ -63,6 +63,12 @@ const routes = [
     icon: <Logs strokeWidth={1.5} />, // icon component
     name: 'Logs', // name that appear in Sidebar
     permission: "AUDIT_LOGS_MANAGEMENT"
+  },
+  {
+    path: '/app/reminders', // url
+    icon: <Mail strokeWidth={1.5} />, // icon component (use lucide-react Mail icon)
+    name: 'Reminders', // name that appear in Sidebar
+    // permission: "REMINDER_MANAGEMENT" // (optional, add if you want permission control)
   }
   // {
   //   path: '/app/integration', // url

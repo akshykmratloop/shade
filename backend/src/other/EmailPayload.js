@@ -360,4 +360,58 @@ export const notifyEditorPublished = ({ name, email, resourceName, publishedAt, 
   html: `<div style="background: linear-gradient(135deg, #e0e7ff 0%, #f9fafb 100%); min-height: 100vh; padding: 40px 0;"><div style="max-width: 480px; margin: 40px auto; padding: 32px 28px; border-radius: 24px; background: rgba(255, 255, 255, 0.25); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18); backdrop-filter: blur(12px) saturate(180%); -webkit-backdrop-filter: blur(12px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.25); position: relative; overflow: hidden; animation: fadeInCard 1.2s cubic-bezier(.39,.575,.56,1) both;"><h2 style="text-align:center;color:#10b981;font-size:2rem;font-weight:700;margin-bottom:12px;letter-spacing:0.5px;">${publishedAt ? 'Published' : 'Scheduled'}</h2><p style="font-size:1.1rem;color:#444;text-align:center;margin-bottom:24px;">Hello <strong>${name}</strong>,</p><p style="font-size:1.05rem;color:#10b981;text-align:center;margin-bottom:24px;font-weight:600;">Your request for <span style='color:#6366f1;'>${resourceName}</span> has been ${publishedAt ? 'published and is now live' : `scheduled for publication on <strong>${scheduledAt}</strong>`}.</p><div style="text-align:center;margin-bottom:24px;"><a href="${dashboardUrl}" style="display:inline-block;background: linear-gradient(90deg, #6366f1 0%, #34d399 100%);color:#fff;padding: 14px 32px;font-size:1.08rem;font-weight:600;text-decoration:none;border-radius: 8px;box-shadow: 0 2px 8px 0 rgba(99,102,241,0.13);transition: background 0.3s, box-shadow 0.3s;letter-spacing:0.5px;">Go to Dashboard</a></div><hr style="border:none;border-top:1px solid #e0e7ff;margin:24px 0 16px 0;"><p style="font-size:0.95rem;color:#b0b0b0;text-align:center;margin:0;">© 2025 Shade Corporation Ltd. All rights reserved.</p></div></div>`
 });
 
+// Reminder Email
+export const reminderPayload = ({ to, subject, message }) => ({
+  to,
+  subject,
+  text: `Subject: ${subject}\nMessage: ${message}\n\nSent via Shade CMS Reminder`,
+  html: `
+    <div style="background: linear-gradient(135deg, #e0e7ff 0%, #f9fafb 100%); min-height: 100vh; padding: 40px 0;">
+      <div style="
+        max-width: 480px;
+        margin: 40px auto;
+        padding: 32px 28px;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.25);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+        backdrop-filter: blur(12px) saturate(180%);
+        -webkit-backdrop-filter: blur(12px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        position: relative;
+        overflow: hidden;
+        animation: fadeInCard 1.2s cubic-bezier(.39,.575,.56,1) both;">
+        <svg width="100%" height="100" viewBox="0 0 480 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;z-index:0;pointer-events:none;">
+          <defs>
+            <linearGradient id="reminder_linear" x1="0" y1="0" x2="480" y2="100" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#a5b4fc"/>
+              <stop offset="1" stop-color="#6366f1"/>
+            </linearGradient>
+          </defs>
+          <ellipse cx="240" cy="50" rx="220" ry="40" fill="url(#reminder_linear)" fill-opacity="0.18"/>
+        </svg>
+        <div style="position:relative;z-index:1;">
+          <h2 style="text-align:center;color:#6366f1;font-size:2rem;font-weight:700;margin-bottom:12px;letter-spacing:0.5px;">You have a new reminder!</h2>
+          <div style="background: rgba(255,255,255,0.45);border-radius: 14px;box-shadow: 0 2px 12px 0 rgba(99,102,241,0.08);padding: 18px 20px;margin-bottom: 24px;border: 1px solid rgba(99,102,241,0.13);display: flex;flex-direction: column;align-items: center;animation: slideInUp 1.1s cubic-bezier(.39,.575,.56,1) 0.2s both;">
+            <p style="font-size:1.08rem;margin:0 0 8px 0;color:#333;"><strong>Subject:</strong> <span style="color:#6366f1;">${subject}</span></p>
+            <p style="font-size:1.08rem;margin:0;color:#444;"><strong>Message:</strong></p>
+            <p style="font-size:1.05rem;margin:8px 0 0 0;color:#555;white-space:pre-line;">${message}</p>
+          </div>
+          <hr style="border:none;border-top:1px solid #e0e7ff;margin:24px 0 16px 0;">
+          <p style="font-size:0.95rem;color:#b0b0b0;text-align:center;margin:0;">Sent via Shade CMS Reminder</p>
+        </div>
+      </div>
+      <style>
+        @keyframes fadeInCard {
+          0% { opacity: 0; transform: translateY(40px) scale(0.98); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes slideInUp {
+          0% { opacity: 0; transform: translateY(32px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+      </style>
+    </div>
+  `
+});
+
 // Add more payload templates as needed and export them here
