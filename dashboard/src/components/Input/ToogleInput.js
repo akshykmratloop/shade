@@ -11,7 +11,7 @@ function ToogleInput({labelTitle, labelStyle, type, containerStyle, defaultValue
     }
 
     return(
-        <div className={`form-control w-full ${containerStyle}`}>
+        <div className={`form-control ${containerStyle}`}>
             <label className="label cursor-pointer">
                 <span className={"label-text text-base-content " + labelStyle}>{labelTitle}</span>
                 <input type="checkbox" className="toggle" checked={value}  onChange={(e) => updateToogleValue()}/>

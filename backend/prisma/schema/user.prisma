@@ -22,6 +22,8 @@ model User {
   resourceVersionVerifiers ResourceVersionVerifier[]
   sentRequests           ResourceVersioningRequest[] @relation("sender")
   approvals              RequestApproval[] @relation("approver")
+  sentReminders          Reminder[] @relation("SentReminders")
+  receivedReminders      Reminder[] @relation("ReceivedReminders")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

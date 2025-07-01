@@ -19,6 +19,7 @@ const ProfileSettings = lazy(() => import('../pages/protected/ProfileSettings'))
 const GettingStarted = lazy(() => import('../pages/GettingStarted'))
 const DocFeatures = lazy(() => import('../pages/DocFeatures'))
 const DocComponents = lazy(() => import('../pages/DocComponents'))
+const RemindersPage = lazy(() => import('../pages/protected/Reminders'))
 // const IndexRouter = lazy(() => import('../pages/'))
 
 
@@ -95,6 +96,10 @@ const routes = [
   //   path: '/blank',
   //   component: Blank,
   // },
+  {
+    path: '/reminders',
+    component: RemindersPage,
+  },
 ]
 
 export default routes
