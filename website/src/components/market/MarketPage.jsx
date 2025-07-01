@@ -214,14 +214,14 @@ const MarketPage = ({ content }) => {
         <div className="container">
           <div className={styles.content}>
             <div className={styles.card}>
-              {/* <div className={styles.braketBefore}
+              <div className={styles.braketBefore}
                 style={{ backgroundImage: `url(${bracket_l.src})` }}
               >
               </div>
               <div
                 style={{ backgroundImage: `url(${bracket_r.src})` }}
                 className={styles.braketAfter}>
-              </div> */}
+              </div>
 
               <Image
                 src={rightQuote}
