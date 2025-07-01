@@ -1,6 +1,5 @@
 import {Router} from "express";
 import UserController from "./user.controller.js";
-import {authenticateUser} from "../../helper/authMiddleware.js";
 import tryCatchWrap from "../../errors/tryCatchWrap.js";
 import validate from "../../validation/validator.js";
 import {updateUserSchema, userSchema} from "../../validation/userSchema.js";

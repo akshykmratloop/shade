@@ -6,6 +6,7 @@ import NotificationModule from "../modules/notification/index.js";
 import ContentModule from "../modules/content/index.js";
 import MediaModule from "../modules/media/index.js";
 import WebsiteModule from "../modules/website/index.js";
+import ReminderModule from "../modules/reminder/index.js";
 
 const modules = [
   AuthModule,
@@ -16,6 +17,7 @@ const modules = [
   ContentModule,
   MediaModule,
   WebsiteModule,
+  ReminderModule,
 ];
 
 const useModules = (app) => {

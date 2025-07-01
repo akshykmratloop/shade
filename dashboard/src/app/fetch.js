@@ -615,3 +615,35 @@ export async function deleteLogsByDateRange({ startDate, endDate }) {
     ContentType.json
   );
 }
+
+export async function createReminder(data) {
+  return await makerequest(
+    api.route("createReminder"),
+    "POST",
+    JSON.stringify(data),
+    ContentType.json
+  );
+}
+
+export async function getReceivedReminders() {
+  const url = api.route("getReceivedReminders");
+  return await makerequest(url, "GET");
+}
+
+export async function getSentReminders() {
+  const url = api.route("getSentReminders") ;
+  return await makerequest(url, "GET");
+}
+
+export async function replyToReminder(id, response) {
+  return await makerequest(
+    api.route("replyToReminder") + id,
+    "POST",
+    JSON.stringify({ response }),
+    ContentType.json
+  );
+}
+
+export async function getReminderUsers() {
+  return await makerequest(api.route("reminderUsers"), "GET");
+}

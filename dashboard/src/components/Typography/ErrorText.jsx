@@ -1,6 +1,6 @@
 function ErrorText({styleClass, children}){
     return(
-        <p className={`text-center text-error ${styleClass}`}>{children}</p>
+        <p className={`text-center text-error text-[8px] flex ${styleClass}`}>{children}</p>
     )
 }
 

@@ -80,6 +80,12 @@ const api = {
   deleteMedia: `${media}/delete`,
   getMedia: `${media}/getMedia`,
 
+  // Reminders
+  createReminder: `reminder/create`,
+  getReceivedReminders: `reminder/received`,
+  getSentReminders: `reminder/sent`,
+  reminderUsers: `reminder/users`,
+  replyToReminder: `reminder/reply/`,
   route(route) {
     if (this[route]) {
       return BASE_URL + this[route];
