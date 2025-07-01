@@ -65,7 +65,7 @@ const HSnE = ({ currentContent, screen, language, width, highlight, liveContent 
             </section>
 
 
-            <section className={`grid ${isPhone ? "grid-cols-1 p-10" : "grid-cols-2"} gap-x-20 gap-y-5 ${isTablet ? "p-10" : ""}`}
+            <section className={`grid ${isPhone ? "grid-cols-1 p-10 px-7" : "grid-cols-2"} gap-x-20 gap-y-5 ${isTablet ? "p-10" : ""}`}
                 style={{
                     padding: (isComputer) && `${getDynamicSize(100)} ${getDynamicSize(150)}`,
                     gap: `${getDynamicSize(40)} ${getDynamicSize(20)}`
@@ -76,16 +76,16 @@ const HSnE = ({ currentContent, screen, language, width, highlight, liveContent 
 
                         return (
                             <div className={`relative ${isComputer && "pr-10"}  pb-5 flex gap-2`} key={i}>
-                                <div className={`${isTablet&& "w-[80px]"}`}
+                                <div className={`${(isTablet || isPhone) && "w-[80px]"}`}
                                     style={{
-                                        width: (isComputer) && getDynamicSize(83),
+                                        width: (isComputer) && getDynamicSize(86),
                                         padding: `0px ${isComputer && getDynamicSize(12)} 0px 0px`
                                     }}
                                 >
-                                    <img src={Img_url + card?.images?.[0]?.url} alt="" className={`w-[120px] h-[50px]`} />
+                                    <img src={Img_url + card?.images?.[0]?.url} alt="" className={`w-[80px] aspect-[1/1] `} />
                                 </div>
-                                <div className="flex flex-col gap-2"
-                                style={{width: (isTablet) && getDynamicSize(500)}}
+                                <div className={`flex flex-col gap-2 flex-[1_1_auto]`}
+                                    style={{ width: (isTablet) ? getDynamicSize(500) : isComputer ? getDynamicSize(383) : getDynamicSize(600) }}
                                 >
                                     <h3 className={`text-[#292E3D]
                                         ${checkDifference(card?.title?.[language], liveContent?.[2]?.content?.cards?.[i]?.title?.[language])}
@@ -109,13 +109,13 @@ const HSnE = ({ currentContent, screen, language, width, highlight, liveContent 
             >
                 <img
                     src={Img_url + currentContent?.[2]?.content?.images?.[0]?.url} alt=""
-                    className={`w-full ${isPhone ? "aspect-[2/1.5]" : "aspect-[2.88/1]"} object-cover object-bottom
+                    className={`w-full ${isPhone ? "aspect-[.95/1] px-6" : "aspect-[2.88/1]"} object-cover object-bottom
                     ${checkDifference(currentContent?.[2]?.content?.images?.[0]?.url, liveContent?.[2]?.content?.images?.[0]?.url)}
                     `}
                 />
             </div>
 
-            <section className={`flex gap-5 py-10 px-10 flex-col`}
+            <section className={`flex gap-5 py-10 px-7 flex-col`}
                 style={{
                     padding: isComputer && `${getDynamicSize(100)} ${getDynamicSize(150)} ${getDynamicSize(50)}`
                 }}

@@ -37,6 +37,7 @@
 
   .content {
     position: absolute;
+    z-index: 3;
     top: 30%;
     padding: 0px 150px;
 
@@ -96,13 +97,51 @@
   }
 }
 
+.gradientOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  top: 0;
+  left: 0;
+  align-items: center; // vertical center
+  justify-content: start; // center horizontally
+
+  .gradientBlobLTR {
+    justify-content: start;
+  }
+
+  .gradientBlob {
+    // display: none;
+    width: 60vw;
+    height: 400px;
+    border-radius: 50%;
+    background: white;
+    opacity: 0.9;
+    filter: blur(150px);
+    mix-blend-mode: screen;
+
+    @media (max-width: 600px) {
+      display: block;
+      width: 80vw;
+      filter: blur(120px);
+    }
+
+    // You can experiment with blend modes:
+    // mix-blend-mode: overlay;
+    mix-blend-mode: lighten;
+  }
+}
+
 .hse_section_wrap {
   padding: 112px 0;
+
   .hse_section_card_wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     gap: 68px;
     margin-bottom: 95px;
+
     .hse_card {
       width: 500px;
       display: flex;
@@ -149,6 +188,7 @@
       display: flex;
       gap: 10px;
       margin-bottom: 20px;
+
       .hse_section_pointer_text {
         font-weight: 300;
         font-size: 16px;
@@ -160,13 +200,14 @@
 }
 
 // Responsive Breakpoints
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .hse_banner_wrap {
     height: auto;
 
     .content {
+      
       // position: static;
-      padding: 40px 20px;
+      padding: 40px 40px;
       // text-align: center;
 
       .title {
@@ -175,12 +216,14 @@
         width: 100%;
         letter-spacing: -1px;
       }
+
       .description {
         font-size: 14px;
         line-height: 22px;
         width: 100%;
         margin: 20px auto;
       }
+
       .view_btn {
         margin: 0 auto;
         padding: 12px 24px 8px 48px;
@@ -193,6 +236,7 @@
 
     .backgroundContainer {
       height: 500px;
+
       .backgroundImage {
         height: 500px;
       }
@@ -237,17 +281,21 @@
 
 @media (max-width: 425px) {
   .hse_banner_wrap .content {
-    padding: 20px 12px;
+    padding: 20px 30px;
+
     .title {
-      font-size: 32px;
+      font-size: 36px;
       line-height: 40px;
     }
+
     .description {
       font-size: 12px;
       line-height: 18px;
     }
+
     .view_btn {
       padding: 10px 20px 6px 40px;
+
       .arrow_btn {
         left: 12px;
       }

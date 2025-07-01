@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "@/components/hse/Hse.module.scss";
-import {Img_url} from "@/common/CreateContent";
-import {useGlobalContext} from "@/contexts/GlobalContext";
+import { Img_url } from "@/common/CreateContent";
+import { useGlobalContext } from "@/contexts/GlobalContext";
 import localFont from "next/font/local";
 import checkImg from "../../assets/icons/check.svg";
 import Image from "next/image";
@@ -12,7 +12,7 @@ const BankGothic = localFont({
   display: "swap",
 });
 
-const HsePage = ({content}) => {
+const HsePage = ({ content }) => {
   const {
     language,
     // content
@@ -25,13 +25,15 @@ const HsePage = ({content}) => {
   return (
     <>
       <section className={`${styles.hse_banner_wrap} `}>
+        <div className={`${styles.gradientOverlay} ${isLeftAlign && styles.gradientBlobLTR}`} dir={isLeftAlign ? "ltr" : "rtl"}>
+          <div className={`${styles.gradientBlob} `}></div>
+        </div>
         <span
-          className={`${language === "en" && styles.leftAlign} ${
-            styles.backgroundContainer
-          }`}
+          className={`${language === "en" && styles.leftAlign} ${styles.backgroundContainer
+            }`}
         >
           <img
-            style={{objectPosition: "bottom", objectFit: "cover"}}
+            style={{ objectPosition: "bottom", objectFit: "cover" }}
             src={
               currentContent?.["1"]?.content?.images?.[0]?.url
                 ? Img_url + currentContent?.["1"]?.content?.images?.[0]?.url
@@ -40,7 +42,7 @@ const HsePage = ({content}) => {
             alt="about-us"
             className={styles.backgroundImage}
             width={0}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             height={0}
           />
         </span>
@@ -72,7 +74,7 @@ const HsePage = ({content}) => {
                   <h1 className={styles.hse_card_title}>
                     {card.title[language]}
                   </h1>
-                  <p className={styles.hse_card_para}>
+                  <p className={`${styles.hse_card_para} bank-light`}>
                     {card.description[language]}
                   </p>
                 </div>
@@ -90,13 +92,16 @@ const HsePage = ({content}) => {
             alt="hse_section_image"
             width={"100%"}
             height={422}
+            style={{ objectFit: "cover" }}
           />
           <h1 className={styles.hse_section_title}>
             {currentContent?.["2"]?.content?.title[language]}
           </h1>
-          <p className={styles.hse_section_description}>
-            {currentContent?.["2"]?.content?.description[language]}
-          </p>
+          <div className={styles.hse_section_description}
+            dangerouslySetInnerHTML={{ __html: currentContent?.["2"]?.content?.description[language] }}
+          >
+            {/* {currentContent?.["2"]?.content?.description[language]} */}
+          </div>
 
           <div className={styles.hse_section_pointer_wrap}>
             {currentContent?.["2"]?.content?.sectionPointers.map(
@@ -108,7 +113,7 @@ const HsePage = ({content}) => {
                     width={16}
                     height={16}
                   />
-                  <p className={styles.hse_section_pointer_text}>
+                  <p className={`${styles.hse_section_pointer_text} bank-light`}>
                     {pointer.text[language]}
                   </p>
                 </div>
