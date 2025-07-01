@@ -45,6 +45,7 @@
     "react-lottie": "^1.2.4",
     "react-notifications": "^1.7.4",
     "react-otp-input": "^3.1.1",
+    "react-quill": "^2.0.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",

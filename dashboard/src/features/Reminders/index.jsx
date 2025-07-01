@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import TitleCard from '../../components/Cards/TitleCard';
 import Subtitle from '../../components/Typography/Subtitle';
 import ToogleInput from '../../components/Input/ToogleInput';
