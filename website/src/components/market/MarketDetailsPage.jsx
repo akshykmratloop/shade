@@ -24,7 +24,7 @@ const MarketDetailsPage = () => {
   const isLeftAlign = language === "en";
   const titleLan = isLeftAlign ? "titleEn" : "titleAr";
   const [content, setContent] = useState({})
-  
+
   useEffect(() => {
     const fetchContent = async () => {
       try {
@@ -52,30 +52,31 @@ const MarketDetailsPage = () => {
       width: "100%",
     }}>
       <section
-        className={`${style.bannerSection} ${isLeftAlign ? style.leftAlign : ""}`}
+        className={`${style.MarketDetailsbannerSection} ${isLeftAlign ? style.leftAlign : ""}`}
         style={{
           backgroundImage: `url("${Img_url + content?.['1']?.content?.images?.[0]?.url}")`,
         }}
+        dir={isLeftAlign ? "ltr" : "rtl"}
       >
         {/* Banner Gradient */}
-        <div className={style.bannerGradient}>
-          <div className={style.gradientCircle}></div>
+        <div className={`${style.gradientOverlay} ${isLeftAlign ? style.gradientBlobLTR : style.gradientRTL}`}
+          dir={isLeftAlign ? "ltr" : "rtl"}
+        >
+          <div className={`${style.gradientBlob} `}></div>
         </div>
 
         {/* Banner Text */}
         <div className={style.bannerContainer}>
-          <div className={`${isLeftAlign ? style.textLeftAlign : ""} ${style.bannerText}`}>
-            <h2 className={style.heading}>
-              {content?.['1']?.content?.title?.[language]}
-            </h2>
-            <p className={style.description}>
-              {content?.['1']?.content?.description?.[language]}
-            </p>
-          </div>
+          <h2 className={style.title}>
+            {content?.['1']?.content?.title?.[language]}
+          </h2>
+          <p className={style.description}>
+            {content?.['1']?.content?.description?.[language]}
+          </p>
         </div>
       </section>
 
-      <section className={style.serviceSection}>
+      <section className={style.description}>
         {/* Sub heading text */}
         <section className={style.subSection}>
           <h2 className={style.subheading}>
