@@ -10,7 +10,7 @@ const NewsBlogspage = ({ language, screen, content, highlight, liveContent, widt
     const isComputer = screen > 1100
     const isLeftAlign = language === 'en'
     const titleLan = isLeftAlign ? "titleEn" : "titleAr"
-    const isPhone = screen < 761
+    const isPhone = screen < 760
     const isTablet = screen > 760 && screen < 900
     const banner = content?.['1']?.content
     const mainCard = content?.['2']?.items?.[0]
@@ -29,9 +29,9 @@ const NewsBlogspage = ({ language, screen, content, highlight, liveContent, widt
     const fontLight = useSelector(state => state.fontStyle.light)
 
     return (
-        <div dir={isLeftAlign? "ltr":"rtl"}>
+        <div dir={isLeftAlign ? "ltr" : "rtl"}>
             {/**Banner Section */}
-            <section className={`relative px-5 w-full bg-cover bg-center  `}
+            <section className={`relative px-5 w-full bg-cover bg-center `}
                 style={{
                     height: isComputer ? getDynamicSize(715) : "500px",
                     backgroundImage: `url("${Img_url + content?.['1']?.content?.images?.[0]?.url}")`,
@@ -62,7 +62,7 @@ const NewsBlogspage = ({ language, screen, content, highlight, liveContent, widt
                             style={{ fontSize: fontSize.mainPara, width: isComputer ? getDynamicSize(674) : "", lineHeight: isComputer && getDynamicSize(28) }}
                             className={`text-[#0E172FB3] 
                                 ${checkDifference(banner?.description?.[language], liveBanner?.description?.[language])}
-                            ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold w-[70%] mb-6 word-spacing-5`} dir={isLeftAlign ? "ltr" : "rtl"}>
+                            ${(isPhone || isTablet) ? "leading-[120%] bank-light" : "leading-[28px]"} text-sm font-semibold w-[70%] mb-6 word-spacing-5`} dir={isLeftAlign ? "ltr" : "rtl"}>
                             {banner?.description?.[language]}
                         </p>
                     </div>
@@ -88,13 +88,13 @@ const NewsBlogspage = ({ language, screen, content, highlight, liveContent, widt
                                     className="text-[#292E3D] text-[20px] font-bold mb-4">
                                     {TruncateText(mainCard?.[titleLan], 26)}
                                 </h2>
-                                <p
+                                <div
                                     style={{ fontSize: fontSize.mainPara }}
                                     title={mainCard?.description?.[language]}
                                     className={`text-xs text-[rgba(0,26,88,0.51)] ${fontLight} leading-[22px] mb-6`}
+                                    dangerouslySetInnerHTML={{ __html: TruncateText(mainCard?.description?.[language], 180) }}
                                 >
-                                    {TruncateText(mainCard?.description?.[language], 180)}
-                                </p>
+                                </div>
                                 <div className="flex items-center justify-between gap-5">
                                     <h6
                                         style={{ fontSize: fontSize.mainPara }}
@@ -166,15 +166,14 @@ const NewsBlogspage = ({ language, screen, content, highlight, liveContent, widt
                                             >
                                                 {TruncateText(card?.[titleLan], 25)}
                                             </h2>
-                                            <p
+                                            <div
                                                 style={{ fontSize: isComputer ? getDynamicSize(13) : isTablet ? getDynamicSize(20) : getDynamicSize(50) }}
-                                                title={card.description[language]}
-                                                className={`text-[13px] ${fontLight}  text-[#001A58]/50 leading-4 mb-5 ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`}
+                                                className={`text-[13px] ${fontLight} text-[#001A58]/50 leading-4 mb-5 ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`}
+                                                dangerouslySetInnerHTML={{ __html: TruncateText(card.description[language], 150) }}
                                             >
-                                                {TruncateText(card.description[language], 150)}
-                                            </p>
+                                            </div>
                                         </div>
-                                        <div className={`flex ${isLeftAlign? "flex-row":"flex-row-reverse"} items-center justify-between`} dir={isLeftAlign? "ltr":"rtl"}>
+                                        <div className={`flex ${isLeftAlign ? "flex-row" : "flex-row-reverse"} items-center justify-between`} dir={isLeftAlign ? "ltr" : "rtl"}>
                                             <h6
                                                 style={{ fontSize: isComputer ? getDynamicSize(13) : isTablet ? getDynamicSize(24) : getDynamicSize(50) }}
                                                 className={`${fontLight} text-gray-600 text- ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`} dir={language == "ar" ? "rtl" : "ltr"}>
@@ -223,11 +222,11 @@ const NewsBlogspage = ({ language, screen, content, highlight, liveContent, widt
                                     >
                                         {TruncateText(trendingCard?.[titleLan], (isTablet || isPhone) ? 20 : 35)}
                                     </h2>
-                                    <p className={`text-xs ${fontLight} text-[rgba(0,26,88,0.51)]`}
+                                    <div className={`text-xs ${fontLight} text-[rgba(0,26,88,0.51)]`}
                                         style={{ fontSize: isComputer ? getDynamicSize(14) : isTablet ? getDynamicSize(30) : getDynamicSize(50) }}
+                                        dangerouslySetInnerHTML={{ __html: TruncateText(trendingCard?.description?.[language], 250) }}
                                     >
-                                        {TruncateText(trendingCard?.description?.[language], 250)}
-                                    </p>
+                                    </div>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <h6
@@ -255,7 +254,8 @@ const NewsBlogspage = ({ language, screen, content, highlight, liveContent, widt
                             </div>
                         </div>
                     </div>
-                </section>}
+                </section>
+            }
         </div>
     );
 };

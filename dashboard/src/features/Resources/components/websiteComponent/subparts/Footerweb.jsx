@@ -47,8 +47,8 @@ const Footer = ({ language, screen, currentContent, highlight, liveContent }) =>
 
     return (
         <footer className="relative overflow-hidden bg-[#062233] border-t border-primary " ref={divRef}>
-            <div className="container relative mx-auto px-4 z-[2] p-6 px-8"
-                style={{ padding: `${getDynamicSize(24)} ${getDynamicSize(220)}` }}
+            <div className={`container relative mx-auto px-4 z-[2]  ${isTablet ? "px-[60px] py-10 " : "p-6 px-8"} `}
+                style={{ padding: isComputer ? `${getDynamicSize(24)} ${getDynamicSize(220)}` : "" }}
             >
                 <span className="absolute right-[82px] top-0 w-[265px] h-[234px] bg-no-repeat bg-contain z-[-1]"
                     style={{ backgroundImage: `url(${foot_layer1})`, width: getDynamicSize(362), height: getDynamicSize(362) }} />
@@ -67,20 +67,20 @@ const Footer = ({ language, screen, currentContent, highlight, liveContent }) =>
                     <p className={`text-white text-xs font-medium leading-5
                     ${checkDifference(currentContent?.['1']?.content?.address?.[language], liveContent?.['1']?.content?.address?.[language])}
                     `}
-                        style={{ fontSize: getDynamicSize(16) }}
+                        style={{ fontSize: isComputer && getDynamicSize(16) }}
                     >{currentContent?.['1']?.content?.address?.[language]}</p>
                 </div>
-                <div dir={isLeftAlign ? "ltr" : "rtl"} className={`flex flex-wrap justify-between ${isPhone && "flex-col"} mb-8`}>
+                <div dir={isLeftAlign ? "ltr" : "rtl"} className={`w-full gap-4 flex flex-wrap justify-between ${isPhone && "flex-col"} mb-8`}>
                     {currentContent?.['2']?.content?.map((section, i) => (
                         <div key={i + section?.title?.[language]} className="w-full md:w-auto">
                             <h5
-                                style={{ fontSize: getDynamicSize(22) }}
+                                style={{ fontSize: isComputer && getDynamicSize(22) }}
                                 className={`text-white text-lg font-light mb-4
                                         ${checkDifference(section?.title[language], liveContent?.['2']?.content?.[i]?.title?.[language])}
                                         `}
                             >{section?.title[language]}</h5>
                             {section?.links?.map((link, index) => (
-                                <Link key={index + link.url} href={link.url} style={{ fontSize: getDynamicSize(16) }}
+                                <Link key={index + link.url} href={link.url} style={{ fontSize: isComputer && getDynamicSize(16) }}
                                     className={`block text-white text-base font-light mb-4 text-xs
                                         ${checkDifference(section?.title[language], liveContent?.['2']?.content?.[i]?.links?.[index]?.link?.[language])}
                                         `}
@@ -97,7 +97,7 @@ const Footer = ({ language, screen, currentContent, highlight, liveContent }) =>
                     <h5 className={`text-white text-lg font-light
                     ${checkDifference(currentContent?.["3"]?.content?.title?.[language], liveContent?.["3"]?.content?.title?.[language])}
                     `}
-                        style={{ fontSize: getDynamicSize(22) }}
+                        style={{ fontSize: isComputer && getDynamicSize(22) }}
                     >
                         {currentContent?.["3"]?.content?.title?.[language]}
                     </h5>
@@ -105,7 +105,7 @@ const Footer = ({ language, screen, currentContent, highlight, liveContent }) =>
                     <p className={`text-white text-base text-xs font-light
                     ${checkDifference(currentContent?.["3"]?.content?.phone?.[language], liveContent?.["3"]?.content?.phone?.[language])}
                     `}
-                        style={{ fontSize: getDynamicSize(16) }}
+                        style={{ fontSize: isComputer && getDynamicSize(16) }}
                     >
                         {currentContent?.["3"]?.content?.phone?.[language]}
                     </p>
@@ -114,7 +114,7 @@ const Footer = ({ language, screen, currentContent, highlight, liveContent }) =>
                     ${checkDifference(currentContent?.["3"]?.content?.fax?.[language], liveContent?.["3"]?.content?.fax?.[language])}
 
                     `}
-                        style={{ fontSize: getDynamicSize(16) }}
+                        style={{ fontSize: isComputer && getDynamicSize(16) }}
                     >
                         {currentContent?.["3"]?.content?.fax?.[language]}
                     </p>
@@ -122,13 +122,13 @@ const Footer = ({ language, screen, currentContent, highlight, liveContent }) =>
                     <h6 className={`text-white text-base text-xs font-medium w-[50%]
                     ${checkDifference(currentContent?.["3"]?.content?.helpText?.[language], liveContent?.["3"]?.content?.helpText?.[language])}
                     `}
-                        style={{ fontSize: getDynamicSize(16) }}
+                        style={{ fontSize: isComputer && getDynamicSize(16) }}
                     >
                         {currentContent?.["3"]?.content?.helpText?.[language]}
                     </h6>
                     <button
                         className="px-5 py-2 bg-[#00b9f2] text-white rounded-lg shadow-sm shadow-stone-100/50"
-                        style={{ fontSize: getDynamicSize(16) }}
+                        style={{ fontSize: isComputer && getDynamicSize(16) }}
                     >
                         <p className={`${checkDifference(currentContent?.["3"]?.content?.button?.[0]?.text?.[language], liveContent?.["3"]?.content?.button?.[0]?.text?.[language])}`}>
                             {currentContent?.["3"]?.content?.button?.[0]?.text?.[language]}
@@ -138,7 +138,8 @@ const Footer = ({ language, screen, currentContent, highlight, liveContent }) =>
                         {currentContent?.["3"]?.content?.socialLinks?.map((social, index) => (
                             <a key={index + social.url} href={social.url} target="_blank" rel="noopener noreferrer">
                                 {social.icon && <img src={Img_url + social.icon} alt="" width={20} height={20}
-                                    style={{ width: getDynamicSize(24), height: getDynamicSize(24) }}
+                                className="w-[24px] h-[24px]"
+                                    style={{ width: isComputer && getDynamicSize(24), height: isComputer && getDynamicSize(24) }}
                                 />}
                             </a>
                         ))}

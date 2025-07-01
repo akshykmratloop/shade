@@ -49,16 +49,15 @@ const NewsBlogspage = ({ content }) => {
           backgroundPosition: "center"
         }}
       >
-        <div
-          className="container"
-          style={{ position: "relative", height: "100%" }}
-        >
-          <div className={styles.content}>
-            <h1 className={`${styles.title} `}>{banner?.title?.[language]}</h1>
-            <p className={`${styles.description} ${BankGothic.className}`}>
-              {banner?.description?.[language]}
-            </p>
-          </div>
+        <div className={`${styles.gradientOverlay} ${isLeftAlign && styles.gradientBlobLTR}`} dir={isLeftAlign ? "ltr" : "rtl"}>
+          <div className={`${styles.gradientBlob} `}></div>
+        </div>
+
+        <div className={styles.content}>
+          <h1 className={`${styles.title} `}>{banner?.title?.[language]}</h1>
+          <p className={`${styles.description} ${BankGothic.className}`}>
+            {banner?.description?.[language]}
+          </p>
         </div>
       </section >
 
@@ -77,12 +76,13 @@ const NewsBlogspage = ({ content }) => {
               >
                 {TruncateText(mainCard?.[titleLan], 20)}
               </h2>
-              <p
+              <div
                 title={mainCard?.description?.[language]}
                 className={`${BankGothic.className} ${styles.subTitle}`}
+                dangerouslySetInnerHTML={{ __html: TruncateText(mainCard?.description?.[language], 150) }}
               >
-                {TruncateText(mainCard?.description?.[language], 150)}
-              </p>
+                {/* {TruncateText(mainCard?.description?.[language], 150)} */}
+              </div>
               <div className={styles.date_wrap}>
                 <h6 className={`${BankGothic.className} ${styles.date}`}>
                   {mainCard?.date?.[language]}
@@ -131,12 +131,12 @@ const NewsBlogspage = ({ content }) => {
                   >
                     {TruncateText(card?.[titleLan], 25)}
                   </h2>
-                  <p
+                  <div
                     title={card?.description?.[language]}
                     className={`${BankGothic.className} ${styles.subTitle}`}
+                    dangerouslySetInnerHTML={{ __html: TruncateText(card?.description?.[language], 150) }}
                   >
-                    {TruncateText(card?.description?.[language], 150)}
-                  </p>
+                  </div>
                   <div className={styles.date_wrap}>
                     <h6 className={`${BankGothic.className} ${styles.date}`}>
                       {card?.date?.[language]}
@@ -163,21 +163,21 @@ const NewsBlogspage = ({ content }) => {
         <div className="container">
           <div className={styles.card}>
             <div className={styles.card_body}>
-              <button className={styles.trending_btn}>
+              {/* <button className={styles.trending_btn}>
                 {"Trending"}
-              </button>
+              </button> */}
               <h2
                 title={trendingCard?.[titleLan]}
                 className={`${BankGothic.className} ${styles.title}`}
               >
                 {TruncateText(trendingCard?.[titleLan], 35)}
               </h2>
-              <p
+              <div
                 title={trendingCard?.description?.[language]}
                 className={`${BankGothic.className} ${styles.subTitle}`}
+                dangerouslySetInnerHTML={{ __html: TruncateText(trendingCard?.description?.[language], 150) }}
               >
-                {TruncateText(trendingCard?.description?.[language], 150)}
-              </p>
+              </div>
               <div className={styles.date_wrap}>
                 <h6 className={`${BankGothic.className} ${styles.date}`}>
                   {trendingCard?.date?.[language]}
@@ -193,7 +193,7 @@ const NewsBlogspage = ({ content }) => {
             <img src={Img_url + trendingCard?.image} alt="" width={579} height={429} />
           </div>
         </div>
-      </section >
+      </section>
     </>
   );
 };
