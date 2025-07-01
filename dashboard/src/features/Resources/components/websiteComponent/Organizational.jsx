@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import dynamicSize, { defineDevice, differentText, generatefontSize } from "../../../../app/fontSizes";
 import { Img_url } from "../../../../routes/backend";
+import org_chart from "../../../../assets/images/org_chart.svg"
 
 const Organization = ({ language, screen, content, width, highlight, liveContent }) => {
     const isComputer = screen > 900;
@@ -13,7 +14,7 @@ const Organization = ({ language, screen, content, width, highlight, liveContent
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
-    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText  ) : () => ""
+    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
 
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
     const getDynamicSize = (size) => dynamicSize(size, width)
@@ -77,7 +78,10 @@ const Organization = ({ language, screen, content, width, highlight, liveContent
                         `}
                 >
                     <img
-                        src={Img_url + content?.[2]?.content?.chart?.images?.[0]?.url}
+                        src={
+                            // Img_url + content?.[2]?.content?.chart?.images?.[0]?.url
+                            org_chart
+                        }
                         alt={content?.[2]?.content?.chart?.images?.[0]?.altText?.[language]}
                         className="w-full h-full"
                     />

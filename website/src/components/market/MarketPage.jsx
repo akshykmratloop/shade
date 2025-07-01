@@ -81,11 +81,11 @@ const MarketPage = ({ content }) => {
   return (
     <div style={{border:"1px solid black"}}>
       <section
-        className={` ${language === "en" && styles.leftAlign}   ${styles.market_banner_wrap
+        className={` ${language === "en" && styles.leftAlign} ${styles.market_banner_wrap
           }`}
 
         style={{
-          background: `url(${Img_url + currentContent?.[1]?.content?.images?.[0]?.url}) no-repeat center / cover`
+          background: `url(${Img_url + currentContent?.[1]?.content?.images?.[0]?.url}) no-repeat center / cover`,
         }}
       >
         <div className={`${styles.gradientOverlay} ${isLeftAlign && styles.gradientBlobLTR}`}
@@ -217,14 +217,14 @@ const MarketPage = ({ content }) => {
         <div className="container">
           <div className={styles.content}>
             <div className={styles.card}>
-              <div className={styles.braketBefore}
+              {/* <div className={styles.braketBefore}
                 style={{ backgroundImage: `url(${bracket_l.src})` }}
               >
               </div>
               <div
                 style={{ backgroundImage: `url(${bracket_r.src})` }}
                 className={styles.braketAfter}>
-              </div>
+              </div> */}
 
               <Image
                 src={rightQuote}

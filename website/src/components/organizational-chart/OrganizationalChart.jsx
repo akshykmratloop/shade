@@ -5,6 +5,7 @@ import localFont from "next/font/local";
 import org_chart from "../../assets/images/org_chart.svg";
 import org_banner from "../../assets/images/orgBanner.jpg";
 import Image from "next/image";
+import { Img_url } from "@/common/CreateContent";
 
 // Font files can be colocated inside of `app`
 const BankGothic = localFont({
@@ -21,6 +22,8 @@ const OrganizationalChartPage = ({content}) => {
   const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
   const currentContent = content;
+
+  console.log(currentContent)
   const fileUrl = currentContent?.["2"]?.content?.images?.[0]?.url;
   const fullUrl = fileUrl ? Img_url + fileUrl : null;
 
