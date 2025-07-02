@@ -1,10 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import bannerImg from "@/assets/images/about.png";
 import styles from "@/components/services/serviceSubpageDetails.module.scss";
 import localFont from "next/font/local";
 import { backendAPI, useGlobalContext } from "@/contexts/GlobalContext";
 import { useRouter } from "next/router";
 import createContent, { Img_url } from "@/common/CreateContent";
+import { Swiper, SwiperSlide } from "swiper/react";
+import {
+  Pagination,
+  Autoplay,
+  EffectCoverflow,
+} from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 
 const bannerSection = {
   id: "1",
@@ -89,6 +97,9 @@ const ServiceSubpageDetails = ({ }) => {
   const [content, setContent] = useState({})
   // console.log("Safety Detail Page content:", content);
 
+  const swiperRef = useRef(null);
+
+
   const currentContent = content || {};
   console.log("Serviceio Page Content:", currentContent);
   const {
@@ -161,17 +172,59 @@ const ServiceSubpageDetails = ({ }) => {
         </div>
       </section>
 
-      <section className={styles.third_section}>
-        <div className="container">
-          <div className={styles.third_section_items}>
-            {content?.[3]?.content?.images.map((image) => (
-              <div key={image.url} className={styles.third_section_item}>
-                <img src={Img_url + image.url} alt="" />
-              </div>
+      <section className={styles.carouselSection}>
+        <div
+          className={`${styles.carouselWrapper} ${!isLeftAlign ? styles.scaleReverse : ""
+            }`}
+          dir="ltr"
+        >
+          <Swiper
+            modules={[Autoplay, EffectCoverflow]}
+            grabCursor={true}
+            slidesPerView={2.5}
+            loop={true}
+            spaceBetween={10}
+            slidesOffsetBefore={isLeftAlign ? 15 : -10}
+            autoplay={{
+              delay: 2400,
+              disableOnInteraction: false,
+            }}
+            coverflowEffect={{
+              rotate: 0,
+              stretch: 0,
+              depth: 250,
+              modifier: 2,
+              slideShadows: false,
+            }}
+            onSwiper={(swiper) => (swiperRef.current = swiper)}
+            breakpoints={{
+              1024: { slidesPerView: 2.5 },
+              768: { slidesPerView: 1.5 },
+              480: { slidesPerView: 1 },
+              0: { slidesPerView: 1 },
+            }}
+
+          >
+            {content?.[3]?.content?.images?.map((image, index) => (
+              <SwiperSlide
+                key={index}
+                dir={isLeftAlign ? "ltr" : "rtl"}
+              >
+                <div>
+                  <img
+                    src={Img_url + image.url}
+                    height={300}
+                    width=""
+                    alt={image.title?.[language]}
+                    className={styles.carouselImage}
+                  />
+                </div>
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
         </div>
       </section>
+
     </div>
   );
 };

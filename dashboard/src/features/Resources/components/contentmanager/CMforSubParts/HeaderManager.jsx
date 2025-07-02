@@ -121,7 +121,7 @@ const HeaderManager = ({ language, currentContent, currentPath, indexes, outOfEd
                 value={""}
                 setterOnChange={addNav}
                 language={language}
-                optionsClass={`dark:bg-white text-black`}
+                optionsClass={`dark:bg-stone-600 text-black dark:text-stone-900 `}
                 selectClass={`bg-white dark:bg-[#2a303c] border border-[#80808044] `}
             />
         </div>

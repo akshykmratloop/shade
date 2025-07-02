@@ -37,20 +37,20 @@ export default function ServicesSubpagesDetails({apiData}) {
   const [isLoading, setIsLoading] = useState(true);
   const [content, setContent] = useState(null);
 
-  useEffect(() => {
-    if (apiData && Object.keys(apiData).length > 0 && apiData.content) {
-      const generatedContent = createContent(apiData.content);
-      setContent(generatedContent.content);
-      setIsLoading(false);
-      console.log(
-        "Content generated successfully:",
-        JSON.stringify(generatedContent.content, null, 2)
-      );
-    } else {
-      // keep loading forever or retry (optional)
-      console.warn("API response is empty. Keeping loader active...");
-    }
-  }, [apiData]);
+  // useEffect(() => {
+  //   if (apiData && Object.keys(apiData).length > 0 && apiData.content) {
+  //     const generatedContent = createContent(apiData.content);
+  //     setContent(generatedContent.content);
+  //     setIsLoading(false);
+  //     console.log(
+  //       "Content generated successfully:",
+  //       JSON.stringify(generatedContent.content, null, 2)
+  //     );
+  //   } else {
+  //     // keep loading forever or retry (optional)
+  //     console.warn("API response is empty. Keeping loader active...");
+  //   }
+  // }, [apiData]);
 
   // if (isLoading) {
   //   return <Loader />;
@@ -67,27 +67,4 @@ export default function ServicesSubpagesDetails({apiData}) {
       <ServiceSubpageDetails content={content} />
     </>
   );
-}
-
-export async function getServerSideProps({params}) {
-  const {child} = params;
-  console.log("helloooooooo");
-
-  try {
-    const res = await fetch(`${backendAPI}${child}`);
-
-    if (!res.ok) {
-      // If response failed (e.g., 404, 500), return empty object
-      return {props: {apiData: {}}};
-    }
-    const apiData = await res.json();
-
-    // console.log("API Data:", apiData);
-    console.log("Fetching data for slug:", params);
-
-    return {props: {apiData: apiData || {}}};
-  } catch (error) {
-    // If fetch throws an error (e.g., network failure), return empty object
-    return {props: {apiData: {}}};
-  }
 }
