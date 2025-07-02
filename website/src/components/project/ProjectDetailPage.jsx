@@ -16,13 +16,14 @@ import { backendAPI, useGlobalContext } from "../../contexts/GlobalContext";
 import createContent, { Img_url } from "@/common/CreateContent";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
-  Pagination,
+  // Pagination,
   Navigation,
   Autoplay,
   EffectCoverflow,
 } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import styles1 from "../home/Home.module.scss"
 
 const ProjectDetailPage = () => {
   const router = useRouter();
@@ -119,6 +120,7 @@ const ProjectDetailPage = () => {
               <Image
                 src="https://loopwebsite.s3.ap-south-1.amazonaws.com/Project+hero.jpg"
                 alt="Project Hero"
+                className={`${styles.image}`}
                 width={683}
                 height={303}
               />
@@ -285,41 +287,42 @@ const ProjectDetailPage = () => {
           </h2>
           <div className={styles.card_group}>
             {moreProjects?.items?.map((project, key) => {
-              // if (project.slug === slug) return null
               return (
-                <div key={key} className="rounded-md p-3 flex flex-col items-start gap-2 ">
+                <div key={key} className={styles.card}>
                   <img
-                    src={projectPageData?.[project?.url] || "https://loopwebsite.s3.ap-south-1.amazonaws.com/Project+hero.jpg"}
-                    // width={339}
-                    // height={0}
+                    src={
+                      projectPageData?.[project?.url] ||
+                      "https://loopwebsite.s3.ap-south-1.amazonaws.com/Project+hero.jpg"
+                    }
                     alt="icon"
-                    className="w-full aspect-[12/8]"
                   />
-                  <h5 className={`text-[#292E23D] text-lg font-bold mt-4 h-11  ${language === 'ar' ? 'text-right' : ''}`}
-                  // style={{ fontSize: fontSize.subProjectBoxHeading }}
-                  >{TruncateText(project?.[titleLan], 25) || "Project Name"}</h5>
-                  <p className={`text-gray-700 text-sm font-light mt-2 ${!isLeftAlign && "text-right"}`}
-                  // style={{ fontSize: fontSize.mainPara }}
-                  >{project?.location?.[language] || "Project Description"}</p>
-                  <button
-                    className="text-[#00b9f2] text-base font-normal flex items-center gap-2 mt-2 cursor-pointer bg-transparent border-none"
-                  // onClick={() => router.push("/project/56756757656")}
+                  <h5
+                    className={`${styles.card_title} ${language === "ar" ? styles.card_title_right : ""
+                      }`}
                   >
+                    {TruncateText(project?.[titleLan], 25) || "Project Name"}
+                  </h5>
+                  <p
+                    className={`${styles.card_description} ${!isLeftAlign ? styles.card_description_right : ""
+                      }`}
+                  >
+                    {project?.location?.[language] || "Project Description"}
+                  </p>
+                  <button className={`${styles.card_button} bank-light`}>
                     {moreProjects?.content?.button?.text?.[language]}
                     <img
                       src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
-                      width={18}
-                      height={18}
                       alt="icon"
-                      className={`${language === 'en' ? 'scale-x-[-1]' : ''} `}
+                      className={language === "en" ? styles.flip_icon : ""}
                     />
                   </button>
                 </div>
-              )
+              );
             })}
           </div>
         </div>
       </section>
+
     </>
   );
 };
