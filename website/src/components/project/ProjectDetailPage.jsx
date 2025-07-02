@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./ProjectDetail.module.scss";
 import Link from "next/link";
 import Image from "next/image";
@@ -13,7 +13,16 @@ const BankGothic = localFont({
   display: "swap",
 });
 import { backendAPI, useGlobalContext } from "../../contexts/GlobalContext";
-import createContent from "@/common/CreateContent";
+import createContent, { Img_url } from "@/common/CreateContent";
+import { Swiper, SwiperSlide } from "swiper/react";
+import {
+  Pagination,
+  Navigation,
+  Autoplay,
+  EffectCoverflow,
+} from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 
 const ProjectDetailPage = () => {
   const router = useRouter();
@@ -21,7 +30,13 @@ const ProjectDetailPage = () => {
   const { language } = useGlobalContext();
   const [content, setContent] = useState()
 
-  const currentContent = content
+  const testimonialPrevRef = useRef(null);
+  const testimonialNextRef = useRef(null);
+
+  const currentContent = content;
+
+  const isLeftAlign = language === "en";
+  const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
   const introSection = currentContent?.[1]?.content
   const urlSection = currentContent?.[2]?.content
@@ -161,7 +176,7 @@ const ProjectDetailPage = () => {
                 <div className={styles.right_panel}>
                   <div
                     className={`${styles.description} ${BankGothic.className}`}
-                    dangerouslySetInnerHTML={{__html: item?.description[language]}}
+                    dangerouslySetInnerHTML={{ __html: item?.description[language] }}
                   >
                   </div>
                 </div>
@@ -172,7 +187,95 @@ const ProjectDetailPage = () => {
       </section>
 
       {/* Gallery Section */}
+      <section
+        className={` 
+          ${styles.testimonial_wrapper} 
+          ${language !== "en" && styles1.rightAlignment
+          }`}
+      >
+        <div className={`container `}>
+          <div className={styles.testimonials_content}>
+            {/* <AnimatedText text="ماذا يقول عملاؤنا عنا؟" Wrapper="h2" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
 
+            <h2 className={`${styles.title}`}>
+              {currentContent?.['3']?.content?.title?.[language]}
+            </h2>
+          </div>
+
+          <div
+          //  className={styles1.testimonials_client}
+          >
+            <Swiper
+              modules={[Navigation, Autoplay, EffectCoverflow]}
+              grabCursor={true}
+              centeredSlides={true}
+              slidesPerView={2} // Show 1 main slide and part of the other two
+              loop={true}
+              spaceBetween={10}
+              effect="coverflow"
+              className={styles.mySwiper_testimonial}
+              navigation={{
+                prevEl: testimonialPrevRef.current,
+                nextEl: testimonialNextRef.current,
+              }}
+              coverflowEffect={{
+                rotate: 0,
+                stretch: 0,
+                depth: 250, // Adjust this for the depth effect
+                modifier: 2, // Adjust the scale modifier
+                slideShadows: false, // Optional: Enable/disable shadows
+              }}
+              autoplay={{ delay: 2500 }}
+              breakpoints={{
+                0: {           // very small screens
+                  slidesPerView: 1,
+                  spaceBetween: 8,
+                },
+                500: {
+                  slidesPerView: 1.2,
+                  spaceBetween: 10,
+                },
+                768: {
+                  slidesPerView: 1.5,
+                  spaceBetween: 12,
+                },
+                1024: {
+                  slidesPerView: 2,
+                  spaceBetween: 14,
+                },
+                1280: {
+                  slidesPerView: 2.2,
+                  spaceBetween: 16,
+                },
+              }}
+
+
+              rtl={true} // Enable RTL for Arabic layout
+            >
+              {(gallerySection?.images || [])?.map(
+                (image, index) => (
+                  <SwiperSlide
+                    key={index}
+                  >
+                    <img
+                      src={Img_url + image.url}
+                      alt={image?.name}
+                      style={{
+                        width: '100%',
+                        height: '60vh',
+                        objectFit: 'cover',
+                        borderRadius: '8px',
+                      }}
+                    />
+
+                    {/* </div> */}
+                  </SwiperSlide>
+                )
+              )}
+            </Swiper>
+          </div>
+        </div>
+      </section>
 
       {/* More Projects */}
       <section className={styles.latest_new_card_wrap}>
@@ -181,40 +284,39 @@ const ProjectDetailPage = () => {
             {moreProjects?.title[language]}
           </h2>
           <div className={styles.card_group}>
-            {moreProjects?.projects?.slice(0, 3).map((project, key) => (
-              <div className={styles.card} key={key}>
-                <Image
-                  src={projectPageData[project?.url]}
-                  width="339"
-                  height="190"
-                  alt="icon"
-                  className={styles.card_image}
-                />
-                <h5
-                  className={`${styles.title} ${BankGothic.className} ${language === "ar" && styles.rightAlign
-                    }`}
-                >
-                  {TruncateText(project?.title[language], 45)}
-                </h5>
-                <p className={`${styles.description} ${BankGothic.className}`}>
-                  {project?.address[language]}
-                </p>
-                <button
-                  className={`${styles.button} ${BankGothic.className}`}
-                  onClick={() => router.push("/project/56756757656")}
-                >
-                  {moreProjects?.button?.text[language]}
-                  <Image
-                    src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
-                    width={22}
-                    height={22}
+            {moreProjects?.items?.map((project, key) => {
+              // if (project.slug === slug) return null
+              return (
+                <div key={key} className="rounded-md p-3 flex flex-col items-start gap-2 ">
+                  <img
+                    src={projectPageData?.[project?.url] || "https://loopwebsite.s3.ap-south-1.amazonaws.com/Project+hero.jpg"}
+                    // width={339}
+                    // height={0}
                     alt="icon"
-                    className={`${language === "en" && styles.leftAlign} ${styles.icon
-                      }`}
+                    className="w-full aspect-[12/8]"
                   />
-                </button>
-              </div>
-            ))}
+                  <h5 className={`text-[#292E23D] text-lg font-bold mt-4 h-11  ${language === 'ar' ? 'text-right' : ''}`}
+                  // style={{ fontSize: fontSize.subProjectBoxHeading }}
+                  >{TruncateText(project?.[titleLan], 25) || "Project Name"}</h5>
+                  <p className={`text-gray-700 text-sm font-light mt-2 ${!isLeftAlign && "text-right"}`}
+                  // style={{ fontSize: fontSize.mainPara }}
+                  >{project?.location?.[language] || "Project Description"}</p>
+                  <button
+                    className="text-[#00b9f2] text-base font-normal flex items-center gap-2 mt-2 cursor-pointer bg-transparent border-none"
+                  // onClick={() => router.push("/project/56756757656")}
+                  >
+                    {moreProjects?.content?.button?.text?.[language]}
+                    <img
+                      src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
+                      width={18}
+                      height={18}
+                      alt="icon"
+                      className={`${language === 'en' ? 'scale-x-[-1]' : ''} `}
+                    />
+                  </button>
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
