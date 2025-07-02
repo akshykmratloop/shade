@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import bannerImg from "@/assets/images/about.png";
 import styles from "@/components/services/serviceSubpageDetails.module.scss";
 import localFont from "next/font/local";
-import {useGlobalContext} from "@/contexts/GlobalContext";
-import {useRouter} from "next/router";
+import { backendAPI, useGlobalContext } from "@/contexts/GlobalContext";
+import { useRouter } from "next/router";
+import createContent, { Img_url } from "@/common/CreateContent";
 
 const bannerSection = {
   id: "1",
@@ -82,9 +83,10 @@ const BankGothic = localFont({
   display: "swap",
 });
 
-const ServiceSubpageDetails = ({content}) => {
-  const {query} = useRouter();
-  const {slug} = query;
+const ServiceSubpageDetails = ({ }) => {
+  const { query } = useRouter();
+  const { child } = query;
+  const [content, setContent] = useState({})
   // console.log("Safety Detail Page content:", content);
 
   const currentContent = content || {};
@@ -95,16 +97,47 @@ const ServiceSubpageDetails = ({content}) => {
   } = useGlobalContext();
   const isLeftAlign = language === "en";
   const titleLan = isLeftAlign ? "titleEn" : "titleAr";
+
+
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const res = await fetch(`${backendAPI}${child}`); // note => the market is slug, since the backend require slug to get content in this scenario
+
+        if (!res.ok) {
+          // If response failed (e.g., 404, 500), return empty object
+          return {};
+        }
+
+        const apiData = await res.json();
+        const cookedData = createContent(apiData.content)
+
+        return setContent(cookedData.content);
+      } catch (error) {
+        // If fetch throws an error (e.g., network failure), return empty object
+        return { props: { apiData: {} } };
+      }
+    }
+    fetchContent()
+  }, [child])
+
+
   return (
     <div>
       <section className={styles.banner_section}>
         <div className="container">
           <div className={styles.banner_content}>
-            <h1>{bannerSection.title}</h1>
-            <p>{bannerSection.description}</p>
+            <h1>{content?.[1]?.content?.title?.[language]}</h1>
+            <div
+              dangerouslySetInnerHTML={{ __html: content?.[1]?.content?.description?.[language] }}
+            >
+            </div>
           </div>
           <div className={styles.banner_image}>
-            <img src={bannerSection.image.src} alt="" />
+            <img src={
+              Img_url + content?.[1]?.content?.images?.[0]?.url
+            } alt="" />
           </div>
         </div>
       </section>
@@ -112,14 +145,16 @@ const ServiceSubpageDetails = ({content}) => {
       <section className={styles.second_section}>
         <div className="container">
           <div className={styles.second_section_header}>
-            <h2>{secondSection.title}</h2>
-            <p>{secondSection.description}</p>
+            <h2>{content?.[2]?.content?.title?.[language]}</h2>
+            <div
+              dangerouslySetInnerHTML={{ __html: content?.[2]?.content?.description?.[language] }}
+            ></div>
           </div>
           <div className={styles.second_section_items_wrapper}>
-            {secondSection.items.map((item) => (
-              <div key={item.id} className={styles.second_section_item}>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
+            {content?.[2]?.content?.points.map((point, i) => (
+              <div key={point?.title?.[language]} className={styles.second_section_item}>
+                <h3>{point?.title?.[language]}</h3>
+                <p>{point?.description?.[language]}</p>
               </div>
             ))}
           </div>
@@ -129,9 +164,9 @@ const ServiceSubpageDetails = ({content}) => {
       <section className={styles.third_section}>
         <div className="container">
           <div className={styles.third_section_items}>
-            {thirdSection.map((item) => (
-              <div key={item.id} className={styles.third_section_item}>
-                <img src={item.image.src} alt="" />
+            {content?.[3]?.content?.images.map((image) => (
+              <div key={image.url} className={styles.third_section_item}>
+                <img src={Img_url + image.url} alt="" />
               </div>
             ))}
           </div>
