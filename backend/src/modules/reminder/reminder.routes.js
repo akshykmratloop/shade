@@ -15,4 +15,6 @@ router.post('/reply/:id', tryCatchWrap(ReminderController.replyToReminder));
 // Get all users for reminders
 router.get('/users', tryCatchWrap(ReminderController.getReminderUsers));
 
+router.delete('/delete/:id', tryCatchWrap(ReminderController.deleteReminderUser));
+
 export default router; 

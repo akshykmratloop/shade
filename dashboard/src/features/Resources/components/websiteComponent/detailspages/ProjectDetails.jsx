@@ -258,7 +258,11 @@ const ProjectDetailPage = ({ content, language, projectId, screen, highlight, li
                             return (
                                 <div key={key} className="rounded-md p-3 flex flex-col items-start gap-2 ">
                                     <img
-                                        src={projectPageData?.[project?.url] || "https://loopwebsite.s3.ap-south-1.amazonaws.com/Project+hero.jpg"}
+                                        src={
+                                            // projectPageData?.[project?.url] 
+                                            Img_url + project?.image
+                                            // || "https://loopwebsite.s3.ap-south-1.amazonaws.com/Project+hero.jpg"
+                                        }
                                         // width={339}
                                         // height={0}
                                         alt="icon"

@@ -7,9 +7,13 @@ import InputText from '../../components/Input/InputText';
 import TextAreaInput from '../../components/Input/TextAreaInput';
 import ErrorText from '../../components/Typography/ErrorText';
 import ToggleSwitch from '../../components/Toggle/Toggle';
-import { createReminder, getReceivedReminders, getSentReminders, replyToReminder, getReminderUsers } from '../../app/fetch';
+import { createReminder, getReceivedReminders, getSentReminders, replyToReminder, getReminderUsers, deleteReminders } from '../../app/fetch';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { MdDelete } from "react-icons/md";
+import Popups from '../Resources/components/breakUI/Popups';
+import ToastPlacer, { runToast } from '../Component/ToastPlacer';
+
 
 function Reminders() {
   // Assume userId is available from localStorage or context
@@ -30,6 +34,8 @@ function Reminders() {
   const [showMessage, setShowMessage] = useState({ type: '', text: '' }); // type: 'success' | 'error'
   const [sendLoading, setSendLoading] = useState(false);
   const [replyLoading, setReplyLoading] = useState(false);
+  const [PopUpDelete, SetpopUpDelete] = useState(false);
+  const [random, setRandom] = useState(Math.random())
 
   // Fetch reminders from backend when tab changes
   useEffect(() => {
@@ -46,7 +52,7 @@ function Reminders() {
         setLoading(false);
       });
     }
-  }, [tab, userId]);
+  }, [tab, userId, random]);
 
   // Fetch user list for reminder creation
   useEffect(() => {
@@ -123,7 +129,7 @@ function Reminders() {
       const res = await createReminder(data);
       setSendLoading(false);
       if (res && res.ok) {
-        
+
         setSent([res, ...sent]);
         setShowCreate(false);
         setNewReminder({ to: '', subject: '', message: '', sendOnEmail: true });
@@ -152,6 +158,20 @@ function Reminders() {
     setToSelect(value);
     setNewReminder(prev => ({ ...prev, to: '' }));
   };
+
+  const deleteReminder = async () => {
+    try {
+      const response = await deleteReminders(selected.id);
+      if (response.success) {
+        console.log('deleted')
+        runToast("SUCCESS", "Reminder has been deleted Successfully")
+        setRandom(Math.random())
+      }
+    } catch (err) {
+      console.log(err)
+      runToast("ERROR", "Reminder has been deleted Successfully")
+    }
+  }
 
   // Tab data
   const reminders = tab === 'Received' ? received : sent;
@@ -196,12 +216,21 @@ function Reminders() {
               {reminders.map(r => (
                 <li
                   key={r.id}
-                  className={`px-6 py-4 cursor-pointer transition-all duration-150 ${selected?.id === r.id ? 'bg-blue-50 dark:bg-blue-900/40' : 'hover:bg-blue-50 dark:hover:bg-blue-900/20'}`}
-                  onClick={() => setSelected(r)}
+                  className={`px-6 flex justify-between  cursor-pointer transition-all  duration-150 ${selected?.id === r.id ? 'bg-blue-50 dark:bg-blue-900/40' : 'hover:bg-blue-50 dark:hover:bg-blue-900/20'}`}
                 >
-                  <div className="font-semibold text-[15px] truncate">{r.subject}</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-300 truncate">{tab === 'Received' ? `From: ${r.senderId}` : `To: ${r.receiverId}`}</div>
-                  <div className="text-xs text-gray-400 dark:text-gray-400">{new Date(r.createdAt).toLocaleDateString()}</div>
+                  <div
+                    onClick={() => setSelected(r)}
+                    className='w-full h-full py-4'
+                  >
+                    <div className="font-semibold text-[15px] truncate">{r.subject}</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-300 truncate">{tab === 'Received' ? `From: ${r.senderId}` : `To: ${r.receiverId}`}</div>
+                    <div className="text-xs text-gray-400 dark:text-gray-400">{new Date(r.createdAt).toLocaleDateString()}</div>
+                  </div>
+                  <div className='self-end text-red-600 p-1 rounded-full text-xl hover:bg-red-600 hover:text-stone-300'
+                    onClick={() => { setSelected(r); SetpopUpDelete(true) }}
+                  >
+                    <MdDelete />
+                  </div>
                   {/* Optionally add delete logic here */}
                 </li>
               ))}
@@ -260,14 +289,14 @@ function Reminders() {
           <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
             <div className="w-full max-w-2xl bg-white dark:bg-[#181a20] border border-gray-300 dark:border-stone-700 p-0 rounded-none shadow-none">
               {/* Slim Top Bar */}
-              <div className="flex items-center justify-between px-4 py-2 bg-gray-900 dark:bg-[#23272f] text-white border-b border-gray-700 dark:border-stone-800" style={{minHeight:'40px'}}>
+              <div className="flex items-center justify-between px-4 py-2 bg-gray-900 dark:bg-[#23272f] text-white border-b border-gray-700 dark:border-stone-800" style={{ minHeight: '40px' }}>
                 <span className="font-semibold text-sm">Create New Reminder</span>
                 <button
                   type="button"
                   className="text-gray-300 hover:text-white text-xl font-bold focus:outline-none"
                   onClick={() => { setShowCreate(false); setErrors({}); setShowValidation(false); }}
                   aria-label="Close"
-                  style={{lineHeight:'1'}}
+                  style={{ lineHeight: '1' }}
                 >
                   &times;
                 </button>
@@ -339,7 +368,7 @@ function Reminders() {
                         container: [
                           [{ 'header': [1, 2, false] }],
                           ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-                          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                          [{ 'list': 'ordered' }, { 'list': 'bullet' }],
                           ['link', 'image'],
                           ['clean']
                         ],
@@ -347,7 +376,7 @@ function Reminders() {
                       }
                     }}
                     className="bg-transparent border-0 rounded-none shadow-none"
-                    style={{minHeight:'200px', height:'200px'}}
+                    style={{ minHeight: '200px', height: '200px' }}
                   />
                   {showValidation && errors.message && <ErrorText styleClass="absolute right-0 bottom-[-10px]" >{errors.message}</ErrorText>}
                 </div>
@@ -361,6 +390,12 @@ function Reminders() {
             </div>
           </div>
         )}
+        <Popups
+          display={PopUpDelete} setClose={() => SetpopUpDelete(false)}
+          confirmationText={`Are you sure you want to delete this reminder?`}
+          confirmationFunction={deleteReminder}
+        />
+        <ToastPlacer />
       </TitleCard>
     </>
   );

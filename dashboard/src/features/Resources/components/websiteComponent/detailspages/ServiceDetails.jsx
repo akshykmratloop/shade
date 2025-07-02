@@ -163,7 +163,10 @@ const ServiceDetails = ({ serviceId, content, language, screen, width, highlight
                                         className="flex flex-col bg-white overflow-hidden shadow"
                                         style={{ width: isComputer ? getDynamicSize(437) : isTablet ? getDynamicSize(600) : getDynamicSize(1000) }}
                                     >
-                                        <img src={service.image} alt="img"
+                                        <img src={
+                                            // service.image
+                                            Img_url + service?.image
+                                        } alt="img"
                                             className="w-full object-cover"
                                             style={{ height: isComputer ? getDynamicSize(210) : isTablet ? getDynamicSize(400) : getDynamicSize(437) }}
                                         />

@@ -1,5 +1,5 @@
 import {useRouter} from "next/router";
-import styles from "@/components/Safety/Safety.module.scss";
+import styles from "./Safety.module.scss";
 
 import React from "react";
 import {useGlobalContext} from "@/contexts/GlobalContext";

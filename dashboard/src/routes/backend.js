@@ -7,7 +7,8 @@ const permission = "permission";
 const user = "user";
 const notification = "notification";
 const content = "content";
-const media = "media"
+const media = "media";
+const reminder = "reminder"
 
 
 const api = {
@@ -81,11 +82,13 @@ const api = {
   getMedia: `${media}/getMedia`,
 
   // Reminders
-  createReminder: `reminder/create`,
-  getReceivedReminders: `reminder/received`,
-  getSentReminders: `reminder/sent`,
-  reminderUsers: `reminder/users`,
-  replyToReminder: `reminder/reply/`,
+  createReminder: `${reminder}/create`,
+  getReceivedReminders: `${reminder}/received`,
+  getSentReminders: `${reminder}/sent`,
+  reminderUsers: `${reminder}/users`,
+  replyToReminder: `${reminder}/reply/`,
+  deleteReminder: `${reminder}/delete/`,
+
   route(route) {
     if (this[route]) {
       return BASE_URL + this[route];

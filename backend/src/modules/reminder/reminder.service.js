@@ -5,6 +5,7 @@ import {
   replyToReminderRepo,
   getReminderUsersRepo,
   checkIsUserExists,
+  deleteReminder
 } from '../../repository/reminder.repository.js';
 
 export async function createReminderService(data) {
@@ -26,4 +27,8 @@ export async function replyToReminderService(id, response) {
 
 export async function getReminderUsersService() {
   return await getReminderUsersRepo();
-} 
+}
+
+export async function deleteReminderService(id) {
+  return await deleteReminder(id);
+}

@@ -39,6 +39,7 @@
     position: absolute;
     top: 30%;
     padding: 0px 150px;
+    z-index: 2;
 
     .title {
       color: var(--black);
@@ -51,19 +52,16 @@
       margin-bottom: 16px;
       text-wrap: auto;
       width: 635px;
+
       //   text-align: right;
+      @media (max-width: 1200px) {
+        width: 100%;
+        font-size: clamp(40px, 10vw, 70px);
+      }
     }
 
     .description {
       color: var(--para-light);
-      // font-size: 14px;
-      // font-style: normal;
-      // font-weight: 700;
-      // line-height: 14.5px;
-      // margin-bottom: 24px;
-      // width: 44%;
-      //   text-align: right;
-      //   margin-left: auto;
       font-size: 16px;
       font-style: normal;
       font-weight: 600;
@@ -72,6 +70,10 @@
       width: 50%;
       word-spacing: 5px;
       display: block;
+
+      @media (max-width: 600px) {
+        width: 100%;
+      }
     }
 
     .view_btn {
@@ -93,8 +95,56 @@
         left: 32px;
       }
     }
+
+    @media (max-width: 1200px) {
+      padding: 0px 80px;
+    }
+
+    @media (max-width: 900px) {
+      padding: 0px 40px;
+    }
+  }
+
+
+}
+
+.gradientOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  top: 0;
+  left: 0;
+  align-items: center; // vertical center
+  justify-content: start; // center horizontally
+
+  .gradientBlobLTR {
+    // justify-content: end;
+    transform: scaleX(-1);
+  }
+
+  .gradientBlob {
+    // display: none;
+    width: 60vw;
+    height: 400px;
+    border-radius: 50%;
+    background: white;
+    opacity: 0.9;
+    filter: blur(150px);
+    mix-blend-mode: screen;
+
+    @media (max-width: 600px) {
+      display: block;
+      width: 80vw;
+      filter: blur(120px);
+    }
+
+    // You can experiment with blend modes:
+    // mix-blend-mode: overlay;
+    mix-blend-mode: lighten;
   }
 }
+
 
 .services_card_wrapper {
   display: grid;
@@ -107,11 +157,13 @@
     padding-bottom: 20px;
     border-bottom: 1px solid #dfdfdf;
     width: 590px;
+
     .services_card_content {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: flex-start;
+
       .services_card_content_heading {
         // font-family: BankGothic Md BT;
         font-weight: 500;
@@ -121,6 +173,7 @@
         margin-bottom: 5px;
         color: #292e3d;
       }
+
       .services_card_content_para {
         // font-family: Bank Gothic Light;
         font-weight: 200;
@@ -131,9 +184,10 @@
 
         // margin-bottom: auto;
       }
+
       .services_card_content_button {
         // font-family: BankGothic;
-        font-weight: 700;
+        font-weight: 300;
         font-size: 16px;
         line-height: 100%;
         letter-spacing: 0%;
@@ -144,10 +198,49 @@
       }
     }
   }
+
+
+  @media (max-width:1200px) {
+    grid-template-columns: repeat(auto-fit, minmax(1fr, 1fr));
+    gap: 35px;
+
+    .services_card {
+      width: 100%;
+    }
+  }
+
+  @media (max-width:600px) {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    padding: 10px 30px;
+
+    .services_card {
+      width: 100%;
+      flex-direction: column;
+
+      .services_card_content {
+        gap: 10px;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1/.7;
+      }
+
+      .services_card_content {
+        .services_card_content_para {
+          width: 100%;
+
+        }
+      }
+    }
+  }
 }
 
 .other_service_section {
   padding: 70px 0;
+
   .other_service_heading {
     // font-family: BankGothic Md BT;
     font-weight: 400;
@@ -156,6 +249,7 @@
     letter-spacing: 0%;
     margin-bottom: 30px;
   }
+
   .other_service_wrapper {
     display: flex;
     gap: 30px;
@@ -166,6 +260,11 @@
       flex-direction: column;
       flex: 1 1 0;
 
+      img {
+        width: 100%;
+        aspect-ratio: 1/.7;
+      }
+
       .other_service_card_details {
         background: #f8f8f8;
         padding: 25px;
@@ -175,6 +274,11 @@
         align-items: flex-start;
         width: 435px;
         flex: 1 1 auto;
+
+        @media (max-width:768px) {
+          width: 335px;
+        }
+
         .other_service_card_heading {
           // font-family: BankGothic Md BT;
           font-weight: 400;
@@ -185,6 +289,7 @@
           margin-bottom: 10px;
           // background-color: #00b9f2;
         }
+
         .other_service_card_para {
           // font-family: Bank Gothic Light;
           font-weight: 300;
@@ -194,6 +299,7 @@
           color: #292e3d;
           margin-bottom: 10px;
         }
+
         .other_service_card_button {
           // font-family: BankGothic;
           font-weight: 700;

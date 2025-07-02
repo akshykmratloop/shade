@@ -54,4 +54,12 @@ export async function getReminderUsersRepo() {
     select: { id: true, name: true, email: true },
     orderBy: { name: 'asc' },
   });
-} 
+}
+
+export async function deleteReminder(id) {
+  return await prismaClient.reminder.delete({
+    where: {
+      id: id
+    }
+  });
+}

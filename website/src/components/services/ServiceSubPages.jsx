@@ -1,9 +1,9 @@
-import {useGlobalContext} from "@/contexts/GlobalContext";
-import {useRouter} from "next/router";
+import { useGlobalContext } from "@/contexts/GlobalContext";
+import { useRouter } from "next/router";
 import styles from "@/components/services/serviceSubpage.module.scss";
 import React from "react";
 import localFont from "next/font/local";
-import {Img_url} from "@/common/CreateContent";
+import { Img_url } from "@/common/CreateContent";
 import Link from "next/link";
 
 const BankGothic = localFont({
@@ -11,36 +11,39 @@ const BankGothic = localFont({
   display: "swap",
 });
 
-const ServiceSubPages = ({content}) => {
-  const {query} = useRouter();
-  const {slug} = query;
-  // console.log("Safety Detail Page content:", content);
+const ServiceSubPages = ({ content }) => {
+  const { query } = useRouter();
+  const { slug } = query;
 
   const currentContent = content || {};
-  console.log("Serviceio Page Content:", currentContent);
+
   const {
     language,
-    // content
   } = useGlobalContext();
   const isLeftAlign = language === "en";
   const titleLan = isLeftAlign ? "titleEn" : "titleAr";
+
+  const noOtherService = currentContent?.["3"]?.items.filter(e => e.slug !== slug).length === 0
+
   return (
     <div>
       <section
         className={`${styles.serviceSubPage_banner_wrap} `}
-        // style={{
-        //   backgroundImage: `url(${Img_url + currentContent?.["1"]?.content?.images?.[0]?.url})`,
-        //   backgroundRepeat: "no-repeat",
-        //   backgroundSize: "cover",
-        // }}
+      // style={{
+      //   backgroundImage: `url(${Img_url + currentContent?.["1"]?.content?.images?.[0]?.url})`,
+      //   backgroundRepeat: "no-repeat",
+      //   backgroundSize: "cover",
+      // }}
       >
+        <div className={`${styles.gradientOverlay} ${isLeftAlign && styles.gradientBlobLTR}`} dir={isLeftAlign ? "ltr" : "rtl"}>
+          <div className={`${styles.gradientBlob} `}></div>
+        </div>
         <span
-          className={`${language === "en" && styles.leftAlign} ${
-            styles.backgroundContainer
-          }`}
+          className={`${language === "en" && styles.leftAlign} ${styles.backgroundContainer
+            }`}
         >
           <img
-            style={{objectPosition: "bottom", objectFit: "cover"}}
+            style={{ objectPosition: "bottom", objectFit: "cover" }}
             // style={{ objectFit: "cover" }}
             src={
               currentContent?.["1"]?.content?.images?.[0]?.url
@@ -92,10 +95,10 @@ const ServiceSubPages = ({content}) => {
         {/* </div> */}
       </section>
 
-      <section>
+      <section style={{ padding: "100px auto" }}>
         <div className="container">
           <div className={styles.services_card_wrapper}>
-            {currentContent?.["2"]?.items?.map((item, idx) => (
+            {currentContent?.["2"]?.items.concat(currentContent?.["2"]?.items)?.map((item, idx) => (
               <div className={styles.services_card} key={idx}>
                 <img
                   src={Img_url + item.image}
@@ -107,16 +110,17 @@ const ServiceSubPages = ({content}) => {
                   <h2 className={styles.services_card_content_heading}>
                     {item.titleEn}
                   </h2>
-                  <p className={styles.services_card_content_para}>
-                    {item.description?.[language]}
-                  </p>
+                  <div className={styles.services_card_content_para}
+                    dangerouslySetInnerHTML={{ __html: item.description?.[language] }}
+                  >
+                  </div>
                   <Link
                     href={`/service/${slug}/${item.slug}`}
-                    className={styles.services_card_content_button}
+                    className={`bank-light ${styles.services_card_content_button}`}
                   >
                     {
                       currentContent?.["2"]?.content?.button?.[0]?.text?.[
-                        language
+                      language
                       ]
                     }{" "}
                     &#8594;
@@ -127,41 +131,46 @@ const ServiceSubPages = ({content}) => {
           </div>
         </div>
       </section>
-
-      <section className={styles.other_service_section}>
-        <div className="container">
-          <h2 className={styles.other_service_heading}>Other Service</h2>
-          <div className={`${styles.other_service_wrapper} rm-scroll`}>
-            {currentContent?.["3"]?.items?.map((item, idx) => (
-              <div key={idx} className={styles.other_service_card}>
-                <img
-                  src={Img_url + item.image}
-                  alt=""
-                  width={435}
-                  height={206}
-                  style={{objectFit: "cover", objectPosition: "center"}}
-                />
-                <div className={styles.other_service_card_details}>
-                  <h2 className={styles.other_service_card_heading}>
-                    {item.titleEn}
-                  </h2>
-                  <p className={styles.other_service_card_para}>
-                    {item.description?.[language]}
-                  </p>
-                  <button className={styles.other_service_card_button}>
-                    {
-                      currentContent?.["3"]?.content?.button?.[0]?.text?.[
-                        language
-                      ]
-                    }
-                  </button>{" "}
-                </div>
-              </div>
-            ))}
+      {
+        !noOtherService &&
+        < section className={styles.other_service_section}>
+          <div className="container">
+            <h2 className={styles.other_service_heading}>Other Service</h2>
+            <div className={`${styles.other_service_wrapper} rm-scroll`}>
+              {currentContent?.["3"]?.items?.map((item, idx) => {
+                if (item.slug === slug) return null
+                return (
+                  <div key={idx} className={styles.other_service_card}>
+                    <img
+                      src={Img_url + item.image}
+                      alt=""
+                      // width={435}
+                      // height={206}
+                      style={{ objectFit: "cover", objectPosition: "center" }}
+                    />
+                    <div className={styles.other_service_card_details}>
+                      <h2 className={styles.other_service_card_heading}>
+                        {item.titleEn}
+                      </h2>
+                      <p className={styles.other_service_card_para}>
+                        {item.description?.[language]}
+                      </p>
+                      <button className={`${styles.other_service_card_button} bank-light`}>
+                        {
+                          currentContent?.["3"]?.content?.button?.[0]?.text?.[
+                          language
+                          ]
+                        }
+                      </button>{""}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      }
+    </div >
   );
 };
 
