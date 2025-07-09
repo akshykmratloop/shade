@@ -12,12 +12,12 @@ import 'swiper/css/navigation';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/autoplay';
 
-const SolutionPage = ({ currentContent, language, screen, width, highlight, liveContent }) => {
+const SolutionPage = ({ currentContent, language, screen, width, highlight, liveContent, purpose }) => {
     const isComputer = screen > 1100
     const isTablet = 1100 > screen && screen > 767
     const isPhone = screen < 767
     const isLeftAlign = language === 'en'
-    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+    const checkDifference = (!purpose && highlight)  ? differentText?.checkDifference?.bind(differentText) : () => ""
 
     // Font and Size
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)

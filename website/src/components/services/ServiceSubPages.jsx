@@ -98,7 +98,7 @@ const ServiceSubPages = ({ content }) => {
       <section style={{ padding: "100px auto" }}>
         <div className="container">
           <div className={styles.services_card_wrapper}>
-            {currentContent?.["2"]?.items.concat(currentContent?.["2"]?.items)?.map((item, idx) => (
+            {currentContent?.["2"]?.items?.map((item, idx) => (
               <div className={styles.services_card} key={idx}>
                 <img
                   src={Img_url + item.image}
