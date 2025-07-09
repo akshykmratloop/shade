@@ -174,6 +174,7 @@ const NewTemplate = ({content}) => {
               >
                 <div className={`${styles.template_first_section_card_image}`}>
                   <img
+                  className={styles.grid_image}
                     src={
                       item.images?.[0]?.url
                         ? Img_url + item.images?.[0]?.url
