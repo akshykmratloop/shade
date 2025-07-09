@@ -5,7 +5,7 @@ import { Img_url } from "../../../../routes/backend";
 import dynamicSize, { defineDevice, differentText, generatefontSize } from "../../../../app/fontSizes";
 
 
-const AboutUs = ({ language, screen, currentContent, width, highlight, liveContent }) => {
+const AboutUs = ({ language, screen, currentContent, width, highlight, liveContent, purpose }) => {
     const isComputer = screen > 1100
     const isTablet = screen > 700 && screen < 1100
     const isPhone = screen < 700
@@ -17,7 +17,7 @@ const AboutUs = ({ language, screen, currentContent, width, highlight, liveConte
 
     const fontLight = useSelector(state => state.fontStyle.light)
 
-    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+    const checkDifference = (!purpose && highlight)  ? differentText?.checkDifference?.bind(differentText) : () => ""
 
 
     return (
