@@ -3,7 +3,7 @@ import dynamicSize, { defineDevice, differentText, generatefontSize } from "../.
 import { projectPageData } from "../../../../assets";
 import { Img_url } from "../../../../routes/backend";
 
-const AffiliatesPage = ({ language, screen, content, width, highlight, liveContent }) => {
+const AffiliatesPage = ({ language, screen, content, width, highlight, liveContent, purpose }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 700;
     const isPhone = screen < 700;
@@ -14,7 +14,7 @@ const AffiliatesPage = ({ language, screen, content, width, highlight, liveConte
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
-    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+    const checkDifference = (!purpose && highlight) ? differentText?.checkDifference?.bind(differentText) : () => ""
 
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
     const getDynamicSize = (size) => dynamicSize(size, width)

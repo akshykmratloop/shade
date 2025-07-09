@@ -6,7 +6,7 @@ import blueCheckIcon from "../../../../assets/bluecheckicon.svg"
 import { projectPageData } from "../../../../assets/index";
 
 
-const HSnE = ({ currentContent, screen, language, width, highlight, liveContent }) => {
+const HSnE = ({ currentContent, screen, language, width, highlight, liveContent, purpose }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 638;
@@ -15,7 +15,7 @@ const HSnE = ({ currentContent, screen, language, width, highlight, liveContent 
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
-    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+    const checkDifference = (!purpose && highlight) ? differentText?.checkDifference?.bind(differentText) : () => ""
 
 
     const fontSize = generatefontSize(defineDevice(screen, highlight), dynamicSize, width)

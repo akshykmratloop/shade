@@ -5,7 +5,7 @@ import ProjectDetailPage from "./ProjectDetails";
 import { projectPageData } from "../../../../../assets";
 import { TruncateText } from "../../../../../app/capitalizeword";
 
-const MarketDetails = ({ language, content, screen, width, highlight, liveContent }) => {
+const MarketDetails = ({ language, content, screen, width, highlight, liveContent, purpose }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
@@ -16,7 +16,7 @@ const MarketDetails = ({ language, content, screen, width, highlight, liveConten
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
-    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+    const checkDifference = (!purpose && highlight)  ? differentText?.checkDifference?.bind(differentText) : () => ""
 
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
     const getDynamicSize = (size) => dynamicSize(size, width)

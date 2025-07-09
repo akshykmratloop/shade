@@ -307,14 +307,16 @@ const MarketPage = ({ content }) => {
               rtl={language === "ar"}
             >
 
-              {currentContent?.["4"]?.items?.map((testimonial, index) => (
+              {currentContent?.["4"]?.items?.map((testimonial, index) => {
+                console.log(testimonial)
+                return (
                 <SwiperSlide
                   key={index}
                   className={`${styles.swiperSlide} ${styles.testimonial_slide}`}
                 >
                   <div className={styles.testimonial_card}>
                     <Image
-                      src={testimonials?.[testimonial?.image]}
+                      src={Img_url + testimonial?.liveModeVersionData?.sections?.[0]?.content?.images?.[0]?.url}
                       height={70}
                       width={70}
                       alt={testimonial?.name}
@@ -360,7 +362,7 @@ const MarketPage = ({ content }) => {
                     </div>
                   </div>
                 </SwiperSlide>
-              ))}
+              )})}
             </Swiper>
 
             {/* Custom buttons */}

@@ -42,7 +42,7 @@ function Layout() {
     if (roleId) {
       dispatch(updateActiveRole(roleId))
     }
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     // List all event names your backend emits for notifications

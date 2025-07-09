@@ -40,10 +40,9 @@ const user = createSlice({
   reducers: {
     // update user reducer, (the user who is logging in)
     updateUser: (state, action) => {
-
       const roles = action.payload?.data?.roles?.filter((e) => e.status === "ACTIVE")
       state.user = { ...action.payload.data, roles };
-
+      
       state.isManager = action.payload.data?.roles?.[0]?.permissions?.some(
         (e) =>
           e.slice(-10) === "MANAGEMENT" &&
@@ -61,18 +60,18 @@ const user = createSlice({
       state.isPublisher = isPublisher;
       state.isVerifier = isVerifier;
 
-      // if (action.payload?.type === "update") {
-      //     if (!(state?.activeRole?.role && action.payload?.data?.roles?.length > 1)) {
-      //         state.activeRole = roles?.[0];
-      //     } else if (roles?.length === 0) {
-      //         state.activeRole = { ...initialActiveRole };
-      //     }
-      // } else if (roles?.length === 0) {
-      //     state.activeRole = { ...initialActiveRole };
-      // } else {
-      // }
+      if (action.payload?.type === "update") {
+          if (!(state?.activeRole?.role && action.payload?.data?.roles?.length > 1)) {
+              state.activeRole = roles?.[0];
+          } else if (roles?.length === 0) {
+              state.activeRole = { ...initialActiveRole };
+            }
+      } else if (roles?.length === 0) {
+          state.activeRole = { ...initialActiveRole };
+      } else {
+            state.activeRole = roles?.[0];
+      }
       // console.log(roles)
-      state.activeRole = roles?.[0];
     },
     updateActiveRole: (state, action) => {
       const roleObj = state.user.roles.filter((e) => e.role === action.payload);

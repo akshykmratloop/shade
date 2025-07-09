@@ -80,8 +80,8 @@ function Header() {
     if (activeRole.role === id) return;
     // Switch Role
     localStorage.setItem("activeRole", id);
-    // dispatch(updateCurrentRole(id))
-    navigate(0);
+    dispatch(updateActiveRole(id))
+    // navigate(0);
   };
 
   //=========================================================================

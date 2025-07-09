@@ -4,14 +4,14 @@ import { TruncateText } from "../../../../../app/capitalizeword";
 import { Img_url } from "../../../../../routes/backend";
 import dynamicSize, { defineDevice, differentText, generatefontSize } from "../../../../../app/fontSizes";
 
-const ServiceDetails = ({ serviceId, content, language, screen, width, highlight, liveContent }) => {
+const ServiceDetails = ({ serviceId, content, language, screen, width, highlight, liveContent, purpose }) => {
     const isComputer = screen > 1100;
     const isTablet = 1100 > screen && screen > 700;
     const isPhone = screen < 767;
     const isLeftAlign = language === 'en';
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
     const slug = useSelector(state => state.homeContent?.present?.content?.slug)
-    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+    const checkDifference = (!purpose && highlight) ? differentText?.checkDifference?.bind(differentText) : () => ""
 
     // Font and Size
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)

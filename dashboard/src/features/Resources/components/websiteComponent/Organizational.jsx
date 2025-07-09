@@ -3,7 +3,7 @@ import dynamicSize, { defineDevice, differentText, generatefontSize } from "../.
 import { Img_url } from "../../../../routes/backend";
 import org_chart from "../../../../assets/images/org_chart.svg"
 
-const Organization = ({ language, screen, content, width, highlight, liveContent }) => {
+const Organization = ({ language, screen, content, width, highlight, liveContent, purpose }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 700;
     const isPhone = screen < 700;
@@ -14,7 +14,7 @@ const Organization = ({ language, screen, content, width, highlight, liveContent
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
-    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+    const checkDifference = (!purpose && highlight)  ? differentText?.checkDifference?.bind(differentText) : () => ""
 
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
     const getDynamicSize = (size) => dynamicSize(size, width)

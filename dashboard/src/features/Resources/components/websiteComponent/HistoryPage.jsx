@@ -8,7 +8,7 @@ import dynamicSize, { defineDevice, differentText, generatefontSize } from "../.
 // import { TruncateText } from "../../../../../app/capitalizeword";
 // import blueCheckIcon from "../../../../../assets/bluecheckicon.svg"
 
-const History = ({ currentContent, screen, language, width, highlight, liveContent }) => {
+const History = ({ currentContent, screen, language, width, highlight, liveContent, purpose }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
@@ -20,7 +20,7 @@ const History = ({ currentContent, screen, language, width, highlight, liveConte
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
     const getDynamicSize = (size) => dynamicSize(size, width)
 
-    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+    const checkDifference = (!purpose && highlight) ? differentText?.checkDifference?.bind(differentText) : () => ""
 
     return (
         <div className="" dir={isLeftAlign ? "ltr" : "rtl"}>

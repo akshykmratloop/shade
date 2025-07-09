@@ -9,7 +9,7 @@ import { Img_url } from "../../../../routes/backend";
 import dynamicSize, { defineDevice, differentText, generatefontSize } from "../../../../app/fontSizes";
 import blueCheckIcon from "../../../../assets/bluecheckicon.svg"
 
-const SnR = ({ currentContent, screen, language, width, highlight, liveContent }) => {
+const SnR = ({ currentContent, screen, language, width, highlight, liveContent, purpose }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
@@ -17,7 +17,7 @@ const SnR = ({ currentContent, screen, language, width, highlight, liveContent }
     const dispatch = useDispatch()
     const fontLight = useSelector(state => state.fontStyle.light)
 
-    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+    const checkDifference = (!purpose && highlight) ? differentText?.checkDifference?.bind(differentText) : () => ""
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
@@ -38,8 +38,8 @@ const SnR = ({ currentContent, screen, language, width, highlight, liveContent }
             >
                 <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-end overflow-hidden">
                     <div
-                        style={{ width: isComputer? getDynamicSize(1050):"70%", height: isComputer? getDynamicSize(650):"100%" }}
-                        className={`rounded-full bg-white  ${isPhone? "blur-[60px] opacity-[.75]":"blur-[120px] opacity-[.9]"} mix-blend-screen`}></div>
+                        style={{ width: isComputer ? getDynamicSize(1050) : "70%", height: isComputer ? getDynamicSize(650) : "100%" }}
+                        className={`rounded-full bg-white  ${isPhone ? "blur-[60px] opacity-[.75]" : "blur-[120px] opacity-[.9]"} mix-blend-screen`}></div>
                 </div>
                 <div className="container relative h-full flex items-center justify-end">
                     <div className={`${isLeftAlign ? 'scale-x-[-1] text-left' : 'text-right'} 
@@ -49,7 +49,7 @@ const SnR = ({ currentContent, screen, language, width, highlight, liveContent }
                                             ${checkDifference(currentContent?.['1']?.content?.title?.[language], liveContent?.['1']?.content?.title?.[language])}
                                         `}
                             style={{
-                                fontSize: fontSize.mainHeading, lineHeight: isComputer? fontSize.headingLeading:"40px",
+                                fontSize: fontSize.mainHeading, lineHeight: isComputer ? fontSize.headingLeading : "40px",
                                 margin: `${getDynamicSize(16)} 0px`
                             }}
                         >

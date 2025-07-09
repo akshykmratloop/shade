@@ -7,7 +7,7 @@ import { Img_url } from "../../../../../routes/backend";
 import dynamicSize, { defineDevice, differentText, generatefontSize } from "../../../../../app/fontSizes";
 import blueCheckIcon from "../../../../../assets/bluecheckicon.svg"
 
-const SnRPolicies = ({ currentContent, screen, language, width, highlight, liveContent }) => {
+const SnRPolicies = ({ currentContent, screen, language, width, highlight, liveContent, purpose }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
@@ -17,7 +17,7 @@ const SnRPolicies = ({ currentContent, screen, language, width, highlight, liveC
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
-    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+    const checkDifference = (!purpose && highlight)  ? differentText?.checkDifference?.bind(differentText) : () => ""
 
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
     const getDynamicSize = (size) => dynamicSize(size, width)
