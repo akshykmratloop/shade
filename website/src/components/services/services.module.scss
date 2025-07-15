@@ -100,7 +100,7 @@
   display: grid;
   gap: 50px;
   grid-auto-rows: 1fr;
-  border: 1px solid red;
+  // border: 1px solid red;
 
   &.phone {
     grid-template-columns: 1fr;

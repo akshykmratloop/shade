@@ -24,7 +24,7 @@
           "en": "Services",
           "ar": "خدماتنا"
         },
-        "url": "/services"
+        "url": "/service"
       },
       {
         "order": 4,
@@ -40,7 +40,7 @@
           "en": "Project",
           "ar": "مشاريعنا"
         },
-        "url": "/projects"
+        "url": "/project"
       },
       {
         "order": 6,

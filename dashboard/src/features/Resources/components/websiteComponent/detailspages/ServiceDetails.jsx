@@ -157,6 +157,7 @@ const ServiceDetails = ({ serviceId, content, language, screen, width, highlight
                         {
                             (content?.['3']?.items || [])?.map((service, idx) => {
                                 if (service.slug === slug) return null
+                                console.log(service.image)
                                 return (
                                     <article
                                         key={idx}

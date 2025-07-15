@@ -37,7 +37,7 @@ const Services = ({ content }) => {
   return (
     <>
       <section
-        className={` ${language === "en" && styles.leftAlign}   ${styles.services_banner_wrap
+        className={` ${language === "en" && styles.leftAlign} ${styles.services_banner_wrap
           }`}
         style={{
           backgroundImage: `url(${Img_url + currentContent?.[1]?.content?.images?.[0]?.url

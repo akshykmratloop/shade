@@ -74,7 +74,7 @@ const ServiceDetailsManager = ({ serviceId, content, currentPath, language, inde
                         { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn, dir: "ltr" },
                         { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
                         // { input: "input", label: "Slug", updateType: "slug", value: context?.slug },
-                        ...(context?.id === "N" ? [{ input: "input", label: "Slug", updateType: "slug", value: context?.slug }] : [])
+                        { input: "input", label: "Slug", updateType: "slug", value: context?.slug, disable: context?.id === "N" ? false : true }
                     ]}
                     section={"page-details"}
                     language={language}

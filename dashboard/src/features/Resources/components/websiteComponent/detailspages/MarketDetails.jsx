@@ -111,7 +111,7 @@ const MarketDetails = ({ language, content, screen, width, highlight, liveConten
                                 className="flex flex-col h-full bg-white \ overflow-hidden shadow"
                             >
                                 <img
-                                    src={service.images?.[0]?.url ? (Img_url + service.images?.[0]?.url) : projectPageData.swccWaterSupply}
+                                    src={Img_url + service.images?.[0]?.url}
                                     alt="img"
                                     className="w-full aspect-[2.1/1] object-cover"
                                 />
@@ -169,6 +169,7 @@ const MarketDetails = ({ language, content, screen, width, highlight, liveConten
                         {
                             (content?.['3']?.items || [])?.map((service, idx) => {
                                 if (service.slug === slug) return null
+                                console.log(service)
                                 return (
                                     <article
                                         key={idx}
