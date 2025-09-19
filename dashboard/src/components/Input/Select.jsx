@@ -42,7 +42,7 @@ const Select = ({
             {label && <label className={labelClass}>{label}</label>}
             <div className="relative">
                 <select
-                    className={`w-full bg-transparent  text-sm text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 rounded-none px-0 py-1 ${selectClass || ''}`}
+                    className={`w-full bg-transparent text-sm ${selectClass || ' text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 rounded-none px-2 py-1 '}`}
                     onChange={handleSelectChange}
                     value={value}
                 >

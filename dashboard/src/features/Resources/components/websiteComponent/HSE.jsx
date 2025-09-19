@@ -162,7 +162,7 @@ const HSnE = ({ currentContent, screen, language, width, highlight, liveContent,
                 {
                     currentContent?.['2']?.content?.sectionPointers?.map((description, i) => {
                         return (
-                            <div className="flex items-start" style={{ gap: isPhone ? "4px" : getDynamicSize(8) }}>
+                            <div key={i} className="flex items-start" style={{ gap: isPhone ? "4px" : getDynamicSize(8) }}>
                                 <img src={blueCheckIcon} alt="" className="translate-y-[1px]"
                                     style={{ width: isPhone ? "" : getDynamicSize(20), height: isPhone ? "" : getDynamicSize(20) }} />
                                 <p className={`font-[300] text-[#718096] text-[10px] ${fontLight}

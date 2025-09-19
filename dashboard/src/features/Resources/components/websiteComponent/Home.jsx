@@ -123,7 +123,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
     };
 
     return (
-        <div className={`w-full relative ${textAlignment} bankgothic-medium-dt bg-[white]`} >
+        <div className={`w-full relative ${textAlignment} bankgothic-medium-dt bg-[white]`}>
             {/* banner 1  */}
             <section className={`w-full relative overflow-hidden
                 ${checkDifference(content?.["1"]?.content?.images?.[0]?.url, liveContent?.["1"]?.content?.images?.[0]?.url)}
@@ -131,25 +131,25 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                 style={{ height: (isComputer) ? dynamicSize(715, width) : isTablet ? "80vh" : "70vh" }}
             >
                 <div
-                    className={`w-full ${isPhone && "h-fit"} relative min-h-fit overflow-hidden block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
-                        }`}
+                    className={`w-full ${isPhone && "h-fit"} relative min-h-fit overflow-hidden block `}
                     style={{ height: (isComputer) ? dynamicSize(715, width) : isTablet ? "80vh" : "70vh" }}
                 >
-                    <div className="absolute inset-0 pointer-events-none z-[1] flex items-center justify-start overflow-hidden">
+                    <div className={`absolute inset-0 pointer-events-none z-[1] flex items-center ${language === "en" ? "justify-start" : "justify-end"
+                        } overflow-hidden `}>
                         <div
                             style={{ width: getDynamicSize(950), height: getDynamicSize(650) }}
                             className="rounded-full bg-white opacity-[.9] blur-[120px] mix-blend-screen"></div>
                     </div>
                     <img
-                        dir={isLeftAlign ? "ltr" : "rtl"}
+                        dir={isLeftAlign ? "rtl" : "ltr"}
                         src={`${Img_url}${content?.["1"]?.content?.images?.[0]?.url}`}
                         alt={content?.["1"]?.content?.images?.[0]?.url}
                         className={`w-full object-cover`}
-                        style={{ objectPosition: "center", transform: "scaleX(-1)", height: isTablet ? "500px" : isPhone && "500px" }}
+                        style={{ objectPosition: "center", transform: "scaleX(1)", height: isTablet ? "500px" : isPhone && "500px" }}
                     />
                 </div>
                 <div
-                    className={`container mx-auto absolute ${isComputer ? "top-[20%]" : "top-16"}  left-0 right-0 px-4`}>
+                    className={`container mx-auto absolute ${isComputer ? "top-[20%]" : "top-16"}  left-0 right-0 px-4 z-[4]`}>
 
                     <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px] py-10" : "px-[80px]"}`}
                         style={{ paddingLeft: isComputer && dynamicSize(140, width) }}>
@@ -165,7 +165,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             {content?.["1"]?.content?.description?.[language]}
                         </p>
                         <button
-                            className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-2 text-[12px] font-medium px-[12px] py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
+                            className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-2 text-[12px] font-medium py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
                             style={{ fontSize: fontSize?.mainButton }}
                             onClick={() => { }}
                         >
@@ -328,7 +328,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             {content?.['4']?.content?.description?.[language]}
                         </p>
                         <button
-                            className={`text-white bg-[#00B9F2] px-[12px] py-1 text-sm text-lg rounded-md ${!isLeftAlign ? '!px-4' : ''}`}
+                            className={`text-white bg-[#00B9F2] px-[12px] py-1 text-sm rounded-md ${!isLeftAlign ? '!px-4' : ''}`}
                         >
                             <span className={`${checkDifference(content?.['4']?.content?.button?.[0]?.text?.[language], liveContent?.['4']?.content?.button?.[0]?.text?.[language])}`}>
                                 {content?.['4']?.content?.button?.[0]?.text?.[language]}
@@ -771,7 +771,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             /> */}
                         </div>
                         <button
-                            className={`bg-[#00B9F2] text-xs text-white px-4 py-2 text-lg mt-11 mx-auto block rounded
+                            className={`bg-[#00B9F2] text-xs text-white px-4 py-2 mt-11 mx-auto block rounded
                                 ${checkDifference(content?.['8']?.content?.button?.[0]?.text?.[language], liveContent?.['8']?.content?.button?.[0]?.text?.[language])}
                                 `}
                             style={{ fontSize: isComputer && dynamicSize(18, width) }}

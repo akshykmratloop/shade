@@ -99,10 +99,10 @@ const SolutionPage = ({ content }) => {
           }`}
       >
         {
-          currentContent?.[2]?.content?.map((e) => {
+          currentContent?.[2]?.content?.map((e, i) => {
 
             return (
-              <div className="container">
+              <div className="container" key={i}>
                 <div className={styles.content_wrap}>
                   <div className={styles.left_panel}>
                     <span> </span>

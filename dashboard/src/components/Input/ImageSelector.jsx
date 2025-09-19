@@ -47,9 +47,9 @@ const ImageSelector = ({ onSelectImage, onClose, type = "IMAGE" }) => {
         const files = Array.from(event.target.files);
         if (!files.length || uploading) return;
 
-        const oversizedFiles = files.filter(file => file.size > 5 * 1024 * 1024);
+        const oversizedFiles = files.filter(file => file.size > 8 * 1024 * 1024);
         if (oversizedFiles.length) {
-            toast.error("One or more files exceed the 5MB size limit.", { hideProgressBar: true, autoClose: 1000 });
+            toast.error("One or more files exceed the 8MB size limit.", { hideProgressBar: true, autoClose: 1000 });
             return;
         }
 
@@ -243,7 +243,7 @@ const ImageSelector = ({ onSelectImage, onClose, type = "IMAGE" }) => {
                                             <iframe src={selectedFile + "#toolbar=0&navpanes=0&scrollbar=0"} type="application/pdf" className="w-full h-full" />
                                         </div>
                                         :
-                                        <div className=" w-full relative flex gap-2 border-b border-b-2 pb-4">
+                                        <div className=" w-full relative flex gap-2 border-b-2 pb-4">
                                             <div className="h-[20vh] w-[18vw] relative border">
                                                 <img
                                                     src={selectedFile}
@@ -329,7 +329,7 @@ const ImageSelector = ({ onSelectImage, onClose, type = "IMAGE" }) => {
                 </button>
                 <Popups display={popup} setClose={() => setPopup(false)} confirmationText={"Are you sure you want to delete this file?"} confirmationFunction={handleImageDelete} />
             </div>
-            {/* <ToastContainer /> */}
+            <ToastContainer />
         </div>
     );
 };

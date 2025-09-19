@@ -60,7 +60,7 @@ const HsePage = ({ content }) => {
         <div className="container">
           <div className={styles.hse_section_card_wrapper}>
             {currentContent?.["2"]?.content?.cards.map((card, index) => (
-              <div className={styles.hse_card}>
+              <div className={styles.hse_card} key={i}>
                 <img
                   className={styles.hse_card_image}
                   src={

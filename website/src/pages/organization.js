@@ -12,7 +12,7 @@ import OrganizationalChartPage from "@/components/organizational-chart/Organizat
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function organization({ apiData }) {
+export default function Organization({ apiData }) {
   const [isLoading, setIsLoading] = useState(true);
   const [content, setContent] = useState(null);
 

@@ -42,7 +42,7 @@ const RejectPopup = ({ setClose, display, submitfunction }) => {
 
   return (
     <div style={{ display: display ? "flex" : "none" }}
-      className="fixed top-0 left-0 w-full h-screen bg-black/40 items-center justify-center"
+      className="fixed top-0 left-0 w-full h-screen bg-black/40 items-center justify-center z-[40]"
     >
 
       <div ref={popupRef} className="w-[40%] bg-white dark:bg-[#242933] flex flex-col items-center justify-center gap-5 p-6 px-20 rounded-lg shadow-lg relative">
